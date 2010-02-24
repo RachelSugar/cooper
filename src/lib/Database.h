@@ -8,8 +8,8 @@
 class Database
 {
 public:
-	Database (QString dbFile);
-	virtual ~Database ();
+	Database(QString dbFile);
+	virtual ~Database();
 
 	void loadSchema();
 	void close();
