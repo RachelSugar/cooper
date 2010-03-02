@@ -16,6 +16,7 @@ SOURCES += src/Application.cpp
 # Models
 
 # Views
+FORMS += login.ui
 
 # Delegates
 
