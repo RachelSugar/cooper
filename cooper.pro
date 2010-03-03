@@ -17,6 +17,7 @@ SOURCES += src/Application.cc
 
 # Views
 FORMS += src/view/login.ui
+FORMS += src/view/coordPassword.ui
 
 # Delegates
 
