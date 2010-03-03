@@ -4,3 +4,4 @@ build/*
 qrc_resources.cpp
 db/*.sqlite3
 cooper
+*~
