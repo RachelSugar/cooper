@@ -21,6 +21,7 @@ SOURCES += src/Application.cc
 FORMS += ./src/view/createUser.ui
 FORMS += src/view/login.ui
 FORMS += src/view/coordPassword.ui
+FORMS += src/view/AddNewCommittee.ui
 
 
 # Delegates
