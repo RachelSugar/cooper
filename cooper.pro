@@ -15,13 +15,15 @@ SOURCES += src/Application.cc
 
 # Models
 
+SOURCES += src/model/loginModel.cc
+
 # Views
 
-
-FORMS += ./src/view/createUser.ui
+FORMS += src/view/createUser.ui
 FORMS += src/view/login.ui
 FORMS += src/view/coordPassword.ui
 FORMS += src/view/AddNewCommittee.ui
+FORMS += src/view/loginError.ui
 
 
 # Delegates
