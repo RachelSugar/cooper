@@ -16,7 +16,7 @@ SOURCES += src/Application.cc
 # Models
 
 # Views
-FORMS += login.ui
+FORMS += src/view/login.ui
 
 # Delegates
 
