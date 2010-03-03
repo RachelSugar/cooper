@@ -11,16 +11,20 @@ MOC_DIR = build/moc
 RESOURCES = resources.qrc
 
 # Application
-SOURCES += src/Application.cpp
+SOURCES += src/Application.cc
 
 # Models
 
 # Views
-FORMS += login.ui
+
+
 FORMS += ./src/view/createUser.ui
+FORMS += src/view/login.ui
+FORMS += src/view/coordPassword.ui
+
 
 # Delegates
 
 # Lib
 SOURCES += src/lib/Database.h
-SOURCES += src/lib/Database.cpp
+SOURCES += src/lib/Database.cc
