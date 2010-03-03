@@ -17,6 +17,7 @@ SOURCES += src/Application.cpp
 
 # Views
 FORMS += login.ui
+FORMS += ./src/view/createUser.ui
 
 # Delegates
 
