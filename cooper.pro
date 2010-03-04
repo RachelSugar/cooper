@@ -17,10 +17,12 @@ SOURCES += src/Application.cc
 
 SOURCES += src/model/LoginModel.cc
 SOURCES += src/model/LoginModel.h
+SOURCES += src/model/CreateUser.cc
+SOURCES += src/model/CreateUser.h
 
 # Views
 
-FORMS += src/view/createUser.ui
+FORMS += src/view/CreateUser.ui
 FORMS += src/view/Login.ui
 FORMS += src/view/CoordPassword.ui
 FORMS += src/view/AddNewCommittee.ui
