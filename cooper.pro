@@ -15,10 +15,12 @@ SOURCES += src/Application.cc
 
 # Models
 
-HEADERS += src/model/LoginModel.h
-SOURCES += src/model/LoginModel.cc
+HEADERS += src/model/Login.h
+SOURCES += src/model/Login.cc
 HEADERS += src/model/CreateUser.h
 SOURCES += src/model/CreateUser.cc
+HEADERS += src/model/EditUser.h
+SOURCES += src/model/EditUser.cc
 HEADERS += src/model/ViewPhone.h
 SOURCES += src/model/ViewPhone.cc
 HEADERS += src/model/PrototypeMainScreen.h
@@ -30,6 +32,7 @@ SOURCES += src/model/EditCommittees.cc
 
 # Views
 FORMS += src/view/PrototypeMainScreen.ui
+FORMS += src/view/EditUser.ui
 FORMS += src/view/CreateUser.ui
 FORMS += src/view/Login.ui
 FORMS += src/view/CoordPassword.ui
@@ -42,5 +45,5 @@ FORMS += src/view/EditCommittees.ui
 # Delegates
 
 # Lib
-SOURCES += src/lib/Database.h
+HEADERS += src/lib/Database.h
 SOURCES += src/lib/Database.cc
