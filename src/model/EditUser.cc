@@ -76,21 +76,24 @@ void EditUser::deleteUse(){
 }
 
 void EditUser::getToEdit(){
-
-	QString usrName= getUser->text();
+	qDebug() << "blag";
+	QString usrName= userEdit->text();
 	
 	QString answer[14];
-	
-	QSqlQuery query("SELECT * FROM users WHERE user_name = " + usrName);
+	QString text = "SELECT * FROM users WHERE user_name = '" + usrName + "'";
+	qDebug() << text;
+	qDebug() << usrName;
+	QSqlQuery query(text);
 	int x;
-	 while (query.next()) {
+	while(query.next()){
+	
 	 	for(x = 0; x < 14; x++){
 	  
          answer[x] = query.value(x).toString();
          qDebug() << answer[x] ;
+         
          }
-         }
-	
+	}
 	
 	
 }

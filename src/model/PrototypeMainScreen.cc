@@ -6,6 +6,7 @@
 #include "CreateUser.h"
 #include "AddNewCommittee.h"
 #include "EditCommittees.h"
+#include "EditUser.h"
 
 PrototypeMainScreen::PrototypeMainScreen(QWidget *parent){
 	setupUi(this);
@@ -43,5 +44,7 @@ void PrototypeMainScreen::editCommit(){
 }
 
 void PrototypeMainScreen::viewMembers(){
+	EditUser *edUsr = new EditUser(this);
+	edUsr->show();
 
 }
