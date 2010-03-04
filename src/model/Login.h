@@ -4,12 +4,16 @@
 #include "../../ui_Login.h"
 #include <QString>
 
-class Login {
-	
+class Login : public QWidget, private Ui::loginWidget
+{
+	Q_OBJECT
+
 public:
-	void runLoginDialog();
-	void checkUserInfo(QString name, QString password);
+	Login(QWidget *parent = 0);
 	void displayError();
+
+public slots:
+	void checkUserInfo();
 };
 
 #endif //LOGIN_H

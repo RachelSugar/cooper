@@ -1,5 +1,5 @@
 #include "lib/Database.h"
-#include "model/LoginModel.h"
+#include "model/Login.h"
 
 #include <QApplication>
 #include <iostream>
@@ -13,12 +13,8 @@ void runGUI(){
 	
 	PrototypeMainScreen *screen = new PrototypeMainScreen();
 	screen->show();
-	/*LoginModel lm;
-	bool loggedIn = lm.runLoginDialog();
-	if(loggedIn){
-		//open main window user logged in successfully
-	}
-	// user cancelled login end program*/
+	Login *login = new Login();
+	login->show();
 }
 
 int main(int argc, char *argv[])
