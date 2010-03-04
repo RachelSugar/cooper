@@ -9,7 +9,7 @@ class EditUser : public QWidget, private Ui::EditUser
 	Q_OBJECT
 
 public:
-	EditUser(QWidget *parent = 0);
+	EditUser(QWidget *parent = 0, bool isCoord = false);
 
 public slots:
 	void getSave();

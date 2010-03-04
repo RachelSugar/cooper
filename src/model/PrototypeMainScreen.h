@@ -9,7 +9,7 @@ class PrototypeMainScreen : public QWidget, private Ui::PrototypeMainScreen
 	Q_OBJECT
 
 public:
-	PrototypeMainScreen(QWidget *parent = 0);
+	PrototypeMainScreen(bool isCoord);
 
 public slots:
 	void addCommittee();

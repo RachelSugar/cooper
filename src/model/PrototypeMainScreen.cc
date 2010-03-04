@@ -8,10 +8,10 @@
 #include "EditCommittees.h"
 #include "EditUser.h"
 #include "ViewPhone.h"
-
-PrototypeMainScreen::PrototypeMainScreen(QWidget *parent){
+bool coord;
+PrototypeMainScreen::PrototypeMainScreen(bool isCoord){
 	setupUi(this);
-
+	coord = isCoord;
 	connect(AddCommitteeButton,SIGNAL(clicked()),this,SLOT(addCommittee()));
 	connect(AddMemberButton,SIGNAL(clicked()),this,SLOT(addMember()));
 	connect(PrintPrivatePhoneButton,SIGNAL(clicked()),this,SLOT(printPrivate()));
@@ -19,6 +19,13 @@ PrototypeMainScreen::PrototypeMainScreen(QWidget *parent){
 	connect(ViewCommitteesButton,SIGNAL(clicked()),this,SLOT(editCommit()));
 	connect(ViewMemberInfoButton,SIGNAL(clicked()),this,SLOT(viewMembers()));
 	connect(ExitButton,SIGNAL(clicked()),this,SLOT(close()));
+	
+	if(isCoord == false){
+		AddMemberButton->setEnabled(false);
+		PrintPrivatePhoneButton->setEnabled(false);
+		ViewCommitteesButton->setEnabled(false);
+		AddCommitteeButton->setEnabled(false);
+	}
 }
 
 void PrototypeMainScreen::addCommittee(){
@@ -47,6 +54,6 @@ void PrototypeMainScreen::editCommit(){
 }
 
 void PrototypeMainScreen::viewMembers(){
-	EditUser *edUsr = new EditUser(this);
+	EditUser *edUsr = new EditUser(this, coord);
 	edUsr->show();
 }

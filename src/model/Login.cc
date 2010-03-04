@@ -19,6 +19,7 @@ Login::Login(QWidget *parent) {
 void Login::checkUserInfo(){
 	QString username = usernameBox->text();
 	QString password = passwordBox->text();
+	bool isCoord = false;
 	qDebug() << "username: " << username;
 	qDebug() << "password: " << password;
 
@@ -29,9 +30,12 @@ void Login::checkUserInfo(){
 		qDebug() << "query has results!!!";
 		QString rightPass = query.value(0).toString();
 		qDebug()<< rightPass;
-		if(rightPass == password){
+		if(rightPass == password ){
+			if(username == "coord")
+				isCoord = true;
+				
 			qDebug() << "query worked! inside password check";
-			PrototypeMainScreen *screen = new PrototypeMainScreen();
+			PrototypeMainScreen *screen = new PrototypeMainScreen(isCoord);
 			this->close();
 			screen->show();
 		}
