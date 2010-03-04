@@ -22,6 +22,7 @@ EditUser::EditUser(QWidget *parent,bool isCoord)
 	
 	
 	
+	
 }
 
 

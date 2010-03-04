@@ -1,7 +1,5 @@
 /*
 * Contains methods to add a new committee
-have problem with storing a committee with no Chair, Secretary, or neither.
-*
 */
 
 #include "AddNewCommittee.h"
@@ -12,7 +10,7 @@ const QString none = "";
 
 
 // flag for extra printing
-const int DEBUG = 1;
+const int DEBUG = 0;
 
 AddNewCommittee::AddNewCommittee(QWidget *parent){
 	setupUi(this);
