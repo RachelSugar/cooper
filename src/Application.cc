@@ -3,6 +3,7 @@
 
 #include <QApplication>
 #include <iostream>
+#include "model/PrototypeMainScreen.h"
 
 #ifndef DB_PATH
 #define DB_PATH "db/cooperDB.sqlite3"
@@ -10,12 +11,14 @@
 
 void runGUI(){
 	
-	LoginModel lm;
+	PrototypeMainScreen *screen = new PrototypeMainScreen();
+	screen->show();
+	/*LoginModel lm;
 	bool loggedIn = lm.runLoginDialog();
 	if(loggedIn){
 		//open main window user logged in successfully
 	}
-	// user cancelled login end program
+	// user cancelled login end program*/
 }
 
 int main(int argc, char *argv[])
