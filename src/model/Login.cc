@@ -10,7 +10,7 @@ Login::Login(QWidget *parent) {
 	// signals/slots mechanism in action
 	connect( loginButtons, SIGNAL( rejected() ), this, SLOT( close() ) );
 	connect( loginButtons, SIGNAL( accepted() ), this, SLOT( checkUserInfo() ) );
-	connect( loginButtons, SIGNAL( accepted() ), this, SLOT( close() ) );
+//	connect( loginButtons, SIGNAL( accepted() ), this, SLOT( close() ) );
 	
 }
 
@@ -23,6 +23,7 @@ void Login::checkUserInfo(){
 	qDebug() << "password: " << password;
 	if(username == "coord" && password == "pass"){
 		PrototypeMainScreen *screen = new PrototypeMainScreen();
+		this->close();
 		screen->show();
 	}
 	else {
@@ -35,11 +36,15 @@ void Login::checkUserInfo(){
 			if(rightPass == password){
 				qDebug() << "query worked! inside password check";
 				PrototypeMainScreen *screen = new PrototypeMainScreen();
+				this->close();
 				screen->show();
+			}
+			else {
+				displayError();
 			}
 		}
 		else {
-			qDebug() <<"User name and password not found in query";
+			displayError();
 		}
 	}
 
@@ -48,7 +53,9 @@ void Login::checkUserInfo(){
 // shows an error dialog if incorrect info is entered
 // returns to login dialog
 void Login::displayError(){
-	
+	QMessageBox::warning(0, qApp->tr("Error"),
+		qApp->tr("Username and Password Incorrect.\n"),
+		QMessageBox::Ok);
 }
 
 

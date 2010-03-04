@@ -44,7 +44,9 @@ void EditUser::getSave()
 			QMessageBox::Cancel);
 	}
 	
-	
+	QString text = "UPDATE users \
+	SET user_name = '" + uName +"', last_name = '" + lName + "', first_name = '" + fName + "', unit_id = '"+ unitx+"', phone_number = '" + tele +"', phone_number_is_public = '" + hidden + "'\
+	WHERE user_name = '" + uName +"';";
 	//test data
 	qDebug() << "first Name = " << fName;
 	qDebug() << "last Name = " << lName;
@@ -56,7 +58,9 @@ void EditUser::getSave()
 	qDebug() << "date = " << movDate;	
 	qDebug() << "private? = " << hidden;
 	qDebug() << "ofAge? = " << ofAge;
-	qDebug() << "mvout? = " << mvOut;	
+	qDebug() << "mvout? = " << mvOut;
+	
+		
   
 }
 
@@ -76,7 +80,7 @@ void EditUser::deleteUse(){
 }
 
 void EditUser::getToEdit(){
-	qDebug() << "blag";
+	//qDebug() << "blag";
 	QString usrName= userEdit->text();
 	
 	QString answer[14];
@@ -93,13 +97,15 @@ void EditUser::getToEdit(){
          qDebug() << answer[x] ;
          }
          }
-        firstName->setText(answer[4]);
-	lastName->setText(answer[3]);
+        firstName->setText(answer[5]);
+	lastName->setText(answer[4]);
 	 userName->setText(answer[2]);
+	 userName->setDisabled(true);
 	
 	 telephone->setText(answer[10]);
 	// pastAddress->setText();
 	 unit->setText(answer[9]);
+	// QString text = "SELECT * FROM users WHERE user_name = '" + usrName + "'";
 	/* moveInDate->date();
 	 bool hidden = privateTele->isChecked();
 	 bool ofAge = over21->isChecked();
