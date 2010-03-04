@@ -2,14 +2,18 @@
 * Contains methods to add a new committee
 * 04 Mar 10 - Displays main dialog, person selection not done yet, 
 	no error checking done, no database accesses.
-*
+* 04 Mar 10, sometime later - database insertion done. also displays
+		errors if input is empty. no checking for correctness
+		of input.
 *
 */
 
 #include "AddNewCommittee.h"
 #include <QtGui>
+#include <QSqlQuery>
 
 const QString none = "";
+const int noEntry = -1;
 
 // flag for extra printing
 const int DEBUG = 1;
@@ -43,18 +47,22 @@ void AddNewCommittee::save() {
 		qDebug() << name;
 	}
 
-	// see if the committee name is already in use
-	// if it is, reprompt.
-	
+	// check if committee name is empty
+	if(name == none){
+		QMessageBox::warning(0, qApp->tr("Error"),
+			qApp->tr("Committee name cannot be empty.\n"),
+			QMessageBox::Ok);
+	} else {
+	// maybe check if committe name already in use
 
 	// extract the chair and secretary names
 	QString chair = chairEdit->text();
 	QString secretary = secretaryEdit->text();
 
-	bool storeChair = false;
-	bool storeSecretary = false;
+	int chairID;
+	int secID;
 
-	// if the name is not empty, and there are no conflicts, store
+	// if the name is not empty, check for conflicts
 	if(chair != none){
 		// if the selected person is chairing or secretary of a different committee, 
 		// ask for confirmation
@@ -62,9 +70,10 @@ void AddNewCommittee::save() {
 			qDebug() << chair;
 		}
 
-		// everything okay
-		storeChair = true;
+	} else {
+		chairID = noEntry;
 	}
+
 	if(secretary != none){
 		// if the selected person is chairing or secretary of a different committee, 
 		// ask for confirmation
@@ -73,12 +82,19 @@ void AddNewCommittee::save() {
 			qDebug() << secretary;
 		}
 
-		// everything okay
-		storeSecretary = true;
+	} else {
+		secID = noEntry;
 	}
 
 	// create a new entry in the database
+	QSqlQuery query;
+	query.prepare("INSERT INTO committees VALUES(NULL, :name, :chairID, :secID)");
+	query.bindValue(":name", name);
+	query.bindValue(":chairID", chairID);
+	query.bindValue(":secID", secID);
+	query.exec();
 
 	// close the widget
 	this->close();
+	}
 }

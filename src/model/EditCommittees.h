@@ -12,7 +12,7 @@ public:
 	EditCommittees(QWidget *parent);
  
 public slots:
-	void editCommittee();
+	void saveCommittee();
 	void deleteCommittee();
 };
  
