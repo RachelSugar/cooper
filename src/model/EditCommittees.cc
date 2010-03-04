@@ -45,9 +45,15 @@ void EditCommittees::saveCommittee(){
 }
 
 void EditCommittees::deleteCommittee(){
+	// ask for confirmation first
+	int ret = QMessageBox::question(this, qApp->tr("Confirm delete committee"),
+			qApp->tr("Are you sure you want to delete this committee?.\n"),
+			QMessageBox::Ok | QMessageBox::Cancel);
+	
+	if(ret == QMessageBox::Ok){
 	QItemSelectionModel *selected = view->selectionModel();
 	QModelIndex index = selected->currentIndex();
 	Cmodel->removeRows(index.row(), 1, QModelIndex());
-
+	}
 	//this->close();
 }
