@@ -43,9 +43,35 @@ void EditUser::getSave()
 			qApp->tr("Please fill in all feilds.\n"),
 			QMessageBox::Cancel);
 	}
+	else{
 	
+	char phonePublic;
 	
+	if(hidden == true)
+		phonePublic = '0';
+	else
+		phonePublic = '1';
+	
+	char age;
+		
+		if(ofAge == true)
+		age = '0';
+	else
+		age = '1';
+	
+	char live;	
+		if(mvOut == true)
+		live = '0';
+	else
+		live = '1';
+		
+	QString text = "UPDATE users \
+	SET user_name = '" + uName +"', last_name = '" + lName + "', first_name = '" + fName + "', unit_id = '"+ unitx+"', phone_number = '" + tele +"', phone_number_is_public = '" + phonePublic + "', under_twenty = '" + age + "', is_resident = '" + live + "' \
+	WHERE user_name = '" + uName +"';";
 	//test data
+	QSqlQuery query;
+	
+	qDebug() << "true?" << query.exec(text);
 	qDebug() << "first Name = " << fName;
 	qDebug() << "last Name = " << lName;
 	qDebug() << "username = " << uName;
@@ -56,7 +82,9 @@ void EditUser::getSave()
 	qDebug() << "date = " << movDate;	
 	qDebug() << "private? = " << hidden;
 	qDebug() << "ofAge? = " << ofAge;
-	qDebug() << "mvout? = " << mvOut;	
+	qDebug() << "mvout? = " << mvOut;
+	this->close();
+	}
   
 }
 
@@ -64,6 +92,12 @@ void EditUser::deleteUse(){
 
 	if(movedOut->isChecked() == true){
 		qDebug() << "RAWR DELETE TEH USER";
+		QString temp = "DELETE \
+		FROM users \
+		WHERE user_name = '" + userEdit->text()+ "';";
+		QSqlQuery query;
+		qDebug() << "true?" << query.exec(temp);
+		this->close();
 	}
 	else{
 		QMessageBox::critical(0, qApp->tr("Error:"),
@@ -72,11 +106,12 @@ void EditUser::deleteUse(){
 	
 	}
 	
+	
 
 }
 
 void EditUser::getToEdit(){
-	qDebug() << "blag";
+	//qDebug() << "blag";
 	QString usrName= userEdit->text();
 	
 	QString answer[14];
@@ -93,13 +128,30 @@ void EditUser::getToEdit(){
          qDebug() << answer[x] ;
          }
          }
-        firstName->setText(answer[4]);
-	lastName->setText(answer[3]);
+        firstName->setText(answer[5]);
+	lastName->setText(answer[4]);
 	 userName->setText(answer[2]);
+	 userName->setDisabled(true);
+	
+	if(answer[8] == "0")
+		movedOut->setChecked(true);
+	else
+		movedOut->setChecked(false);
+		
+	if(answer[11] == "0")
+		privateTele->setChecked(true);
+	else
+		privateTele->setChecked(false);
+		
+	if(answer[13] == "0")
+		over21->setChecked(true);
+	else
+		over21->setChecked(false);
 	
 	 telephone->setText(answer[10]);
 	// pastAddress->setText();
 	 unit->setText(answer[9]);
+	// QString text = "SELECT * FROM users WHERE user_name = '" + usrName + "'";
 	/* moveInDate->date();
 	 bool hidden = privateTele->isChecked();
 	 bool ofAge = over21->isChecked();
