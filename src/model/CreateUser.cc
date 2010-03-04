@@ -1,6 +1,6 @@
 #include <QtGui>
 #include "CreateUser.h"
-
+#include <QSqlQuery>
 // including <QtGui> saves us to include every class user, <QString>, <QFileDialog>,...
 
 CreateUser::CreateUser(QWidget *parent)
@@ -38,17 +38,19 @@ void CreateUser::getSave()
 			qApp->tr("Please fill in all fields.\n"),
 			QMessageBox::Cancel);
 	}
+	else{
 
-	//test data
-	qDebug() << "first Name = " << fName;
-	qDebug() << "last Name = " << lName;
-	qDebug() << "username = " << uName;
-	qDebug() << "password = " << pass;
-	qDebug() << "tele# = " << tele;
-	qDebug() << "pastAddress = " << pastAdd;
-	qDebug() << "unit = " << unitx;
-	qDebug() << "date = " << movDate;	
-	qDebug() << "private? = " << hidden;
-	qDebug() << "of age? = " << ofAge;	
+	QSqlQuery query2; 
+	QString test = "INSERT INTO users VALUES(NULL,0,'" + uName + "','" + pass + "','" + lName + 
+	"','" + fName + "',20,1,1,43,'" + tele +"',0,0,'0')";
+	//qDebug() << query2.exec(("INSERT INTO users VALUES(NULL,0,'"uName"','"pass"','"lName"','"fName"',20,1,1,43,'"tele"',0,0,'0')"));
+		query2.exec((test));
+	
+    
+	
+	
+
+	
+	}	
 
 }
