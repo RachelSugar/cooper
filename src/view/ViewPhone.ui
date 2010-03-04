@@ -69,7 +69,7 @@
     </rect>
    </property>
    <property name="text" >
-    <string>Public Member Listings:</string>
+    <string>Confidential Member Phone List:</string>
    </property>
   </widget>
   <widget class="QTableView" name="view" >
