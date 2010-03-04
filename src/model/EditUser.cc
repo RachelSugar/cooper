@@ -91,9 +91,22 @@ void EditUser::getToEdit(){
 	  
          answer[x] = query.value(x).toString();
          qDebug() << answer[x] ;
-         
          }
-	}
+         }
+        firstName->setText(answer[4]);
+	lastName->setText(answer[3]);
+	 userName->setText(answer[2]);
+	
+	 telephone->setText(answer[10]);
+	// pastAddress->setText();
+	 unit->setText(answer[9]);
+	/* moveInDate->date();
+	 bool hidden = privateTele->isChecked();
+	 bool ofAge = over21->isChecked();
+	 bool mvOut = movedOut->isChecked(); 
+         */
+         
+	
 	
 	
 }

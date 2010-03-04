@@ -11,8 +11,8 @@
 
 void runGUI(){
 	
-	//PrototypeMainScreen *screen = new PrototypeMainScreen();
-	//screen->show();
+	PrototypeMainScreen *screen = new PrototypeMainScreen();
+	screen->show();
 	Login *login = new Login();
 	login->show();
 }
