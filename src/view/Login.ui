@@ -80,7 +80,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QDialogButtonBox" name="buttonBox">
+  <widget class="QDialogButtonBox" name="loginButtons">
    <property name="geometry">
     <rect>
      <x>20</x>
