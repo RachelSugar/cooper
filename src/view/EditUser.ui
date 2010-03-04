@@ -1,0 +1,314 @@
+<ui version="4.0" >
+ <class>EditUser</class>
+ <widget class="QWidget" name="EditUser" >
+  <property name="windowModality" >
+   <enum>Qt::WindowModal</enum>
+  </property>
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>559</width>
+    <height>459</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <widget class="QLineEdit" name="userName" >
+   <property name="geometry" >
+    <rect>
+     <x>160</x>
+     <y>250</y>
+     <width>113</width>
+     <height>29</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="unit" >
+   <property name="geometry" >
+    <rect>
+     <x>450</x>
+     <y>150</y>
+     <width>61</width>
+     <height>29</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="pastAddress" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>140</y>
+     <width>251</width>
+     <height>81</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>40</y>
+     <width>81</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Enter Name</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>230</y>
+     <width>91</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Move in Date</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_10" >
+   <property name="geometry" >
+    <rect>
+     <x>170</x>
+     <y>10</y>
+     <width>191</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="minimumSize" >
+    <size>
+     <width>191</width>
+     <height>0</height>
+    </size>
+   </property>
+   <property name="font" >
+    <font>
+     <pointsize>15</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+     <underline>true</underline>
+    </font>
+   </property>
+   <property name="text" >
+    <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:15pt; font-weight:600; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-size:16pt;">EDIT MEMBER&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_8" >
+   <property name="geometry" >
+    <rect>
+     <x>160</x>
+     <y>230</y>
+     <width>81</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>User Name</string>
+   </property>
+  </widget>
+  <widget class="QDialogButtonBox" name="saveCancel" >
+   <property name="geometry" >
+    <rect>
+     <x>320</x>
+     <y>250</y>
+     <width>166</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="standardButtons" >
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>60</y>
+     <width>61</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>First</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6" >
+   <property name="geometry" >
+    <rect>
+     <x>290</x>
+     <y>120</y>
+     <width>61</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Tele. </string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>120</y>
+     <width>121</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Pre-Coop Address</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lastName" >
+   <property name="geometry" >
+    <rect>
+     <x>270</x>
+     <y>80</y>
+     <width>191</width>
+     <height>29</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="privateTele" >
+   <property name="geometry" >
+    <rect>
+     <x>290</x>
+     <y>180</y>
+     <width>121</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Private Tele?</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="telephone" >
+   <property name="geometry" >
+    <rect>
+     <x>290</x>
+     <y>150</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="inputMask" >
+    <string>DDDDDDDDDD; </string>
+   </property>
+   <property name="maxLength" >
+    <number>10</number>
+   </property>
+  </widget>
+  <widget class="QDateEdit" name="moveInDate" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>250</y>
+     <width>110</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="buttonSymbols" >
+    <enum>QAbstractSpinBox::UpDownArrows</enum>
+   </property>
+   <property name="date" >
+    <date>
+     <year>2010</year>
+     <month>3</month>
+     <day>4</day>
+    </date>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="firstName" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>80</y>
+     <width>181</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="over21" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>300</y>
+     <width>131</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Over 21yrs old?</string>
+   </property>
+   <property name="checked" >
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2" >
+   <property name="geometry" >
+    <rect>
+     <x>270</x>
+     <y>60</y>
+     <width>61</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Last:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5" >
+   <property name="geometry" >
+    <rect>
+     <x>450</x>
+     <y>110</y>
+     <width>71</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Unit to 
+move  into</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="movedOut" >
+   <property name="geometry" >
+    <rect>
+     <x>130</x>
+     <y>380</y>
+     <width>161</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Member moved out?</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="deleteUser" >
+   <property name="geometry" >
+    <rect>
+     <x>310</x>
+     <y>380</y>
+     <width>111</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Delete Member</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
