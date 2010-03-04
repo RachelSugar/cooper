@@ -36,7 +36,6 @@ void CreateUser::getSave()
 			QMessageBox::Cancel);
 	}
 	
-	
 	//test data
 	qDebug() << "first Name = " << fName;
 	qDebug() << "last Name = " << lName;
@@ -47,16 +46,6 @@ void CreateUser::getSave()
 	qDebug() << "unit = " << unitx;
 	qDebug() << "date = " << movDate;	
 	qDebug() << "private? = " << hidden;	
-	
-	
-	
-	
-   
-   
-    
-  
-   
-    
   
 }
 

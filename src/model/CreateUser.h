@@ -1,7 +1,7 @@
 #ifndef CREATEUSER_H
 #define CREATEUSER_H
 
-#include "../../ui_CreateUser.h"
+#include "ui_CreateUser.h"
 
 
 class CreateUser : public QWidget, private Ui::CreateUser
@@ -13,8 +13,9 @@ public:
 
 public slots:
 	void getSave();
-	
-};
 
+
+
+};
 
 #endif
