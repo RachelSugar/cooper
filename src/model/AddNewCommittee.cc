@@ -53,16 +53,16 @@ void AddNewCommittee::save() {
 			qApp->tr("Committee name cannot be empty.\n"),
 			QMessageBox::Ok);
 	} else {
-	// maybe check if committe name already in use
+	// maybe check if committee name already in use
 
-	// extract the chair and secretary names
+	// extract the chair and secretary names !! this string is not formatted in any way!!
 	QString chair = chairEdit->text();
 	QString secretary = secretaryEdit->text();
 
 	int chairID;
 	int secID;
 
-	// if the name is not empty, check for conflicts
+	// if the name is not empty, check for conflicts and gets this name's key
 	if(chair != none){
 		// if the selected person is chairing or secretary of a different committee, 
 		// ask for confirmation
@@ -70,16 +70,45 @@ void AddNewCommittee::save() {
 			qDebug() << chair;
 		}
 
+		// find the key associated with this name in the "users" table
+		QSqlQuery chairQuery;
+		chairQuery.prepare("SELECT id FROM users WHERE last_name = ':chair'");
+		chairQuery.bindValue(":chair", chair);
+		chairQuery.exec();
+
+		if(chairQuery.next()){
+			chairID = chairQuery.value(0).toInt();
+		}
+
+		if(DEBUG == 1){
+			qDebug() << chairID;
+		}
+
 	} else {
 		chairID = noEntry;
 	}
-
+	
+	// if the name is not empty, check for conflicts and gets this name's key
 	if(secretary != none){
 		// if the selected person is chairing or secretary of a different committee, 
 		// ask for confirmation
 	
 		if(DEBUG == 1){
 			qDebug() << secretary;
+		}
+
+		// find the key associated with this name in the "users" table
+		QSqlQuery secQuery;
+		secQuery.prepare("SELECT id FROM users WHERE last_name = ':secretary'");
+		secQuery.bindValue(":secretary", secretary);
+		secQuery.exec();
+
+		if(secQuery.next()){
+			secID = secQuery.value(0).toInt();
+		}
+
+		if(DEBUG == 1){
+			qDebug() << secID;
 		}
 
 	} else {
