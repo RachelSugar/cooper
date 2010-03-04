@@ -4,6 +4,7 @@
 #include <QtGui>
 #include "PrototypeMainScreen.h"
 #include "CreateUser.h"
+#include "AddNewCommittee.h"
 
 PrototypeMainScreen::PrototypeMainScreen(QWidget *parent){
 	setupUi(this);
@@ -18,6 +19,8 @@ PrototypeMainScreen::PrototypeMainScreen(QWidget *parent){
 }
 
 void PrototypeMainScreen::addCommittee(){
+	AddNewCommittee *commit = new AddNewCommittee(this);
+	commit->show();
 }
 
 void PrototypeMainScreen::addMember(){
