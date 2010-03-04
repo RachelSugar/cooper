@@ -9,65 +9,67 @@
     <x>0</x>
     <y>0</y>
     <width>394</width>
-    <height>295</height>
+    <height>294</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Viewing committees</string>
   </property>
-  <widget class="QWidget" name="layoutWidget" >
+  <widget class="QTableView" name="view" >
    <property name="geometry" >
     <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>371</width>
-     <height>281</height>
+     <x>11</x>
+     <y>11</y>
+     <width>369</width>
+     <height>242</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout" >
+   <property name="verticalScrollBarPolicy" >
+    <enum>Qt::ScrollBarAlwaysOn</enum>
+   </property>
+   <property name="horizontalScrollBarPolicy" >
+    <enum>Qt::ScrollBarAlwaysOn</enum>
+   </property>
+   <property name="selectionMode" >
+    <enum>QAbstractItemView::SingleSelection</enum>
+   </property>
+   <property name="selectionBehavior" >
+    <enum>QAbstractItemView::SelectRows</enum>
+   </property>
+   <property name="sortingEnabled" >
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QWidget" name="" >
+   <property name="geometry" >
+    <rect>
+     <x>30</x>
+     <y>260</y>
+     <width>309</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout" >
     <item>
-     <widget class="QTableView" name="view" >
-      <property name="verticalScrollBarPolicy" >
-       <enum>Qt::ScrollBarAlwaysOn</enum>
-      </property>
-      <property name="horizontalScrollBarPolicy" >
-       <enum>Qt::ScrollBarAlwaysOn</enum>
-      </property>
-      <property name="selectionMode" >
-       <enum>QAbstractItemView::SingleSelection</enum>
-      </property>
-      <property name="selectionBehavior" >
-       <enum>QAbstractItemView::SelectRows</enum>
-      </property>
-      <property name="sortingEnabled" >
-       <bool>true</bool>
+     <widget class="QPushButton" name="DeleteButton" >
+      <property name="text" >
+       <string>Delete selected</string>
       </property>
      </widget>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout" >
-      <item>
-       <widget class="QPushButton" name="CancelButton" >
-        <property name="text" >
-         <string>Cancel</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="SaveButton" >
-        <property name="text" >
-         <string>Save Changes</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="DeleteButton" >
-        <property name="text" >
-         <string>Delete selected</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     <widget class="QPushButton" name="SaveButton" >
+      <property name="text" >
+       <string>Save Changes</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="CancelButton" >
+      <property name="text" >
+       <string>Cancel</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

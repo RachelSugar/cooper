@@ -1,11 +1,7 @@
 /*
 * Contains methods to add a new committee
-* 04 Mar 10 - Displays main dialog, person selection not done yet, 
-	no error checking done, no database accesses.
-* 04 Mar 10, sometime later - database insertion done. also displays
-		errors if input is empty. no checking for correctness
-		of input.
-  even later - have problem with storing a committee with no Chair, Secretary, or neither.
+have problem with storing a committee with no Chair, Secretary, or neither.
+
 *
 */
 
@@ -14,7 +10,6 @@
 #include <QSqlQuery>
 
 const QString none = "";
-const int noEntry = -1;
 
 // flag for extra printing
 const int DEBUG = 1;
@@ -60,8 +55,8 @@ void AddNewCommittee::save() {
 	QString chair = chairEdit->text();
 	QString secretary = secretaryEdit->text();
 
-	int chairID = NULL;
-	int secID = NULL;
+	QString chairID;
+	QString secID;
 
 	// if the name is not empty, check for conflicts and gets this name's key
 	if(chair != none){
@@ -76,7 +71,9 @@ void AddNewCommittee::save() {
 		QSqlQuery chairQuery(text);
 
 		if(chairQuery.next()){
-			chairID = chairQuery.value(0).toInt();
+			chairID = chairQuery.value(0).toString();
+		} else {
+			chairID = "NULL";
 		}
 
 		if(DEBUG == 1){
@@ -99,7 +96,9 @@ void AddNewCommittee::save() {
 		QSqlQuery secQuery(text);
 
 		if(secQuery.next()){
-			secID = secQuery.value(0).toInt();
+			secID = secQuery.value(0).toString();
+		} else {
+			secID = "NULL";
 		}
 
 		if(DEBUG == 1){
@@ -110,11 +109,13 @@ void AddNewCommittee::save() {
 
 	// create a new entry in the database
 	QSqlQuery query;
-	query.prepare("INSERT INTO committees VALUES(NULL, :name, :chairID, :secID)");
+	qDebug() << query.prepare("INSERT INTO committees VALUES(NULL, :name, :chairID, :secID)");
 	query.bindValue(":name", name);
 	query.bindValue(":chairID", chairID);
 	query.bindValue(":secID", secID);
-	query.exec();
+	qDebug() << query.exec();
+	//if(chairID < 0)
+	//query.exec("INSERT INTO committees VALUES(NULL, :name," + chairID + "," secID + ")");
 
 	// close the widget
 	this->close();

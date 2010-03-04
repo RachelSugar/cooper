@@ -34,26 +34,39 @@ CREATE TABLE committees (id INTEGER PRIMARY KEY, name TEXT, chair_id INTEGER, se
 	header->setStretchLastSection(true);
 
 	connect(DeleteButton,SIGNAL(clicked()), this, SLOT(deleteCommittee()));
-	connect(SaveButton,SIGNAL(clicked()), Cmodel, SLOT(submitAll()));
-	connect(SaveButton,SIGNAL(clicked()), this, SLOT(close()));
+	connect(SaveButton,SIGNAL(clicked()), this, SLOT(saveCommittee()));
 	connect(CancelButton,SIGNAL(clicked()), this, SLOT(close()));
 
 }
 
 void EditCommittees::saveCommittee(){
-	// replaced by a submitAll() call on the model...
+	Cmodel->submitAll();
+	this->close();
 }
 
 void EditCommittees::deleteCommittee(){
+		
 	// ask for confirmation first
 	int ret = QMessageBox::question(this, qApp->tr("Confirm delete committee"),
 			qApp->tr("Are you sure you want to delete this committee?.\n"),
 			QMessageBox::Ok | QMessageBox::Cancel);
 	
 	if(ret == QMessageBox::Ok){
-	QItemSelectionModel *selected = view->selectionModel();
-	QModelIndex index = selected->currentIndex();
-	Cmodel->removeRows(index.row(), 1, QModelIndex());
+		QItemSelectionModel *selected = view->selectionModel();
+		QModelIndex index = selected->currentIndex();
+
+		// test to see that selected is not one of the main committees
+		QSqlRecord record = Cmodel->record(index.row());
+		QString name = record.value(1).toString();
+
+		if(name == "Board" || name == "Inspections" || name == "Membership"
+			|| name == "Education" || name == "Member Relations"){
+			QMessageBox::critical(this, qApp->tr("Invalid delete"),
+			qApp->tr("You cannot delete this committee.\n"),
+			QMessageBox::Ok);
+		} else {
+		Cmodel->removeRows(index.row(), 1, QModelIndex());
+		}
 	}
 	//this->close();
 }
