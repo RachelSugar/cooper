@@ -6,3 +6,4 @@ db/*.sqlite3
 cooper
 *~
 ui_*
+.nfs*

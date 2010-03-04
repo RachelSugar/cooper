@@ -13,9 +13,6 @@ public:
 
 public slots:
 	void getSave();
-
-
-
 };
 
 #endif

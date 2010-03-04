@@ -27,6 +27,7 @@ FORMS += src/view/Login.ui
 FORMS += src/view/CoordPassword.ui
 FORMS += src/view/AddNewCommittee.ui
 FORMS += src/view/LoginError.ui
+FORMS += src/view/MemberInformation.ui
 
 
 # Delegates
