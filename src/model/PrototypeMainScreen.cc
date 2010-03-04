@@ -3,8 +3,9 @@
 */
 #include <QtGui>
 #include "PrototypeMainScreen.h"
+#include "CreateUser.h"
 
-PrototypeMainScreen::PrototypeMainScreen(QWidget *parent = 0){
+PrototypeMainScreen::PrototypeMainScreen(QWidget *parent){
 	setupUi(this);
 
 	connect(AddCommitteeButton,SIGNAL(clicked()),this,SLOT(addCommittee()));
@@ -12,14 +13,17 @@ PrototypeMainScreen::PrototypeMainScreen(QWidget *parent = 0){
 	connect(PrintPrivatePhoneButton,SIGNAL(clicked()),this,SLOT(printPrivate()));
 	connect(PrintPublicPhoneButton,SIGNAL(clicked()),this,SLOT(printPublic()));
 	connect(ViewCommitteesButton,SIGNAL(clicked()),this,SLOT(viewCommittees()));
-	connect(ViewMembersButton,SIGNAL(clicked()),this,SLOT(viewMembers()));
+	connect(ViewMemberInfoButton,SIGNAL(clicked()),this,SLOT(viewMembers()));
 	connect(ExitButton,SIGNAL(clicked()),this,SLOT(close()));
 }
 
-void PrototypeMainScreen::addCommitee(){
+void PrototypeMainScreen::addCommittee(){
 }
 
 void PrototypeMainScreen::addMember(){
+	CreateUser *create = new CreateUser(this);
+
+    create->show();
 }
 
 void PrototypeMainScreen::printPrivate(){

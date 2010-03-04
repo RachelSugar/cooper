@@ -19,9 +19,11 @@ HEADERS += src/model/LoginModel.h
 SOURCES += src/model/LoginModel.cc
 HEADERS += src/model/CreateUser.h
 SOURCES += src/model/CreateUser.cc
+HEADERS += src/model/PrototypeMainScreen.h
+SOURCES += src/model/PrototypeMainScreen.cc
 
 # Views
-
+FORMS += src/view/PrototypeMainScreen.ui
 FORMS += src/view/CreateUser.ui
 FORMS += src/view/Login.ui
 FORMS += src/view/CoordPassword.ui

@@ -1,6 +1,6 @@
 <ui version="4.0" >
- <class>cooperPrototypeMainScreen</class>
- <widget class="QWidget" name="cooperPrototypeMainScreen" >
+ <class>PrototypeMainScreen</class>
+ <widget class="QWidget" name="PrototypeMainScreen" >
   <property name="geometry" >
    <rect>
     <x>0</x>
