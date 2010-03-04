@@ -1,7 +1,6 @@
 /*
 * Contains methods to add a new committee
 have problem with storing a committee with no Chair, Secretary, or neither.
-
 *
 */
 
@@ -10,6 +9,7 @@ have problem with storing a committee with no Chair, Secretary, or neither.
 #include <QSqlQuery>
 
 const QString none = "";
+
 
 // flag for extra printing
 const int DEBUG = 1;
@@ -55,8 +55,8 @@ void AddNewCommittee::save() {
 	QString chair = chairEdit->text();
 	QString secretary = secretaryEdit->text();
 
-	QString chairID;
-	QString secID;
+	QVariant chairID = "";
+	QVariant secID = "";
 
 	// if the name is not empty, check for conflicts and gets this name's key
 	if(chair != none){
@@ -71,9 +71,9 @@ void AddNewCommittee::save() {
 		QSqlQuery chairQuery(text);
 
 		if(chairQuery.next()){
-			chairID = chairQuery.value(0).toString();
+			chairID = chairQuery.value(0).toInt();
 		} else {
-			chairID = "NULL";
+			chairID = NULL;
 		}
 
 		if(DEBUG == 1){
@@ -96,9 +96,9 @@ void AddNewCommittee::save() {
 		QSqlQuery secQuery(text);
 
 		if(secQuery.next()){
-			secID = secQuery.value(0).toString();
+			secID = secQuery.value(0).toInt();
 		} else {
-			secID = "NULL";
+			secID = NULL;
 		}
 
 		if(DEBUG == 1){

@@ -18,9 +18,10 @@ CREATE TABLE committees (id INTEGER PRIMARY KEY, name TEXT, chair_id INTEGER, se
 	Cmodel = new QSqlRelationalTableModel(this);
 	Cmodel->setTable("committees");
 	
+
 	//temporarily exclude until AddNewCommittee maps userid properly
-	Cmodel->setRelation(2, QSqlRelation("users","id","user_name"));
-	Cmodel->setRelation(3, QSqlRelation("users","id","user_name"));
+	//Cmodel->setRelation(2, QSqlRelation("users","id","user_name"));
+	//Cmodel->setRelation(3, QSqlRelation("users","id","user_name"));
 	
 	Cmodel->setHeaderData(2, Qt::Horizontal, tr("Chair username"));
 	Cmodel->setHeaderData(3, Qt::Horizontal, tr("Secretary username"));
