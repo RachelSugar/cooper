@@ -37,7 +37,6 @@ FORMS += src/view/CreateUser.ui
 FORMS += src/view/Login.ui
 FORMS += src/view/CoordPassword.ui
 FORMS += src/view/AddNewCommittee.ui
-FORMS += src/view/LoginError.ui
 FORMS += src/view/MemberInformation.ui
 FORMS += src/view/ViewPhone.ui
 FORMS += src/view/EditCommittees.ui
