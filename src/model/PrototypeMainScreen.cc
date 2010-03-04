@@ -44,4 +44,6 @@ void PrototypeMainScreen::editCommit(){
 }
 
 void PrototypeMainScreen::viewMembers(){
+	
+
 }
