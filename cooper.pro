@@ -21,6 +21,8 @@ HEADERS += src/model/CreateUser.h
 SOURCES += src/model/CreateUser.cc
 HEADERS += src/model/PrototypeMainScreen.h
 SOURCES += src/model/PrototypeMainScreen.cc
+HEADERS += src/model/AddNewCommittee.h
+SOURCES += src/model/AddNewCommittee.cc
 
 # Views
 FORMS += src/view/PrototypeMainScreen.ui
