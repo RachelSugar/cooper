@@ -85,6 +85,11 @@ CREATE TABLE users (
 			model->removeRows(i,1);
 		}
 
+		//Remove the coord cause they arent living there
+		if(model->data(model->index(i,2)).toString() == "coord"){
+			model->removeRows(i,1);
+		}
+
 	}
 
 	//Relate the foreign keys in the table to the units database table
@@ -118,6 +123,7 @@ void ViewPhone::printList() {
 	printer.setOrientation(QPrinter::Landscape);
 	printer.setPaperSize(QPrinter::Letter);
 	printer.setDocName("cooper/printPhone.pdf");
+	printer.setColorMode(QPrinter::GrayScale);
 
 	QPrintDialog dlg(&printer, this);
 
