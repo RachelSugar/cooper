@@ -17,9 +17,10 @@ CREATE TABLE committees (id INTEGER PRIMARY KEY, name TEXT, chair_id INTEGER, se
 	QSqlRelationalTableModel *model = new QSqlRelationalTableModel(this);
 	model->setTable("committees");
 	
-	
+	/* temporarily exclude until AddNewCommittee maps userid properly
 	model->setRelation(2, QSqlRelation("users","id","user_name"));
 	model->setRelation(3, QSqlRelation("users","id","user_name"));
+	*/
 
 	model->select();
 	
