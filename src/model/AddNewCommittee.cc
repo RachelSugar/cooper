@@ -8,8 +8,10 @@
 
 #include "AddNewCommittee.h"
 #include <QtGui>
+#include <QSqlQuery>
 
 const QString none = "";
+const int noEntry = -1;
 
 // flag for extra printing
 const int DEBUG = 1;
@@ -45,16 +47,21 @@ void AddNewCommittee::save() {
 
 	// see if the committee name is already in use
 	// if it is, reprompt.
+	if(name == none){
+		QMessageBox::critical(0, qApp->tr("Error"),
+			qApp->tr("Committee name cannot be empty.\n"),
+			QMessageBox::Cancel);
+	}
 	
 
 	// extract the chair and secretary names
 	QString chair = chairEdit->text();
 	QString secretary = secretaryEdit->text();
 
-	bool storeChair = false;
-	bool storeSecretary = false;
+	int chairID;
+	int secID;
 
-	// if the name is not empty, and there are no conflicts, store
+	// if the name is not empty, check for conflicts
 	if(chair != none){
 		// if the selected person is chairing or secretary of a different committee, 
 		// ask for confirmation
@@ -62,9 +69,10 @@ void AddNewCommittee::save() {
 			qDebug() << chair;
 		}
 
-		// everything okay
-		storeChair = true;
+	} else {
+		chairID = noEntry;
 	}
+
 	if(secretary != none){
 		// if the selected person is chairing or secretary of a different committee, 
 		// ask for confirmation
@@ -73,11 +81,17 @@ void AddNewCommittee::save() {
 			qDebug() << secretary;
 		}
 
-		// everything okay
-		storeSecretary = true;
+	} else {
+		secID = noEntry;
 	}
 
 	// create a new entry in the database
+	QSqlQuery query;
+	query.prepare("INSERT INTO committees VALUES(NULL, :name, :chairID, :secID)");
+	query.bindValue(":name", name);
+	query.bindValue(":chairID", chairID);
+	query.bindValue(":secID", secID);
+	query.exec();
 
 	// close the widget
 	this->close();
