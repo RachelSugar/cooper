@@ -2,6 +2,8 @@
 #include <QtGui>
 #include <QSqlTableModel>
 #include <QSqlRelationalTableModel>
+#include <QString>
+#include <QSqlQuery>
 
 ViewPhone::ViewPhone(QWidget *parent){
 	setupUi(this);
@@ -30,27 +32,69 @@ CREATE TABLE users (
 13 under_twenty TEXT);
 
 */
+
+	bool isRegularUser = true;
 	
 	QSqlRelationalTableModel* model = new QSqlRelationalTableModel(this);
 	model->setTable("users");
 
-
-// GET USER NAME FROM       ########################################        PARENT WIDGET :: HOW? I DUNNOs
-//	string username = "coord";	
-
-//	if(username=="coord"){}
+	//model->setRelation(9, QSqlRelation("units", "id", "number"));
 
 	model->setHeaderData(4,Qt::Horizontal,tr("Surname"));
 	model->setHeaderData(5,Qt::Horizontal,tr("First Name"));
 	model->setHeaderData(9,Qt::Horizontal,tr("Unit"));
 	model->setHeaderData(10,Qt::Horizontal,tr("Phone Number"));
 	model->setHeaderData(13,Qt::Horizontal,tr("Cohabitants Under 21"));
-	model->setSort(5, Qt::DescendingOrder);
+	model->setSort(4, Qt::AscendingOrder);
 	model->select();
+
+	if(isRegularUser){
+		label->setText("Public Member Phone List");
+		for(int i=0;i<model->rowCount();i++){
+			if(model->data(model->index(i,11)).toInt() == 0){
+				model->setData(model->index(i,10), " ");
+			}
+		}
+	}
+
+	for(int i=0;i<model->rowCount();i++){
+
+		int uid = model->data(model->index(i,9)).toInt();
+
+		QString names="";
+
+		QSqlQuery query;
+		query.prepare("SELECT age,last_name,first_name,user_name FROM users WHERE unit_id = :uid");
+		query.bindValue(":uid",uid);
+		query.exec();
+		
+		while(query.next()){
+
+			qDebug() << query.value(0).toString();
+			qDebug() << query.value(1).toString();
+			qDebug() << query.value(2).toString() << endl;
+
+			if(query.value(0).toInt()<21 && query.value(3).toString()!=model->data(model->index(i,2)).toString() ){
+				names=names+query.value(2).toString()+" "+query.value(1).toString()+"; ";
+			}
+		}
+
+		qDebug() << names << endl;
+
+		model->setData(model->index(i,13), names);
+
+		if(model->data(model->index(i,8)).toInt() == 0){
+			model->removeRows(i,1);
+		}
+
+	}
+
+	
+	model->setRelation(9, QSqlRelation("units", "id", "number"));
+	//model->submitAll();
 
 	view->setModel(model);
 	view->resizeColumnsToContents();
-	//view->columnMoved(5,5,4);
 	view->setColumnHidden(0,true);
 	view->setColumnHidden(1,true);
 	view->setColumnHidden(2,true);
@@ -64,11 +108,6 @@ CREATE TABLE users (
 
 	QHeaderView *header = view->horizontalHeader();
 	header->setStretchLastSection(true);
-
-	qDebug() << "Columns: "<<model->columnCount();
-	qDebug() << "DB Driver Name: "<<model->database().driverName();
-	qDebug() << "DB Validity: "<<model->database().isValid()<<endl;
-
 
 }
 
