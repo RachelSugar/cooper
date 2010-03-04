@@ -1,20 +1,27 @@
 #include "lib/Database.h"
 #include "model/Login.h"
+#include "model/CoordPassword.h"
 
 #include <QApplication>
 #include <iostream>
-#include "model/PrototypeMainScreen.h"
 
 #ifndef DB_PATH
 #define DB_PATH "db/cooperDB.sqlite3"
 #endif
 
 void runGUI(){
-	
-	//PrototypeMainScreen *screen = new PrototypeMainScreen();
-	//screen->show();
-	Login *login = new Login();
-	login->show();
+
+	QString text = "SELECT user_name FROM users WHERE user_name = 'coord'";
+	qDebug() << text;
+	QSqlQuery query(text);
+	if(query.next()){
+		Login *login = new Login();
+		login->show();
+	}
+	else {
+		CoordPassword *coordPass = new CoordPassword();
+		coordPass->show();
+	}
 }
 
 int main(int argc, char *argv[])
@@ -26,6 +33,5 @@ int main(int argc, char *argv[])
 	
 	runGUI();
 	
-
 	return app.exec();
 }
