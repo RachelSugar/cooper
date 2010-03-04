@@ -1,6 +1,6 @@
 <ui version="4.0" >
- <class>CommitteesDisplay</class>
- <widget class="QWidget" name="CommitteesDisplay" >
+ <class>EditCommittees</class>
+ <widget class="QWidget" name="EditCommittees" >
   <property name="windowModality" >
    <enum>Qt::WindowModal</enum>
   </property>
@@ -26,7 +26,7 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout" >
     <item>
-     <widget class="QTableView" name="committeeTableView" />
+     <widget class="QTableView" name="CommitteeTableView" />
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout" >
