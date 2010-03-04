@@ -12,7 +12,7 @@ public:
 	PrototypeMainScreen(QWidget *parent = 0);
 
 public slots:
-	void addCommitee();
+	void addCommittee();
 	void addMember();
 	void printPrivate();
 	void printPublic();
