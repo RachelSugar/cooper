@@ -2,7 +2,9 @@
 * Contains methods to add a new committee
 * 04 Mar 10 - Displays main dialog, person selection not done yet, 
 	no error checking done, no database accesses.
-*
+* 04 Mar 10, sometime later - database insertion done. also displays
+		errors if input is empty. no checking for correctness
+		of input.
 *
 */
 
@@ -45,14 +47,13 @@ void AddNewCommittee::save() {
 		qDebug() << name;
 	}
 
-	// see if the committee name is already in use
-	// if it is, reprompt.
+	// check if committee name is empty
 	if(name == none){
-		QMessageBox::critical(0, qApp->tr("Error"),
+		QMessageBox::warning(0, qApp->tr("Error"),
 			qApp->tr("Committee name cannot be empty.\n"),
-			QMessageBox::Cancel);
-	}
-	
+			QMessageBox::Ok);
+	} else {
+	// maybe check if committe name already in use
 
 	// extract the chair and secretary names
 	QString chair = chairEdit->text();
@@ -95,4 +96,5 @@ void AddNewCommittee::save() {
 
 	// close the widget
 	this->close();
+	}
 }
