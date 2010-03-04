@@ -23,6 +23,8 @@ HEADERS += src/model/PrototypeMainScreen.h
 SOURCES += src/model/PrototypeMainScreen.cc
 HEADERS += src/model/AddNewCommittee.h
 SOURCES += src/model/AddNewCommittee.cc
+HEADERS += src/model/EditCommittees.h
+SOURCES += src/model/EditCommittees.cc
 
 # Views
 FORMS += src/view/PrototypeMainScreen.ui
@@ -32,6 +34,7 @@ FORMS += src/view/CoordPassword.ui
 FORMS += src/view/AddNewCommittee.ui
 FORMS += src/view/LoginError.ui
 FORMS += src/view/MemberInformation.ui
+FORMS += src/view/EditCommittees.ui
 
 
 # Delegates

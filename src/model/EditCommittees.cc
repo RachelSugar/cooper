@@ -9,10 +9,11 @@ EditCommittees::EditCommittees(QWidget *parent){
 	connect(CancelButton,SIGNAL(clicked()), this, SLOT(close()));
 }
 
-EditCommittees::editCommittee(){
+void EditCommittees::editCommittee(){
 
 }
 
-EditCommittees::deleteCommittee(){
+void EditCommittees::deleteCommittee(){
 
 }
+
