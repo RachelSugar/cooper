@@ -50,7 +50,5 @@ void CreateUser::getSave()
 	qDebug() << "date = " << movDate;	
 	qDebug() << "private? = " << hidden;
 	qDebug() << "of age? = " << ofAge;	
-  
-}
 
 }
