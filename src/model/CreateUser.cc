@@ -39,12 +39,14 @@ void CreateUser::getSave()
 			QMessageBox::Cancel);
 	}
 	else{
-
+	//look here rachel
+	;
+	
 	QSqlQuery query2; 
-	QString test = "INSERT INTO users VALUES(NULL,0,'" + uName + "','" + pass + "','" + lName + 
-	"','" + fName + "',20,1,1,43,'" + tele +"',0,0,'0')";
+	QString test ="INSERT INTO users VALUES(NULL,0,'" + uName + "','" + pass + "','" + lName + 
+	"','" + fName + "',20,1,1, "+unitx+ ",'" + tele +"',0,0,'0')";
 	//qDebug() << query2.exec(("INSERT INTO users VALUES(NULL,0,'"uName"','"pass"','"lName"','"fName"',20,1,1,43,'"tele"',0,0,'0')"));
-		query2.exec((test));
+		qDebug()<< query2.exec((test));
 	this->close();
     
 	
