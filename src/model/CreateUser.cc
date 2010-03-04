@@ -25,6 +25,14 @@ void CreateUser::getSave()
 	QDate movDate = moveInDate->date();
 	bool hidden = privateTele->isChecked();
 	bool ofAge = over21->isChecked();
+	bool taken =false;
+	
+	QString checkID = "SELECT user_name FROM users WHERE user_name = '" + uName +"'";
+	
+	QSqlQuery query(checkID);
+	while(query.next()){
+		taken = true;
+	}
 	
 	//cheap error detection for time being
 	if ( fName.length() == 0
@@ -37,6 +45,16 @@ void CreateUser::getSave()
 		QMessageBox::critical(0, qApp->tr("Error:"),
 			qApp->tr("Please fill in all fields.\n"),
 			QMessageBox::Cancel);
+			
+			
+		
+	}
+	else if(taken == true){
+	QMessageBox::critical(0, qApp->tr("Error:"),
+			qApp->tr("Username taken!\n"),
+			QMessageBox::Cancel);
+			userName->clear();
+	
 	}
 	else{
 	//look here rachel
