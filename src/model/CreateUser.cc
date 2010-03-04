@@ -45,7 +45,7 @@ void CreateUser::getSave()
 	"','" + fName + "',20,1,1,43,'" + tele +"',0,0,'0')";
 	//qDebug() << query2.exec(("INSERT INTO users VALUES(NULL,0,'"uName"','"pass"','"lName"','"fName"',20,1,1,43,'"tele"',0,0,'0')"));
 		query2.exec((test));
-	
+	this->close();
     
 	
 	
