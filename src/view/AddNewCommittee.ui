@@ -1,15 +1,15 @@
 <ui version="4.0" >
- <class>AddNewCommittee</class>
- <widget class="QWidget" name="AddNewCommittee" >
+ <class>AddCommitteeDialog</class>
+ <widget class="QWidget" name="AddCommitteeDialog" >
   <property name="windowModality" >
-   <enum>Qt::ApplicationModal</enum>
+   <enum>Qt::WindowModal</enum>
   </property>
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>321</width>
-    <height>169</height>
+    <width>350</width>
+    <height>200</height>
    </rect>
   </property>
   <property name="sizePolicy" >
@@ -18,99 +18,158 @@
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
+  <property name="minimumSize" >
+   <size>
+    <width>350</width>
+    <height>200</height>
+   </size>
+  </property>
+  <property name="maximumSize" >
+   <size>
+    <width>350</width>
+    <height>200</height>
+   </size>
+  </property>
   <property name="windowTitle" >
    <string>Adding New Committee</string>
   </property>
-  <widget class="QWidget" name="layoutWidget" >
+  <widget class="QLineEdit" name="chairEdit" >
    <property name="geometry" >
     <rect>
-     <x>11</x>
-     <y>11</y>
-     <width>300</width>
-     <height>151</height>
+     <x>160</x>
+     <y>80</y>
+     <width>121</width>
+     <height>25</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="gridLayout" >
-    <item row="0" column="0" colspan="2" >
-     <widget class="QLabel" name="label_2" >
-      <property name="text" >
-       <string>Enter the information for the new committee:</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0" >
-     <widget class="QLabel" name="label" >
-      <property name="text" >
-       <string>Committee name</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1" >
-     <widget class="QLineEdit" name="lineEdit" >
-      <property name="text" >
-       <string/>
-      </property>
-      <property name="maxLength" >
-       <number>120</number>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0" >
-     <widget class="QLabel" name="label_3" >
-      <property name="text" >
-       <string>Chair (optional)</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1" >
-     <widget class="QComboBox" name="comboBox" />
-    </item>
-    <item row="3" column="0" >
-     <widget class="QLabel" name="label_4" >
-      <property name="text" >
-       <string>Secretary (optional)</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1" >
-     <widget class="QComboBox" name="comboBox_2" />
-    </item>
-    <item row="4" column="1" >
-     <widget class="QDialogButtonBox" name="buttonBox" >
-      <property name="layoutDirection" >
-       <enum>Qt::LeftToRight</enum>
-      </property>
-      <property name="orientation" >
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="standardButtons" >
-       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
-      </property>
-      <property name="centerButtons" >
-       <bool>false</bool>
-      </property>
-     </widget>
-    </item>
-   </layout>
+  </widget>
+  <widget class="QLineEdit" name="secretaryEdit" >
+   <property name="geometry" >
+    <rect>
+     <x>160</x>
+     <y>120</y>
+     <width>121</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QDialogButtonBox" name="acceptRejectButtons" >
+   <property name="geometry" >
+    <rect>
+     <x>160</x>
+     <y>160</y>
+     <width>160</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="layoutDirection" >
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="orientation" >
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="standardButtons" >
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
+   </property>
+   <property name="centerButtons" >
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="infoLabel" >
+   <property name="geometry" >
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>298</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Enter the information for the new committee:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="chairLabel" >
+   <property name="geometry" >
+    <rect>
+     <x>20</x>
+     <y>85</y>
+     <width>127</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Chair (optional)</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="nameEdit" >
+   <property name="geometry" >
+    <rect>
+     <x>159</x>
+     <y>45</y>
+     <width>160</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string/>
+   </property>
+   <property name="maxLength" >
+    <number>120</number>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="secretarySelectButton" >
+   <property name="geometry" >
+    <rect>
+     <x>290</x>
+     <y>120</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>...</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="chairSelectButton" >
+   <property name="geometry" >
+    <rect>
+     <x>290</x>
+     <y>80</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>...</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="secretaryLabel" >
+   <property name="geometry" >
+    <rect>
+     <x>20</x>
+     <y>120</y>
+     <width>127</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Secretary (optional)</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="nameLabel" >
+   <property name="geometry" >
+    <rect>
+     <x>20</x>
+     <y>50</y>
+     <width>127</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Committee name</string>
+   </property>
   </widget>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>AddNewCommittee</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>219</x>
-     <y>154</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>155</x>
-     <y>91</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
