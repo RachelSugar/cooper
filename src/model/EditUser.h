@@ -14,6 +14,7 @@ public:
 public slots:
 	void getSave();
 	void deleteUse();
+	void getToEdit();
 	
 };
 

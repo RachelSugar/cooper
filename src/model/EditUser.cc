@@ -1,6 +1,6 @@
 #include <QtGui> 
 #include "EditUser.h"
-
+#include <QSqlQuery>
 // including <QtGui> saves us to include every class user, <QString>, <QFileDialog>,...
 
 EditUser::EditUser(QWidget *parent)
@@ -11,7 +11,12 @@ EditUser::EditUser(QWidget *parent)
 	
 	connect( saveCancel, SIGNAL( rejected() ), this, SLOT( close() ));
 	connect( saveCancel, SIGNAL( accepted() ), this, SLOT( getSave() ) ); 
-	connect( deleteUser, SIGNAL(clicked() ), this, SLOT( deleteUse() ) ); 
+	connect( deleteUser, SIGNAL(clicked() ), this, SLOT( deleteUse() ) );
+	connect( getUser, SIGNAL(clicked() ), this, SLOT( getToEdit() ) ); 
+	
+	
+	
+	
 	
 }
 
@@ -66,7 +71,28 @@ void EditUser::deleteUse(){
 			QMessageBox::Cancel);
 	
 	}
+	
 
+}
+
+void EditUser::getToEdit(){
+
+	QString usrName= getUser->text();
+	
+	QString answer[14];
+	
+	QSqlQuery query("SELECT * FROM users WHERE user_name = " + usrName);
+	int x;
+	 while (query.next()) {
+	 	for(x = 0; x < 14; x++){
+	  
+         answer[x] = query.value(x).toString();
+         qDebug() << answer[x] ;
+         }
+         }
+	
+	
+	
 }
 
 
