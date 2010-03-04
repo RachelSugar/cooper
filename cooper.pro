@@ -42,5 +42,5 @@ FORMS += src/view/EditCommittees.ui
 # Delegates
 
 # Lib
-SOURCES += src/lib/Database.h
+HEADERS += src/lib/Database.h
 SOURCES += src/lib/Database.cc
