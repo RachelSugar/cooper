@@ -1,9 +1,11 @@
 #include "ViewPhone.h"
 #include <QtGui>
 #include <QSqlTableModel>
+#include <QSqlRelation>
 #include <QSqlRelationalTableModel>
 #include <QString>
 #include <QSqlQuery>
+#include <QTextDocument>
 
 QSqlRelationalTableModel* model;
 
@@ -19,16 +21,16 @@ ViewPhone::ViewPhone(QWidget *parent, bool conf){
 /*
 CREATE TABLE users (
 
-0 id INTEGER PRIMARY KEY, 
-1 is_coordinator INTEGER, 
-2 user_name TEXT, 
-3 password TEXT, 
-4 last_name TEXT, 
-5 first_name TEXT, 
-6 age INTEGER, 
-7 committee_id INTEGER, 
-8 is_resident INTEGER, 
-9 unit_id INTEGER, 
+0  id INTEGER PRIMARY KEY, 
+1  is_coordinator INTEGER, 
+2  user_name TEXT, 
+3  password TEXT, 
+4  last_name TEXT, 
+5  first_name TEXT, 
+6  age INTEGER, 
+7  committee_id INTEGER, 
+8  is_resident INTEGER, 
+9  unit_id INTEGER, 
 10 phone_number TEXT, 
 11 phone_number_is_public INTEGER, 
 12 in_arrears INTEGER, 
@@ -118,55 +120,42 @@ CREATE TABLE users (
 
 void ViewPhone::printList() {
 
-	QPrinter printer(QPrinter::ScreenResolution);
+	//Setup my output string (later to be printed).
 
-	printer.setOrientation(QPrinter::Landscape);
+	QString toPrint =label->text()+"\n-------------------------------------------------------------------------------------------------------------------------\n\n",unitSt="",t;
+
+	//Fill the string with a list of phone numbers.
+	for(int i=0;i<model->rowCount();i++){
+
+		//Check if they are cohabitants with minors
+		int uid = model->data(model->index(i,9)).toInt();
+		QSqlQuery query;
+		query.prepare("SELECT number FROM units WHERE id = :uid");
+		query.bindValue(":uid",uid);
+		query.exec();
+		
+		if(query.next()){
+			unitSt = query.value(0).toString();
+		}
+
+		toPrint=toPrint+"+ "+model->data(model->index(i,4)).toString()+", "+model->data(model->index(i,5)).toString()+"; Unit: "+unitSt+"; Phone Number: "+model->data(model->index(i,10)).toString()+"\n\n";
+
+	}
+	
+	//Convert to a document and print.
+	QTextDocument *doc = new QTextDocument();
+	doc->setPlainText(toPrint);
+
+	QPrinter printer(QPrinter::ScreenResolution);
 	printer.setPaperSize(QPrinter::Letter);
 	printer.setDocName("cooper/printPhone.pdf");
 	printer.setColorMode(QPrinter::GrayScale);
+	printer.setOutputFormat(QPrinter::PdfFormat);
 
 	QPrintDialog dlg(&printer, this);
 
 	if (dlg.exec() == QDialog::Accepted){
-
-		// calculate the total width/height table would need without scaling
-		const int rows = model->rowCount();
-		const int cols = model->columnCount();
-	
-		double totalWidth = 0.0;
-		for (int c = 0; c < cols; ++c){
-			totalWidth += view->columnWidth(c);
-		}
-	
-		double totalHeight = 0.0;
-		for (int r = 0; r < rows; ++r){
-			totalHeight += view->rowHeight(r);
-		}
-
-		//totalWidth = totalWidth/cols;
-		//totalHeight = totalHeight/rows;
-
-		// width in pixels = paper width in inches * dpi horizontal/scaling horizontal 
-		// height in pixels = paper height in inches * dpi vertical/scaling vertical 
-
-		qDebug() << totalWidth;
-		qDebug() << totalHeight;
-	
-		//totalWidth =8.5*
-		
-		// redirect table's painting on a pixmap
-		QPixmap pixmap((int)totalWidth, (int)totalHeight);
-		QPainter::setRedirected(view->viewport(), &pixmap);
-		QPaintEvent event(QRect(0, 0, (int)totalWidth, (int)totalHeight));
-		QApplication::sendEvent(view->viewport(), &event);
-		QPainter::restoreRedirected(view->viewport());
-		
-		// print scaled pixmap
-		QPainter painter(&printer);
-		painter.drawPixmap(printer.pageRect(), pixmap, pixmap.rect());
+		doc->print(&printer);
 	}
-	update();
-	repaint();
 	qDebug() << "Printed";
-
 }

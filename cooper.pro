@@ -1,6 +1,8 @@
 CONFIG += qt debug
 QT += sql
 
+QMAKE_CLEAN += cooperDB.sqlite3 db/cooperDB.sqlite3
+
 # If you want to build an OSX ".app", comment the line below
 CONFIG -= app_bundle
 
