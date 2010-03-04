@@ -19,6 +19,8 @@ HEADERS += src/model/LoginModel.h
 SOURCES += src/model/LoginModel.cc
 HEADERS += src/model/CreateUser.h
 SOURCES += src/model/CreateUser.cc
+HEADERS += src/model/ViewPhone.h
+SOURCES += src/model/ViewPhone.cc
 
 # Views
 
@@ -28,6 +30,7 @@ FORMS += src/view/CoordPassword.ui
 FORMS += src/view/AddNewCommittee.ui
 FORMS += src/view/LoginError.ui
 FORMS += src/view/MemberInformation.ui
+FORMS += src/view/ViewPhone.ui
 
 
 # Delegates

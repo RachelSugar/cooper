@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 	QApplication app(argc, argv);
 
 	Database db(DB_PATH);
-	db.close();
+	//db.close();
 	
 	runGUI();
 	
