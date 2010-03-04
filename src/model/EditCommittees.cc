@@ -1,3 +1,8 @@
+/*
+*	Displays committees and allows user to edit and delete
+*	Problem with displaying table; will not display a committee unless its
+*	foreign keys("id", "user_name") are mapped and defined.
+*/
 #include "EditCommittees.h"
 #include <QtGui>
 #include <QtSql>
