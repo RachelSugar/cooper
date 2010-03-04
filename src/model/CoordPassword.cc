@@ -21,6 +21,16 @@ void CoordPassword::checkPassword(){
 		QString text = "INSERT INTO users VALUES(NULL,1,'coord','" + password + "','NULL','NULL',20,1,1,43,'NULL',0,0,'0')";
 		qDebug()<< "true: " << query2.exec((text));
 		
+		 "INSERT INTO committees VALUES(NULL, Board, NULL,NULL)"
+		CREATE TABLE committees (id INTEGER PRIMARY KEY, name TEXT, chair_id INTEGER, secretary_id INTEGER);
+		
+		QSqlQuery = query;
+		qDebug() << query.exec("INSERT INTO committees VALUES(NULL, Board, NULL,NULL)");
+		qDebug() << query.exec("INSERT INTO committees VALUES(NULL, Inspections, NULL,NULL)");
+		qDebug() << query.exec("INSERT INTO committees VALUES(NULL, Membership, NULL,NULL)");
+		qDebug() << query.exec("INSERT INTO committees VALUES(NULL, Education, NULL,NULL)");
+		qDebug() << query.exec("INSERT INTO committees VALUES(NULL, MemberRelations, NULL,NULL)");
+		
 		this->close();
 		Login *login = new Login();
 		login->show();
