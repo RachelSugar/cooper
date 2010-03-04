@@ -16,9 +16,10 @@ SOURCES += src/Application.cc
 # Models
 
 SOURCES += src/model/LoginModel.cc
-SOURCES += src/model/LoginModel.h
 SOURCES += src/model/CreateUser.cc
-SOURCES += src/model/CreateUser.h
+
+HEADERS += src/model/LoginModel.h
+HEADERS += src/model/CreateUser.h
 
 # Views
 

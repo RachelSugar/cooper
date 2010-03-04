@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'CreateUser.ui'
 **
-** Created: Wed Mar 3 20:55:23 2010
+** Created: Wed Mar 3 22:43:53 2010
 **      by: Qt User Interface Compiler version 4.4.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -17,103 +17,94 @@
 #include <QtGui/QButtonGroup>
 #include <QtGui/QCheckBox>
 #include <QtGui/QDateEdit>
-#include <QtGui/QDialog>
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QLabel>
 #include <QtGui/QLineEdit>
-#include <QtGui/QTextEdit>
+#include <QtGui/QWidget>
 
 QT_BEGIN_NAMESPACE
 
-class Ui_Dialog
+class Ui_CreateUser
 {
 public:
+    QLabel *label_2;
+    QLineEdit *userName;
+    QLabel *label_3;
+    QDialogButtonBox *saveCancel;
     QLineEdit *firstName;
     QLineEdit *lastName;
-    QLabel *label_2;
-    QLabel *label;
-    QLabel *label_3;
-    QTextEdit *pastAddress;
-    QLabel *label_4;
-    QLineEdit *unit;
-    QLabel *label_5;
     QLineEdit *telephone;
-    QLabel *label_6;
-    QDateEdit *moveInDate;
+    QLineEdit *unit;
     QLabel *label_7;
-    QLineEdit *userName;
-    QLineEdit *password;
     QLabel *label_8;
+    QLineEdit *password;
+    QDateEdit *moveInDate;
     QLabel *label_9;
-    QDialogButtonBox *accept;
-    QLabel *label_10;
     QCheckBox *privateTele;
+    QLabel *label_5;
+    QLabel *label_10;
+    QLabel *label;
+    QLabel *label_4;
+    QLabel *label_6;
+    QLineEdit *pastAddress;
 
-    void setupUi(QDialog *Dialog)
+    void setupUi(QWidget *CreateUser)
     {
-    if (Dialog->objectName().isEmpty())
-        Dialog->setObjectName(QString::fromUtf8("Dialog"));
-    Dialog->resize(543, 364);
-    firstName = new QLineEdit(Dialog);
-    firstName->setObjectName(QString::fromUtf8("firstName"));
-    firstName->setGeometry(QRect(20, 80, 181, 29));
-    lastName = new QLineEdit(Dialog);
-    lastName->setObjectName(QString::fromUtf8("lastName"));
-    lastName->setGeometry(QRect(280, 80, 191, 29));
-    label_2 = new QLabel(Dialog);
+    if (CreateUser->objectName().isEmpty())
+        CreateUser->setObjectName(QString::fromUtf8("CreateUser"));
+    CreateUser->resize(546, 376);
+    label_2 = new QLabel(CreateUser);
     label_2->setObjectName(QString::fromUtf8("label_2"));
-    label_2->setGeometry(QRect(280, 60, 61, 19));
-    label = new QLabel(Dialog);
-    label->setObjectName(QString::fromUtf8("label"));
-    label->setGeometry(QRect(20, 60, 61, 19));
-    label_3 = new QLabel(Dialog);
-    label_3->setObjectName(QString::fromUtf8("label_3"));
-    label_3->setGeometry(QRect(20, 40, 81, 19));
-    pastAddress = new QTextEdit(Dialog);
-    pastAddress->setObjectName(QString::fromUtf8("pastAddress"));
-    pastAddress->setGeometry(QRect(20, 140, 271, 75));
-    label_4 = new QLabel(Dialog);
-    label_4->setObjectName(QString::fromUtf8("label_4"));
-    label_4->setGeometry(QRect(20, 120, 121, 19));
-    unit = new QLineEdit(Dialog);
-    unit->setObjectName(QString::fromUtf8("unit"));
-    unit->setGeometry(QRect(460, 150, 61, 29));
-    label_5 = new QLabel(Dialog);
-    label_5->setObjectName(QString::fromUtf8("label_5"));
-    label_5->setGeometry(QRect(460, 110, 71, 41));
-    telephone = new QLineEdit(Dialog);
-    telephone->setObjectName(QString::fromUtf8("telephone"));
-    telephone->setGeometry(QRect(300, 150, 113, 29));
-    telephone->setMaxLength(10);
-    label_6 = new QLabel(Dialog);
-    label_6->setObjectName(QString::fromUtf8("label_6"));
-    label_6->setGeometry(QRect(300, 120, 61, 19));
-    moveInDate = new QDateEdit(Dialog);
-    moveInDate->setObjectName(QString::fromUtf8("moveInDate"));
-    moveInDate->setGeometry(QRect(20, 250, 110, 29));
-    moveInDate->setDate(QDate(2010, 3, 4));
-    label_7 = new QLabel(Dialog);
-    label_7->setObjectName(QString::fromUtf8("label_7"));
-    label_7->setGeometry(QRect(20, 230, 91, 19));
-    userName = new QLineEdit(Dialog);
+    label_2->setGeometry(QRect(280, 70, 61, 19));
+    userName = new QLineEdit(CreateUser);
     userName->setObjectName(QString::fromUtf8("userName"));
-    userName->setGeometry(QRect(170, 250, 113, 29));
-    password = new QLineEdit(Dialog);
-    password->setObjectName(QString::fromUtf8("password"));
-    password->setGeometry(QRect(330, 250, 113, 29));
-    label_8 = new QLabel(Dialog);
+    userName->setGeometry(QRect(170, 260, 113, 29));
+    label_3 = new QLabel(CreateUser);
+    label_3->setObjectName(QString::fromUtf8("label_3"));
+    label_3->setGeometry(QRect(20, 50, 81, 19));
+    saveCancel = new QDialogButtonBox(CreateUser);
+    saveCancel->setObjectName(QString::fromUtf8("saveCancel"));
+    saveCancel->setGeometry(QRect(340, 310, 166, 32));
+    saveCancel->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Save);
+    firstName = new QLineEdit(CreateUser);
+    firstName->setObjectName(QString::fromUtf8("firstName"));
+    firstName->setGeometry(QRect(20, 90, 181, 29));
+    lastName = new QLineEdit(CreateUser);
+    lastName->setObjectName(QString::fromUtf8("lastName"));
+    lastName->setGeometry(QRect(280, 90, 191, 29));
+    telephone = new QLineEdit(CreateUser);
+    telephone->setObjectName(QString::fromUtf8("telephone"));
+    telephone->setGeometry(QRect(300, 160, 111, 31));
+    telephone->setMaxLength(10);
+    unit = new QLineEdit(CreateUser);
+    unit->setObjectName(QString::fromUtf8("unit"));
+    unit->setGeometry(QRect(460, 160, 61, 29));
+    label_7 = new QLabel(CreateUser);
+    label_7->setObjectName(QString::fromUtf8("label_7"));
+    label_7->setGeometry(QRect(20, 240, 91, 19));
+    label_8 = new QLabel(CreateUser);
     label_8->setObjectName(QString::fromUtf8("label_8"));
-    label_8->setGeometry(QRect(170, 230, 81, 19));
-    label_9 = new QLabel(Dialog);
+    label_8->setGeometry(QRect(170, 240, 81, 19));
+    password = new QLineEdit(CreateUser);
+    password->setObjectName(QString::fromUtf8("password"));
+    password->setGeometry(QRect(330, 260, 113, 29));
+    moveInDate = new QDateEdit(CreateUser);
+    moveInDate->setObjectName(QString::fromUtf8("moveInDate"));
+    moveInDate->setGeometry(QRect(20, 260, 110, 29));
+    moveInDate->setButtonSymbols(QAbstractSpinBox::UpDownArrows);
+    moveInDate->setDate(QDate(2010, 3, 4));
+    label_9 = new QLabel(CreateUser);
     label_9->setObjectName(QString::fromUtf8("label_9"));
-    label_9->setGeometry(QRect(330, 230, 61, 19));
-    accept = new QDialogButtonBox(Dialog);
-    accept->setObjectName(QString::fromUtf8("accept"));
-    accept->setGeometry(QRect(340, 300, 166, 32));
-    accept->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Save);
-    label_10 = new QLabel(Dialog);
+    label_9->setGeometry(QRect(330, 240, 61, 19));
+    privateTele = new QCheckBox(CreateUser);
+    privateTele->setObjectName(QString::fromUtf8("privateTele"));
+    privateTele->setGeometry(QRect(300, 190, 121, 25));
+    label_5 = new QLabel(CreateUser);
+    label_5->setObjectName(QString::fromUtf8("label_5"));
+    label_5->setGeometry(QRect(460, 120, 71, 41));
+    label_10 = new QLabel(CreateUser);
     label_10->setObjectName(QString::fromUtf8("label_10"));
-    label_10->setGeometry(QRect(170, 10, 191, 19));
+    label_10->setGeometry(QRect(170, 20, 191, 19));
     label_10->setMinimumSize(QSize(191, 0));
     QFont font;
     font.setPointSize(15);
@@ -121,39 +112,48 @@ public:
     font.setUnderline(true);
     font.setWeight(75);
     label_10->setFont(font);
-    privateTele = new QCheckBox(Dialog);
-    privateTele->setObjectName(QString::fromUtf8("privateTele"));
-    privateTele->setGeometry(QRect(300, 180, 121, 25));
+    label = new QLabel(CreateUser);
+    label->setObjectName(QString::fromUtf8("label"));
+    label->setGeometry(QRect(20, 70, 61, 19));
+    label_4 = new QLabel(CreateUser);
+    label_4->setObjectName(QString::fromUtf8("label_4"));
+    label_4->setGeometry(QRect(20, 130, 121, 19));
+    label_6 = new QLabel(CreateUser);
+    label_6->setObjectName(QString::fromUtf8("label_6"));
+    label_6->setGeometry(QRect(300, 130, 61, 19));
+    pastAddress = new QLineEdit(CreateUser);
+    pastAddress->setObjectName(QString::fromUtf8("pastAddress"));
+    pastAddress->setGeometry(QRect(20, 150, 251, 81));
 
-    retranslateUi(Dialog);
+    retranslateUi(CreateUser);
 
-    QMetaObject::connectSlotsByName(Dialog);
+    QMetaObject::connectSlotsByName(CreateUser);
     } // setupUi
 
-    void retranslateUi(QDialog *Dialog)
+    void retranslateUi(QWidget *CreateUser)
     {
-    Dialog->setWindowTitle(QApplication::translate("Dialog", "Dialog", 0, QApplication::UnicodeUTF8));
+    CreateUser->setWindowTitle(QApplication::translate("CreateUser", "Form", 0, QApplication::UnicodeUTF8));
+    label_2->setText(QApplication::translate("CreateUser", "Last:", 0, QApplication::UnicodeUTF8));
+    label_3->setText(QApplication::translate("CreateUser", "Enter Name", 0, QApplication::UnicodeUTF8));
     firstName->setText(QString());
-    label_2->setText(QApplication::translate("Dialog", "Last:", 0, QApplication::UnicodeUTF8));
-    label->setText(QApplication::translate("Dialog", "First", 0, QApplication::UnicodeUTF8));
-    label_3->setText(QApplication::translate("Dialog", "Enter Name", 0, QApplication::UnicodeUTF8));
-    label_4->setText(QApplication::translate("Dialog", "Pre-Coop Address", 0, QApplication::UnicodeUTF8));
-    label_5->setText(QApplication::translate("Dialog", "Unit to \n"
+    telephone->setInputMask(QApplication::translate("CreateUser", "DDDDDDDDDD; ", 0, QApplication::UnicodeUTF8));
+    label_7->setText(QApplication::translate("CreateUser", "Move in Date", 0, QApplication::UnicodeUTF8));
+    label_8->setText(QApplication::translate("CreateUser", "User Name", 0, QApplication::UnicodeUTF8));
+    label_9->setText(QApplication::translate("CreateUser", "Password", 0, QApplication::UnicodeUTF8));
+    privateTele->setText(QApplication::translate("CreateUser", "Private Tele?", 0, QApplication::UnicodeUTF8));
+    label_5->setText(QApplication::translate("CreateUser", "Unit to \n"
 "move  into", 0, QApplication::UnicodeUTF8));
-    telephone->setInputMask(QApplication::translate("Dialog", "DDDDDDDDDD; ", 0, QApplication::UnicodeUTF8));
-    label_6->setText(QApplication::translate("Dialog", "Tele. #", 0, QApplication::UnicodeUTF8));
-    label_7->setText(QApplication::translate("Dialog", "Move in Date", 0, QApplication::UnicodeUTF8));
-    label_8->setText(QApplication::translate("Dialog", "User Name", 0, QApplication::UnicodeUTF8));
-    label_9->setText(QApplication::translate("Dialog", "Password", 0, QApplication::UnicodeUTF8));
-    label_10->setText(QApplication::translate("Dialog", "CREATE MEMBER", 0, QApplication::UnicodeUTF8));
-    privateTele->setText(QApplication::translate("Dialog", "Private Tele#?", 0, QApplication::UnicodeUTF8));
-    Q_UNUSED(Dialog);
+    label_10->setText(QApplication::translate("CreateUser", "CREATE MEMBER", 0, QApplication::UnicodeUTF8));
+    label->setText(QApplication::translate("CreateUser", "First", 0, QApplication::UnicodeUTF8));
+    label_4->setText(QApplication::translate("CreateUser", "Pre-Coop Address", 0, QApplication::UnicodeUTF8));
+    label_6->setText(QApplication::translate("CreateUser", "Tele. ", 0, QApplication::UnicodeUTF8));
+    Q_UNUSED(CreateUser);
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class Dialog: public Ui_Dialog {};
+    class CreateUser: public Ui_CreateUser {};
 } // namespace Ui
 
 QT_END_NAMESPACE
