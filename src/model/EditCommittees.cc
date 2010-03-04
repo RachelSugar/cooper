@@ -15,8 +15,8 @@ CREATE TABLE committees (id INTEGER PRIMARY KEY, name TEXT, chair_id INTEGER, se
 	model->setTable("committees");
 	
 	//temporarily exclude until AddNewCommittee maps userid properly
-	//model->setRelation(2, QSqlRelation("users","id","user_name"));
-	//model->setRelation(3, QSqlRelation("users","id","user_name"));
+	model->setRelation(2, QSqlRelation("users","id","user_name"));
+	model->setRelation(3, QSqlRelation("users","id","user_name"));
 	
 	model->setHeaderData(2, Qt::Horizontal, tr("Chair username"));
 	model->setHeaderData(3, Qt::Horizontal, tr("Secretary username"));
@@ -37,7 +37,7 @@ CREATE TABLE committees (id INTEGER PRIMARY KEY, name TEXT, chair_id INTEGER, se
 }
 
 void EditCommittees::saveCommittee(){
-	
+	// replaced by a submitAll() call on the model...
 }
 
 void EditCommittees::deleteCommittee(){
