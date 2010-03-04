@@ -96,7 +96,8 @@ CREATE TABLE users (
 
 	//Relate the foreign keys in the table to the units database table
 	model->setRelation(9, QSqlRelation("units", "id", "number"));
-	//model->submitAll();
+	model->select();
+	model->submitAll();
 
 	//Format the tableview to look good.
 	view->setModel(model);
