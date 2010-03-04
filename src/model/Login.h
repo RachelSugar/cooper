@@ -1,15 +1,15 @@
-#ifndef LOGINMODEL_H
-#define LOGINMODEL_H
+#ifndef LOGIN_H
+#define LOGIN_H
 
 #include "../../ui_Login.h"
 #include <QString>
 
-class LoginModel {
+class Login {
 	
 public:
-	bool runLoginDialog();
-	bool checkUserInfo(QString name, QString password);
+	void runLoginDialog();
+	void checkUserInfo(QString name, QString password);
 	void displayError();
 };
 
-#endif //LOGINMODEL_H
+#endif //LOGIN_H
