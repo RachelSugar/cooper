@@ -1,4 +1,4 @@
-CREATE TABLE Units (id int NOT NULL PRIMARY KEY, number varchar(255));
-CREATE TABLE Users (id int NOT NULL PRIMARY KEY, is_coordinator boolean, user_name varchar(255), password varchar(255), first_name varchar(255), last_name varchar(255), committee_id int, is_resident boolean, unit_id int, phone_number varchar(255), phone_number_is_public boolean, in_arrears boolean);
-CREATE TABLE Committees (id int NOT NULL PRIMARY KEY, name varchar(255), chair_id int, secretary_id int);
-CREATE TABLE Tasks (id int NOT NULL PRIMARY KEY, description varchar(255), committee_id int, is_complete boolean, due_date date);
+CREATE TABLE Units (id INTEGER PRIMARY KEY, number TEXT);
+CREATE TABLE Users (id INTEGER PRIMARY KEY, is_coordinator INTEGER, user_name TEXT, password TEXT, first_name TEXT, last_name TEXT, committee_id INTEGER, is_resident INTEGER, unit_id INTEGER, phone_number TEXT, phone_number_is_public INTEGER, in_arrears INTEGER);
+CREATE TABLE Committees (id INTEGER PRIMARY KEY, name TEXT, chair_id INTEGER, secretary_id INTEGER);
+CREATE TABLE Tasks (id INTEGER PRIMARY KEY, description TEXT, committee_id INTEGER, is_complete INTEGER, due_date TEXT);
