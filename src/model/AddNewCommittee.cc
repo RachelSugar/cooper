@@ -22,7 +22,7 @@ AddNewCommittee::AddNewCommittee(QWidget *parent){
 	setupUi(this);
 
 	if(DEBUG == 1){
-		qDebug() << "Setting up box";
+		//qDebug() << "Setting up box";
 	}
 	
 	connect( acceptRejectButtons, SIGNAL( rejected()), this, SLOT ( close()));
@@ -59,8 +59,8 @@ void AddNewCommittee::save() {
 	QString chair = chairEdit->text();
 	QString secretary = secretaryEdit->text();
 
-	int chairID;
-	int secID;
+	int chairID = noEntry;
+	int secID = noEntry;
 
 	// if the name is not empty, check for conflicts and gets this name's key
 	if(chair != none){
@@ -71,10 +71,8 @@ void AddNewCommittee::save() {
 		}
 
 		// find the key associated with this name in the "users" table
-		QSqlQuery chairQuery;
-		chairQuery.prepare("SELECT id FROM users WHERE last_name = ':chair'");
-		chairQuery.bindValue(":chair", chair);
-		chairQuery.exec();
+		QString text = "SELECT id FROM users WHERE user_name = '" + chair + "'";
+		QSqlQuery chairQuery(text);
 
 		if(chairQuery.next()){
 			chairID = chairQuery.value(0).toInt();
@@ -84,9 +82,7 @@ void AddNewCommittee::save() {
 			qDebug() << chairID;
 		}
 
-	} else {
-		chairID = noEntry;
-	}
+	} 
 	
 	// if the name is not empty, check for conflicts and gets this name's key
 	if(secretary != none){
@@ -98,10 +94,8 @@ void AddNewCommittee::save() {
 		}
 
 		// find the key associated with this name in the "users" table
-		QSqlQuery secQuery;
-		secQuery.prepare("SELECT id FROM users WHERE last_name = ':secretary'");
-		secQuery.bindValue(":secretary", secretary);
-		secQuery.exec();
+		QString text = "SELECT id FROM users WHERE user_name = '" + secretary + "'";
+		QSqlQuery secQuery(text);
 
 		if(secQuery.next()){
 			secID = secQuery.value(0).toInt();
@@ -111,8 +105,6 @@ void AddNewCommittee::save() {
 			qDebug() << secID;
 		}
 
-	} else {
-		secID = noEntry;
 	}
 
 	// create a new entry in the database
