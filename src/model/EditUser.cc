@@ -3,7 +3,7 @@
 #include <QSqlQuery>
 // including <QtGui> saves us to include every class user, <QString>, <QFileDialog>,...
 
-EditUser::EditUser(QWidget *parent)
+EditUser::EditUser(QWidget *parent,bool isCoord)
 {
 	setupUi(this); // this sets up GUI
 
@@ -13,6 +13,11 @@ EditUser::EditUser(QWidget *parent)
 	connect( saveCancel, SIGNAL( accepted() ), this, SLOT( getSave() ) ); 
 	connect( deleteUser, SIGNAL(clicked() ), this, SLOT( deleteUse() ) );
 	connect( getUser, SIGNAL(clicked() ), this, SLOT( getToEdit() ) ); 
+	
+	if(isCoord == false){
+		saveCancel->setEnabled(false);
+		deleteUser->setEnabled(false);
+	}
 	
 	
 	

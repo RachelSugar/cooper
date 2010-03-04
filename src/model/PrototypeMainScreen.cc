@@ -7,10 +7,11 @@
 #include "AddNewCommittee.h"
 #include "EditCommittees.h"
 #include "EditUser.h"
-
-PrototypeMainScreen::PrototypeMainScreen(QWidget *parent){
+#include "ViewPhone.h"
+bool coord;
+PrototypeMainScreen::PrototypeMainScreen(bool isCoord){
 	setupUi(this);
-
+	coord = isCoord;
 	connect(AddCommitteeButton,SIGNAL(clicked()),this,SLOT(addCommittee()));
 	connect(AddMemberButton,SIGNAL(clicked()),this,SLOT(addMember()));
 	connect(PrintPrivatePhoneButton,SIGNAL(clicked()),this,SLOT(printPrivate()));
@@ -18,6 +19,13 @@ PrototypeMainScreen::PrototypeMainScreen(QWidget *parent){
 	connect(ViewCommitteesButton,SIGNAL(clicked()),this,SLOT(editCommit()));
 	connect(ViewMemberInfoButton,SIGNAL(clicked()),this,SLOT(viewMembers()));
 	connect(ExitButton,SIGNAL(clicked()),this,SLOT(close()));
+	
+	if(isCoord == false){
+		AddMemberButton->setEnabled(false);
+		PrintPrivatePhoneButton->setEnabled(false);
+		ViewCommitteesButton->setEnabled(false);
+		AddCommitteeButton->setEnabled(false);
+	}
 }
 
 void PrototypeMainScreen::addCommittee(){
@@ -27,24 +35,25 @@ void PrototypeMainScreen::addCommittee(){
 
 void PrototypeMainScreen::addMember(){
 	CreateUser *create = new CreateUser(this);
-
-    create->show();
+	create->show();
 }
 
 void PrototypeMainScreen::printPrivate(){
+	ViewPhone *vp = new ViewPhone(this, true);
+	vp->show();
 }
 
 void PrototypeMainScreen::printPublic(){
+	ViewPhone *vp = new ViewPhone(this, false);
+	vp->show();
 }
 
 void PrototypeMainScreen::editCommit(){
 	EditCommittees *eCommit = new EditCommittees(this);
 	eCommit->show();
-
 }
 
 void PrototypeMainScreen::viewMembers(){
-	EditUser *edUsr = new EditUser(this);
+	EditUser *edUsr = new EditUser(this, coord);
 	edUsr->show();
-
 }
