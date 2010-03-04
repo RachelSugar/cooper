@@ -1,6 +1,10 @@
 #include "EditCommittees.h"
 #include <QtGui>
 #include <QtSql>
+#include <QItemSelectionModel>
+#include <QModelIndex>
+
+QSqlRelationalTableModel *Cmodel;
 
 EditCommittees::EditCommittees(QWidget *parent){
 	setupUi(this);
@@ -11,26 +15,26 @@ CREATE TABLE committees (id INTEGER PRIMARY KEY, name TEXT, chair_id INTEGER, se
 
 */
 
-	QSqlRelationalTableModel *model = new QSqlRelationalTableModel(this);
-	model->setTable("committees");
+	Cmodel = new QSqlRelationalTableModel(this);
+	Cmodel->setTable("committees");
 	
 	//temporarily exclude until AddNewCommittee maps userid properly
-	model->setRelation(2, QSqlRelation("users","id","user_name"));
-	model->setRelation(3, QSqlRelation("users","id","user_name"));
+	Cmodel->setRelation(2, QSqlRelation("users","id","user_name"));
+	Cmodel->setRelation(3, QSqlRelation("users","id","user_name"));
 	
-	model->setHeaderData(2, Qt::Horizontal, tr("Chair username"));
-	model->setHeaderData(3, Qt::Horizontal, tr("Secretary username"));
+	Cmodel->setHeaderData(2, Qt::Horizontal, tr("Chair username"));
+	Cmodel->setHeaderData(3, Qt::Horizontal, tr("Secretary username"));
 	
-	model->select();
+	Cmodel->select();
 	
-	view->setModel(model);
+	view->setModel(Cmodel);
 	view->setColumnHidden(0, true);
 	
 	QHeaderView * header=view->horizontalHeader();
 	header->setStretchLastSection(true);
 
 	connect(DeleteButton,SIGNAL(clicked()), this, SLOT(deleteCommittee()));
-	connect(SaveButton,SIGNAL(clicked()), model, SLOT(submitAll()));
+	connect(SaveButton,SIGNAL(clicked()), Cmodel, SLOT(submitAll()));
 	connect(SaveButton,SIGNAL(clicked()), this, SLOT(close()));
 	connect(CancelButton,SIGNAL(clicked()), this, SLOT(close()));
 
@@ -41,5 +45,9 @@ void EditCommittees::saveCommittee(){
 }
 
 void EditCommittees::deleteCommittee(){
+	QItemSelectionModel *selected = view->selectionModel();
+	QModelIndex index = selected->currentIndex();
+	Cmodel->removeRows(index.row(), 1, QModelIndex());
 
+	//this->close();
 }

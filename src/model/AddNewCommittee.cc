@@ -5,6 +5,7 @@
 * 04 Mar 10, sometime later - database insertion done. also displays
 		errors if input is empty. no checking for correctness
 		of input.
+  even later - have problem with storing a committee with no Chair, Secretary, or neither.
 *
 */
 
@@ -22,7 +23,7 @@ AddNewCommittee::AddNewCommittee(QWidget *parent){
 	setupUi(this);
 
 	if(DEBUG == 1){
-		//qDebug() << "Setting up box";
+		qDebug() << "Setting up box";
 	}
 	
 	connect( acceptRejectButtons, SIGNAL( rejected()), this, SLOT ( close()));
@@ -59,8 +60,8 @@ void AddNewCommittee::save() {
 	QString chair = chairEdit->text();
 	QString secretary = secretaryEdit->text();
 
-	int chairID = noEntry;
-	int secID = noEntry;
+	int chairID = NULL;
+	int secID = NULL;
 
 	// if the name is not empty, check for conflicts and gets this name's key
 	if(chair != none){
