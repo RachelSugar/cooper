@@ -27,6 +27,7 @@ void CreateUser::getSave()
 	QString unitx = unit->text();
 	QDate movDate = moveInDate->date();
 	bool hidden = privateTele->isChecked();
+	bool ofAge = over21->isChecked();
 	
 	//cheap error detection for time being
 	if(fName.length() == 0 || lName.length() == 0 || uName.length() == 0 || pass.length() == 0 \
@@ -45,7 +46,8 @@ void CreateUser::getSave()
 	qDebug() << "pastAddress = " << pastAdd;
 	qDebug() << "unit = " << unitx;
 	qDebug() << "date = " << movDate;	
-	qDebug() << "private? = " << hidden;	
+	qDebug() << "private? = " << hidden;
+	qDebug() << "of age? = " << ofAge;	
   
 }
 
