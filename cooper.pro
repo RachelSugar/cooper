@@ -20,14 +20,22 @@ SOURCES += src/model/LoginModel.cc
 HEADERS += src/model/CreateUser.h
 SOURCES += src/model/CreateUser.cc
 <<<<<<< HEAD
+<<<<<<< HEAD
 HEADERS += src/model/ViewPhone.h
 SOURCES += src/model/ViewPhone.cc
 =======
+=======
+>>>>>>> 9d314d029d3b6eb806ecb09ca4872e47b9fac5b8
 HEADERS += src/model/PrototypeMainScreen.h
 SOURCES += src/model/PrototypeMainScreen.cc
 HEADERS += src/model/AddNewCommittee.h
 SOURCES += src/model/AddNewCommittee.cc
+<<<<<<< HEAD
 >>>>>>> c0bedab9e172ea152b9270a241b5ad8728070289
+=======
+HEADERS += src/model/EditCommittees.h
+SOURCES += src/model/EditCommittees.cc
+>>>>>>> 9d314d029d3b6eb806ecb09ca4872e47b9fac5b8
 
 # Views
 FORMS += src/view/PrototypeMainScreen.ui
@@ -37,7 +45,11 @@ FORMS += src/view/CoordPassword.ui
 FORMS += src/view/AddNewCommittee.ui
 FORMS += src/view/LoginError.ui
 FORMS += src/view/MemberInformation.ui
+<<<<<<< HEAD
 FORMS += src/view/ViewPhone.ui
+=======
+FORMS += src/view/EditCommittees.ui
+>>>>>>> 9d314d029d3b6eb806ecb09ca4872e47b9fac5b8
 
 
 # Delegates

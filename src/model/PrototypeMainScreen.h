@@ -16,7 +16,7 @@ public slots:
 	void addMember();
 	void printPrivate();
 	void printPublic();
-	void viewCommittees();
+	void editCommit();
 	void viewMembers();
 };
 
