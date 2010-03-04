@@ -21,33 +21,27 @@ void Login::checkUserInfo(){
 	QString password = passwordBox->text();
 	qDebug() << "username: " << username;
 	qDebug() << "password: " << password;
-	if(username == "coord" && password == "pass"){
-		PrototypeMainScreen *screen = new PrototypeMainScreen();
-		this->close();
-		screen->show();
-	}
-	else {
-		QString text = "SELECT password FROM users WHERE user_name = '" + username + "'";
-		qDebug() << text;
-		QSqlQuery query(text);
-		if(query.next()){
-			qDebug() << "query has results!!!";
-			QString rightPass = query.value(0).toString();
-			if(rightPass == password){
-				qDebug() << "query worked! inside password check";
-				PrototypeMainScreen *screen = new PrototypeMainScreen();
-				this->close();
-				screen->show();
-			}
-			else {
-				displayError();
-			}
+
+	QString text = "SELECT password FROM users WHERE user_name = '" + username + "'";
+	qDebug() << text;
+	QSqlQuery query(text);
+	if(query.next()){
+		qDebug() << "query has results!!!";
+		QString rightPass = query.value(0).toString();
+		qDebug()<< rightPass;
+		if(rightPass == password){
+			qDebug() << "query worked! inside password check";
+			PrototypeMainScreen *screen = new PrototypeMainScreen();
+			this->close();
+			screen->show();
 		}
 		else {
 			displayError();
 		}
 	}
-
+	else {
+		displayError();
+	}
 }
 
 // shows an error dialog if incorrect info is entered

@@ -1,6 +1,10 @@
 #include "EditCommittees.h"
 #include <QtGui>
 #include <QtSql>
+#include <QItemSelectionModel>
+#include <QModelIndex>
+
+QSqlRelationalTableModel *Cmodel;
 
 EditCommittees::EditCommittees(QWidget *parent){
 	setupUi(this);
@@ -11,35 +15,58 @@ CREATE TABLE committees (id INTEGER PRIMARY KEY, name TEXT, chair_id INTEGER, se
 
 */
 
-	QSqlRelationalTableModel *model = new QSqlRelationalTableModel(this);
-	model->setTable("committees");
+	Cmodel = new QSqlRelationalTableModel(this);
+	Cmodel->setTable("committees");
 	
 	//temporarily exclude until AddNewCommittee maps userid properly
-	//model->setRelation(2, QSqlRelation("users","id","user_name"));
-	//model->setRelation(3, QSqlRelation("users","id","user_name"));
+	Cmodel->setRelation(2, QSqlRelation("users","id","user_name"));
+	Cmodel->setRelation(3, QSqlRelation("users","id","user_name"));
 	
-	model->setHeaderData(2, Qt::Horizontal, tr("Chair username"));
-	model->setHeaderData(3, Qt::Horizontal, tr("Secretary username"));
+	Cmodel->setHeaderData(2, Qt::Horizontal, tr("Chair username"));
+	Cmodel->setHeaderData(3, Qt::Horizontal, tr("Secretary username"));
 	
-	model->select();
+	Cmodel->select();
 	
-	view->setModel(model);
+	view->setModel(Cmodel);
 	view->setColumnHidden(0, true);
 	
 	QHeaderView * header=view->horizontalHeader();
 	header->setStretchLastSection(true);
 
 	connect(DeleteButton,SIGNAL(clicked()), this, SLOT(deleteCommittee()));
-	connect(SaveButton,SIGNAL(clicked()), model, SLOT(submitAll()));
-	connect(SaveButton,SIGNAL(clicked()), this, SLOT(close()));
+	connect(SaveButton,SIGNAL(clicked()), this, SLOT(saveCommittee()));
 	connect(CancelButton,SIGNAL(clicked()), this, SLOT(close()));
 
 }
 
 void EditCommittees::saveCommittee(){
-	
+	Cmodel->submitAll();
+	this->close();
 }
 
 void EditCommittees::deleteCommittee(){
+		
+	// ask for confirmation first
+	int ret = QMessageBox::question(this, qApp->tr("Confirm delete committee"),
+			qApp->tr("Are you sure you want to delete this committee?.\n"),
+			QMessageBox::Ok | QMessageBox::Cancel);
+	
+	if(ret == QMessageBox::Ok){
+		QItemSelectionModel *selected = view->selectionModel();
+		QModelIndex index = selected->currentIndex();
 
+		// test to see that selected is not one of the main committees
+		QSqlRecord record = Cmodel->record(index.row());
+		QString name = record.value(1).toString();
+
+		if(name == "Board" || name == "Inspections" || name == "Membership"
+			|| name == "Education" || name == "Member Relations"){
+			QMessageBox::critical(this, qApp->tr("Invalid delete"),
+			qApp->tr("You cannot delete this committee.\n"),
+			QMessageBox::Ok);
+		} else {
+		Cmodel->removeRows(index.row(), 1, QModelIndex());
+		}
+	}
+	//this->close();
 }

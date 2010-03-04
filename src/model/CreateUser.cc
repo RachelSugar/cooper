@@ -25,6 +25,14 @@ void CreateUser::getSave()
 	QDate movDate = moveInDate->date();
 	bool hidden = privateTele->isChecked();
 	bool ofAge = over21->isChecked();
+	bool taken =false;
+	
+	QString checkID = "SELECT user_name FROM users WHERE user_name = '" + uName +"'";
+	
+	QSqlQuery query(checkID);
+	while(query.next()){
+		taken = true;
+	}
 	
 	//cheap error detection for time being
 	if ( fName.length() == 0
@@ -37,14 +45,26 @@ void CreateUser::getSave()
 		QMessageBox::critical(0, qApp->tr("Error:"),
 			qApp->tr("Please fill in all fields.\n"),
 			QMessageBox::Cancel);
+			
+			
+		
+	}
+	else if(taken == true){
+	QMessageBox::critical(0, qApp->tr("Error:"),
+			qApp->tr("Username taken!\n"),
+			QMessageBox::Cancel);
+			userName->clear();
+	
 	}
 	else{
-
+	//look here rachel
+	;
+	
 	QSqlQuery query2; 
-	QString test = "INSERT INTO users VALUES(NULL,0,'" + uName + "','" + pass + "','" + lName + 
-	"','" + fName + "',20,1,1,43,'" + tele +"',0,0,'0')";
+	QString test ="INSERT INTO users VALUES(NULL,0,'" + uName + "','" + pass + "','" + lName + 
+	"','" + fName + "',20,1,1, "+unitx+ ",'" + tele +"',0,0,'0')";
 	//qDebug() << query2.exec(("INSERT INTO users VALUES(NULL,0,'"uName"','"pass"','"lName"','"fName"',20,1,1,43,'"tele"',0,0,'0')"));
-		query2.exec((test));
+		qDebug()<< query2.exec((test));
 	this->close();
     
 	
