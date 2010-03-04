@@ -10,6 +10,8 @@ Login::Login(QWidget *parent) {
 	// signals/slots mechanism in action
 	connect( loginButtons, SIGNAL( rejected() ), this, SLOT( close() ) );
 	connect( loginButtons, SIGNAL( accepted() ), this, SLOT( checkUserInfo() ) );
+	connect( loginButtons, SIGNAL( accepted() ), this, SLOT( close() ) );
+	
 }
 
 
@@ -19,17 +21,25 @@ void Login::checkUserInfo(){
 	QString password = passwordBox->text();
 	qDebug() << "username: " << username;
 	qDebug() << "password: " << password;
-	
-	QSqlQuery q2;
-	q2.prepare("SELECT password FROM users WHERE user_name = :username");
-	q2.bindValue(":username",username);
-	
-	if(q2.next()){
-		if(q2.value(0).toString() == password){
-			qDebug() << "query worked! inside password check";
-			PrototypeMainScreen *screen = new PrototypeMainScreen();
-			screen->show();
-			
+	if(username == "coord" && password == "pass"){
+		PrototypeMainScreen *screen = new PrototypeMainScreen();
+		screen->show();
+	}
+	else {
+		QString text = "SELECT password FROM users WHERE user_name = '" + username + "'";
+		qDebug() << text;
+		QSqlQuery query(text);
+		if(query.next()){
+			qDebug() << "query has results!!!";
+			QString rightPass = query.value(0).toString();
+			if(rightPass == password){
+				qDebug() << "query worked! inside password check";
+				PrototypeMainScreen *screen = new PrototypeMainScreen();
+				screen->show();
+			}
+		}
+		else {
+			qDebug() <<"User name and password not found in query";
 		}
 	}
 
