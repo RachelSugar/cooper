@@ -7,6 +7,7 @@
 #include "AddNewCommittee.h"
 #include "EditCommittees.h"
 #include "EditUser.h"
+#include "ViewPhone.h"
 
 PrototypeMainScreen::PrototypeMainScreen(QWidget *parent){
 	setupUi(this);
@@ -27,24 +28,25 @@ void PrototypeMainScreen::addCommittee(){
 
 void PrototypeMainScreen::addMember(){
 	CreateUser *create = new CreateUser(this);
-
-    create->show();
+	create->show();
 }
 
 void PrototypeMainScreen::printPrivate(){
+	ViewPhone *vp = new ViewPhone(this, true);
+	vp->show();
 }
 
 void PrototypeMainScreen::printPublic(){
+	ViewPhone *vp = new ViewPhone(this, false);
+	vp->show();
 }
 
 void PrototypeMainScreen::editCommit(){
 	EditCommittees *eCommit = new EditCommittees(this);
 	eCommit->show();
-
 }
 
 void PrototypeMainScreen::viewMembers(){
 	EditUser *edUsr = new EditUser(this);
 	edUsr->show();
-
 }
