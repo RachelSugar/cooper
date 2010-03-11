@@ -10,7 +10,6 @@ Login::Login(QWidget *parent) {
 	// signals/slots mechanism in action
 	connect( loginButtons, SIGNAL( rejected() ), this, SLOT( close() ) );
 	connect( loginButtons, SIGNAL( accepted() ), this, SLOT( checkUserInfo() ) );
-//	connect( loginButtons, SIGNAL( accepted() ), this, SLOT( close() ) );
 	
 }
 
@@ -20,21 +19,14 @@ void Login::checkUserInfo(){
 	QString username = usernameBox->text();
 	QString password = passwordBox->text();
 	bool isCoord = false;
-	qDebug() << "username: " << username;
-	qDebug() << "password: " << password;
 
 	QString text = "SELECT password FROM users WHERE user_name = '" + username + "'";
-	qDebug() << text;
 	QSqlQuery query(text);
 	if(query.next()){
-		qDebug() << "query has results!!!";
 		QString rightPass = query.value(0).toString();
-		qDebug()<< rightPass;
 		if(rightPass == password ){
 			if(username == "coord")
 				isCoord = true;
-				
-			qDebug() << "query worked! inside password check";
 			PrototypeMainScreen *screen = new PrototypeMainScreen(isCoord);
 			this->close();
 			screen->show();
