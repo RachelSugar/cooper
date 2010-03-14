@@ -10,7 +10,7 @@ const QString none = "";
 
 
 // flag for extra printing
-const int DEBUG = 0;
+const int DEBUG = 1;
 
 AddNewCommittee::AddNewCommittee(QWidget *parent){
 	setupUi(this);
@@ -34,6 +34,12 @@ void AddNewCommittee::selectSecretary(){
 }
 
 void AddNewCommittee::save() {
+	bool chairValid = false;
+	bool secretaryValid = false;
+
+	QString chairID = 0;
+	QString secretaryID = 0;
+
 	// extract the name of the committee
 	QString name = nameEdit->text();
 
@@ -47,75 +53,99 @@ void AddNewCommittee::save() {
 			qApp->tr("Committee name cannot be empty.\n"),
 			QMessageBox::Ok);
 	} else {
-	// maybe check if committee name already in use
 
-	// extract the chair and secretary names !! this string is not formatted in any way!!
-	QString chair = chairEdit->text();
-	QString secretary = secretaryEdit->text();
+	// name not empty, check if committee name already in use  -- ignores case
+	QString text = "SELECT id FROM committees WHERE name = '" + name + "' COLLATE NOCASE";
+	QSqlQuery nameQuery(text);
 
-	QVariant chairID = "";
-	QVariant secID = "";
+	// name already in use, display error
+	if(nameQuery.next()){
+		QMessageBox::warning(0, qApp->tr("Error"),
+			qApp->tr("This committee name is already in use.\n"),
+			QMessageBox::Ok);
+	} else {
+	// otherwise, continue error checking
 
-	// if the name is not empty, check for conflicts and gets this name's key
-	if(chair != none){
-		// if the selected person is chairing or secretary of a different committee, 
-		// ask for confirmation
+		// extract the chair and secretary names !! this string is not formatted in any way!!
+		QString chair = chairEdit->text();
+		QString secretary = secretaryEdit->text();
+
 		if(DEBUG == 1){
 			qDebug() << chair;
 		}
 
-		// find the key associated with this name in the "users" table
-		QString text = "SELECT id FROM users WHERE user_name = '" + chair + "'";
-		QSqlQuery chairQuery(text);
+		// find the key associated with this name in the "users" table -- ignores case
+		QString chairQueryText = "SELECT id FROM users WHERE user_name = '" + chair + "' COLLATE NOCASE";
+		QSqlQuery chairQuery(chairQueryText);
 
 		if(chairQuery.next()){
-			chairID = chairQuery.value(0).toInt();
+			chairID = chairQuery.value(0).toString();
+			// if the selected person is chairing or secretary of a different committee, 
+			// ask for confirmation. then update the other committee to show the chair is vacant.
+			QString committeeQueryText = "SELECT name FROM committees WHERE chair_id ='" + chairID + "'";
+			QSqlQuery committeeQuery(committeeQueryText);
+
+			if(committeeQuery.next()){
+				QMessageBox::question(0, qApp->tr("Confirm reassigning chair or secretary"),
+					qApp->tr("You are reassigning someone who is a already a committee chair or secretary to be this committee's chair.\n Are you sure you want to do this?"),
+					QMessageBox::Yes | QMessageBox::No);
+			}
+
+			// get confirmation from box, delete chair from the other committee.
+
+			// set valid to true for insertion later
+			chairValid = true;
+
 		} else {
-			chairID = NULL;
+			QMessageBox::warning(0, qApp->tr("Error"),
+				qApp->tr("Chair username does not match any resident.\n"),
+				QMessageBox::Ok);
+			//chairID = NULL;
 		}
 
 		if(DEBUG == 1){
 			qDebug() << chairID;
 		}
 
-	} 
-	
-	// if the name is not empty, check for conflicts and gets this name's key
-	if(secretary != none){
-		// if the selected person is chairing or secretary of a different committee, 
-		// ask for confirmation
-	
 		if(DEBUG == 1){
 			qDebug() << secretary;
 		}
 
-		// find the key associated with this name in the "users" table
-		QString text = "SELECT id FROM users WHERE user_name = '" + secretary + "'";
-		QSqlQuery secQuery(text);
+		// find the key associated with this name in the "users" table -- ignores case
+		QString secretaryQueryText = "SELECT id FROM users WHERE user_name = '" + secretary + "' COLLATE NOCASE";
+		QSqlQuery secretaryQuery(secretaryQueryText);
 
-		if(secQuery.next()){
-			secID = secQuery.value(0).toInt();
+		if(secretaryQuery.next()){
+			secretaryID = secretaryQuery.value(0).toInt();
+			// if the selected person is chairing or secretary of a different committee, 
+			// ask for confirmation. then update the other committee to show the secretary is vacant.
+
+			// not done yet....
+	
+			secretaryValid = true;
 		} else {
-			secID = NULL;
+			QMessageBox::warning(0, qApp->tr("Error"),
+			qApp->tr("Secretary username does not match any resident.\n"),
+			QMessageBox::Ok);
 		}
 
 		if(DEBUG == 1){
-			qDebug() << secID;
+			qDebug() << secretaryID;
 		}
 
-	}
+		// everything okay, create a new entry in the database
+		if(chairValid && secretaryValid){
+			
+			QSqlQuery query;
+			qDebug() << query.prepare("INSERT INTO committees VALUES(NULL, :name, :chairID, :secretaryID)");
+			query.bindValue(":name", name);
+			query.bindValue(":chairID", chairID);
+			query.bindValue(":secretaryID", secretaryID);
+			qDebug() << query.exec();
 
-	// create a new entry in the database
-	QSqlQuery query;
-	qDebug() << query.prepare("INSERT INTO committees VALUES(NULL, :name, :chairID, :secID)");
-	query.bindValue(":name", name);
-	query.bindValue(":chairID", chairID);
-	query.bindValue(":secID", secID);
-	qDebug() << query.exec();
-	//if(chairID < 0)
-	//query.exec("INSERT INTO committees VALUES(NULL, :name," + chairID + "," secID + ")");
-
-	// close the widget
-	this->close();
+			// close the widget
+			this->close();
+			}
+		}
 	}
 }
