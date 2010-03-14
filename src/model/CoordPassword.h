@@ -4,12 +4,15 @@
 #include "../../ui_CoordPassword.h"
 #include <QString>
 
+
 class CoordPassword : public QWidget, private Ui::coordPasswordWidget
 {
 	Q_OBJECT
 
 public:
 	CoordPassword(QWidget *parent = 0);
+	void bulkLoadFile();
+	void loadInData(QString fileLoc);
 
 public slots:
 	void checkPassword();

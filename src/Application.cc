@@ -12,7 +12,6 @@
 void runGUI(){
 
 	QString text = "SELECT user_name FROM users WHERE user_name = 'coord'";
-	qDebug() << text;
 	QSqlQuery query(text);
 	if(query.next()){
 		Login *login = new Login();

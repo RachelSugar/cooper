@@ -1,0 +1,1 @@
+alias qmake = 'qmake -spec macx-g++'
