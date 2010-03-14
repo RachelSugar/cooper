@@ -13,6 +13,7 @@ public:
 	CoordPassword(QWidget *parent = 0);
 	void bulkLoadFile();
 	void loadInData(QString fileLoc);
+	void showError(char *message);
 
 public slots:
 	void checkPassword();

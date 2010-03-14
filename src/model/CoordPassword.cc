@@ -39,9 +39,7 @@ void CoordPassword::checkPassword(){
 		login->show();
 	}
 	else {
-		QMessageBox::warning(0, qApp->tr("Error"),
-			qApp->tr("Please enter a password.\n"),
-			QMessageBox::Ok);
+		showError("Please enter a password. \n");
 	}
 }
 
@@ -51,17 +49,16 @@ void CoordPassword::bulkLoadFile() {
 	while(loaded == FALSE){
 		QString fileLoc = QFileDialog::getOpenFileName(this, tr("Select Bulk Load File"), QDir::currentPath());
 		if(fileLoc != ""){
-			qDebug()<<"File name is: " << fileLoc << endl;
 			if(fileLoc.endsWith ( ".txt")) {
 				loaded = TRUE;
 				loadInData(fileLoc);
 			}
 			else {
-				qDebug() << "Incorrect File Type"<< endl;
+				showError("Please select a .txt file \n");
 			}
 		}
 		else{
-			qDebug()<<"No File Choosen" << endl;
+			showError("You must select a bulk load file to load \n");
 		}
 	}
 }
@@ -73,13 +70,29 @@ void CoordPassword::loadInData(QString fileLoc) {
   	if (bulkfile.open( QIODevice::ReadOnly )) {
 	QTextStream ts( &bulkfile );
     	while (! ts.atEnd() ) {
-			ts >> line;
-      		qDebug() << line << endl;
+			line = ts.readLine();
+      		qDebug() << line;
+			QStringList list = line.split(",");
+			for(int i = 0; i < list.length(); i++){
+				list[i] = list[i].trimmed();
+				qDebug() << list[i];
+			}
+			QSqlQuery q; 
+			QString text = "INSERT INTO units VALUES(NULL,'" + list[0] + "','" + list[1] + "','" + list[2] + "','" + list[3] + "')";
+			qDebug() << text;
+			q.exec((text));
+			
     	}
     	bulkfile.close();
   	}
   	else {
-	  qDebug()<< "Unable to open file"<< endl; 
+		showError("Unable to open file \n");
   	}
+}
+
+void CoordPassword::showError(char *message){
+	QMessageBox::warning(0, qApp->tr("Error"),
+		qApp->tr(message),
+		QMessageBox::Ok);
 }
 
