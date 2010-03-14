@@ -34,12 +34,11 @@ void AddNewCommittee::selectSecretary(){
 }
 
 void AddNewCommittee::save() {
-	bool nameValid = false;
 	bool chairValid = false;
 	bool secretaryValid = false;
 
-	int chairID = 0;
-	int secretaryID = 0;
+	QString chairID = 0;
+	QString secretaryID = 0;
 
 	// extract the name of the committee
 	QString name = nameEdit->text();
@@ -66,25 +65,37 @@ void AddNewCommittee::save() {
 			QMessageBox::Ok);
 	} else {
 	// otherwise, continue error checking
-		nameValid = true;
 
 		// extract the chair and secretary names !! this string is not formatted in any way!!
 		QString chair = chairEdit->text();
 		QString secretary = secretaryEdit->text();
 
-		// if the selected person is chairing or secretary of a different committee, 
-		// ask for confirmation
 		if(DEBUG == 1){
 			qDebug() << chair;
 		}
 
 		// find the key associated with this name in the "users" table -- ignores case
-		QString text = "SELECT id FROM users WHERE user_name = '" + chair + "' COLLATE NOCASE";
-		QSqlQuery chairQuery(text);
+		QString chairQueryText = "SELECT id FROM users WHERE user_name = '" + chair + "' COLLATE NOCASE";
+		QSqlQuery chairQuery(chairQueryText);
 
 		if(chairQuery.next()){
-			chairID = chairQuery.value(0).toInt();
+			chairID = chairQuery.value(0).toString();
+			// if the selected person is chairing or secretary of a different committee, 
+			// ask for confirmation. then update the other committee to show the chair is vacant.
+			QString committeeQueryText = "SELECT name FROM committees WHERE chair_id ='" + chairID + "'";
+			QSqlQuery committeeQuery(committeeQueryText);
+
+			if(committeeQuery.next()){
+				QMessageBox::question(0, qApp->tr("Confirm reassigning chair or secretary"),
+					qApp->tr("You are reassigning someone who is a already a committee chair or secretary to be this committee's chair.\n Are you sure you want to do this?"),
+					QMessageBox::Yes | QMessageBox::No);
+			}
+
+			// get confirmation from box, delete chair from the other committee.
+
+			// set valid to true for insertion later
 			chairValid = true;
+
 		} else {
 			QMessageBox::warning(0, qApp->tr("Error"),
 				qApp->tr("Chair username does not match any resident.\n"),
@@ -96,19 +107,21 @@ void AddNewCommittee::save() {
 			qDebug() << chairID;
 		}
 
-		// if the selected person is chairing or secretary of a different committee, 
-		// ask for confirmation
-	
 		if(DEBUG == 1){
 			qDebug() << secretary;
 		}
 
 		// find the key associated with this name in the "users" table -- ignores case
-		QString text2 = "SELECT id FROM users WHERE user_name = '" + secretary + "' COLLATE NOCASE";
-		QSqlQuery secretaryQuery(text2);
+		QString secretaryQueryText = "SELECT id FROM users WHERE user_name = '" + secretary + "' COLLATE NOCASE";
+		QSqlQuery secretaryQuery(secretaryQueryText);
 
 		if(secretaryQuery.next()){
 			secretaryID = secretaryQuery.value(0).toInt();
+			// if the selected person is chairing or secretary of a different committee, 
+			// ask for confirmation. then update the other committee to show the secretary is vacant.
+
+			// not done yet....
+	
 			secretaryValid = true;
 		} else {
 			QMessageBox::warning(0, qApp->tr("Error"),
@@ -121,7 +134,7 @@ void AddNewCommittee::save() {
 		}
 
 		// everything okay, create a new entry in the database
-		if(nameValid && chairValid && secretaryValid){
+		if(chairValid && secretaryValid){
 			
 			QSqlQuery query;
 			qDebug() << query.prepare("INSERT INTO committees VALUES(NULL, :name, :chairID, :secretaryID)");
