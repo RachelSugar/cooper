@@ -1,6 +1,17 @@
+Prototype 1
+
 Section 3.1  :: points 1, 2
 Section 3.2  :: points 1, 2, 3, 5, 6, 8
 Section 3.3  :: points 2, 3
 Section 3.4  :: points 1, 2
 Section 3.6  :: point  1
 Section 3.11 :: point  1
+
+
+Prototype 2
+
+Section 3.1 :: points 3, 4, 5
+Section 3.2 :: points 4, 7, 8
+Section 3.3 :: points 4, 5, 6
+Section 3.4 :: points 3
+Section 3.5 :: points 1, 2, 3, 4
