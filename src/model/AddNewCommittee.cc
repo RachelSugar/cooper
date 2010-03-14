@@ -10,7 +10,7 @@ const QString none = "";
 
 
 // flag for extra printing
-const int DEBUG = 0;
+const int DEBUG = 1;
 
 AddNewCommittee::AddNewCommittee(QWidget *parent){
 	setupUi(this);
@@ -55,14 +55,14 @@ void AddNewCommittee::save() {
 			QMessageBox::Ok);
 	} else {
 
-	// name not empty, check if committee name already in use
-	QString text = "SELECT id FROM committees WHERE name = '" + name + "' COLLATE SQL_Latin1_General_CP1_CI_AS";
+	// name not empty, check if committee name already in use  -- ignores case
+	QString text = "SELECT id FROM committees WHERE name = '" + name + "' COLLATE NOCASE";
 	QSqlQuery nameQuery(text);
 
-	// already in use, display error
+	// name already in use, display error
 	if(nameQuery.next()){
 		QMessageBox::warning(0, qApp->tr("Error"),
-			qApp->tr("This name is already in use.\n"),
+			qApp->tr("This committee name is already in use.\n"),
 			QMessageBox::Ok);
 	} else {
 	// otherwise, continue error checking
@@ -78,8 +78,8 @@ void AddNewCommittee::save() {
 			qDebug() << chair;
 		}
 
-		// find the key associated with this name in the "users" table
-		QString text = "SELECT id FROM users WHERE user_name = '" + chair + "'";
+		// find the key associated with this name in the "users" table -- ignores case
+		QString text = "SELECT id FROM users WHERE user_name = '" + chair + "' COLLATE NOCASE";
 		QSqlQuery chairQuery(text);
 
 		if(chairQuery.next()){
@@ -96,9 +96,6 @@ void AddNewCommittee::save() {
 			qDebug() << chairID;
 		}
 
-
-	
-
 		// if the selected person is chairing or secretary of a different committee, 
 		// ask for confirmation
 	
@@ -106,9 +103,9 @@ void AddNewCommittee::save() {
 			qDebug() << secretary;
 		}
 
-		// find the key associated with this name in the "users" table
-		QString text = "SELECT id FROM users WHERE user_name = '" + secretary + "'";
-		QSqlQuery secretaryQuery(text);
+		// find the key associated with this name in the "users" table -- ignores case
+		QString text2 = "SELECT id FROM users WHERE user_name = '" + secretary + "' COLLATE NOCASE";
+		QSqlQuery secretaryQuery(text2);
 
 		if(secretaryQuery.next()){
 			secretaryID = secretaryQuery.value(0).toInt();
