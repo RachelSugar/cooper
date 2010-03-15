@@ -23,7 +23,7 @@ void InitialLoad::checkPassword(){
 	QString password = coordPasswordBox->text();
 	if(password.length() > 0){
 		QSqlQuery query2; 
-		QString text = "INSERT INTO users VALUES(NULL,1,'coord','" + password + "','NULL','NULL',20,1,1,43,'NULL',0,0,'0')";
+		QString text = "INSERT INTO users VALUES(NULL,1,'coord','" + password + "','NULL','NULL',20,1,1,43,'NULL',0,0,'0','NULL')";
 		query2.exec((text));
 		
 		QSqlQuery query;
