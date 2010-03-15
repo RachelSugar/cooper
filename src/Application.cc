@@ -1,6 +1,6 @@
 #include "lib/Database.h"
 #include "model/Login.h"
-#include "model/CoordPassword.h"
+#include "model/InitialLoad.h"
 
 #include <QApplication>
 #include <iostream>
@@ -18,8 +18,8 @@ void runGUI(){
 		login->show();
 	}
 	else {
-		CoordPassword *coordPass = new CoordPassword();
-		coordPass->show();
+		InitialLoad *initLoad = new InitialLoad();
+		initLoad->show();
 	}
 }
 

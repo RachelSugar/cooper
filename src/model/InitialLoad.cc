@@ -1,4 +1,4 @@
-#include "CoordPassword.h"
+#include "InitialLoad.h"
 #include "Login.h"
 #include <QString>
 #include <QtGui>
@@ -10,7 +10,7 @@
 //#include <qapplication>
 
 // Sets up the GUI
-CoordPassword::CoordPassword(QWidget *parent) {
+InitialLoad::InitialLoad(QWidget *parent) {
 	setupUi(this); // this sets up GUI
 
 	// signals/slots mechanism in action
@@ -19,7 +19,7 @@ CoordPassword::CoordPassword(QWidget *parent) {
 }
 
 // Gets the Co-ordinators password and inserts the info into the db
-void CoordPassword::checkPassword(){
+void InitialLoad::checkPassword(){
 	QString password = coordPasswordBox->text();
 	if(password.length() > 0){
 		QSqlQuery query2; 
@@ -44,7 +44,7 @@ void CoordPassword::checkPassword(){
 }
 
 // gets the bulk load file name
-void CoordPassword::bulkLoadFile() {
+void InitialLoad::bulkLoadFile() {
 	int loaded = FALSE;
 	while(loaded == FALSE){
 		QString fileLoc = QFileDialog::getOpenFileName(this, tr("Select Bulk Load File"), QDir::currentPath());
@@ -64,7 +64,7 @@ void CoordPassword::bulkLoadFile() {
 }
 
 // loads the file data into the db
-void CoordPassword::loadInData(QString fileLoc) {
+void InitialLoad::loadInData(QString fileLoc) {
 	QString line;
   	QFile bulkfile(fileLoc);
   	if (bulkfile.open( QIODevice::ReadOnly )) {
@@ -90,7 +90,7 @@ void CoordPassword::loadInData(QString fileLoc) {
   	}
 }
 
-void CoordPassword::showError(char *message){
+void InitialLoad::showError(char *message){
 	QMessageBox::warning(0, qApp->tr("Error"),
 		qApp->tr(message),
 		QMessageBox::Ok);

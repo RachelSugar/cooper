@@ -1,16 +1,16 @@
-#ifndef COORDPASSWORD_H
-#define COORDPASSWORD_H
+#ifndef INITIALLOAD_H
+#define INITIALLOAD_H
 
 #include "../../ui_CoordPassword.h"
 #include <QString>
 
 
-class CoordPassword : public QWidget, private Ui::coordPasswordWidget
+class InitialLoad : public QWidget, private Ui::coordPasswordWidget
 {
 	Q_OBJECT
 
 public:
-	CoordPassword(QWidget *parent = 0);
+	InitialLoad(QWidget *parent = 0);
 	void bulkLoadFile();
 	void loadInData(QString fileLoc);
 	void showError(char *message);
@@ -19,4 +19,4 @@ public slots:
 	void checkPassword();
 };
 
-#endif //COORDPASSWORD_H
+#endif //INITIALLOAD_H
