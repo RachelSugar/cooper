@@ -18,16 +18,12 @@ Login::Login(QWidget *parent) {
 void Login::checkUserInfo(){
 	QString username = usernameBox->text();
 	QString password = passwordBox->text();
-	bool isCoord = false;
-
 	QString text = "SELECT password FROM users WHERE user_name = '" + username + "'";
 	QSqlQuery query(text);
 	if(query.next()){
 		QString rightPass = query.value(0).toString();
 		if(rightPass == password ){
-			if(username == "coord")
-				isCoord = true;
-			PrototypeMainScreen *screen = new PrototypeMainScreen(isCoord);
+			PrototypeMainScreen *screen = new PrototypeMainScreen(username);
 			this->close();
 			screen->show();
 		}

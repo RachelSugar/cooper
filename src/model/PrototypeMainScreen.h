@@ -9,7 +9,7 @@ class PrototypeMainScreen : public QWidget, private Ui::PrototypeMainScreen
 	Q_OBJECT
 
 public:
-	PrototypeMainScreen(bool isCoord);
+	PrototypeMainScreen(QString username);
 
 public slots:
 	void addCommittee();

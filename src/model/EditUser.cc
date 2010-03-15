@@ -3,7 +3,7 @@
 #include <QSqlQuery>
 // including <QtGui> saves us to include every class user, <QString>, <QFileDialog>,...
 
-EditUser::EditUser(QWidget *parent,bool isCoord)
+EditUser::EditUser(QWidget *parent,QString username)
 {
 	setupUi(this); // this sets up GUI
 
@@ -14,15 +14,12 @@ EditUser::EditUser(QWidget *parent,bool isCoord)
 	connect( deleteUser, SIGNAL(clicked() ), this, SLOT( deleteUse() ) );
 	connect( getUser, SIGNAL(clicked() ), this, SLOT( getToEdit() ) ); 
 	
-	if(isCoord == false){
-		saveCancel->setEnabled(false);
+	if(username != "coord"){
+		//saveCancel->setEnabled(false);
 		deleteUser->setEnabled(false);
+		movedOut->setEnabled(false);
+		fillMemberInfo();
 	}
-	
-	
-	
-	
-	
 }
 
 
@@ -161,10 +158,10 @@ void EditUser::getToEdit(){
 	 bool hidden = privateTele->isChecked();
 	 bool ofAge = over21->isChecked();
 	 bool mvOut = movedOut->isChecked(); 
-         */
-         
-	
-	
+         */	
+}
+
+void EditUser::fillMemberInfo() {
 	
 }
 

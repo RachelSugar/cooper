@@ -8,10 +8,10 @@
 #include "EditCommittees.h"
 #include "EditUser.h"
 #include "ViewPhone.h"
-bool coord;
-PrototypeMainScreen::PrototypeMainScreen(bool isCoord){
+	QString user;
+PrototypeMainScreen::PrototypeMainScreen(QString username){
 	setupUi(this);
-	coord = isCoord;
+	user = username;
 	connect(AddCommitteeButton,SIGNAL(clicked()),this,SLOT(addCommittee()));
 	connect(AddMemberButton,SIGNAL(clicked()),this,SLOT(addMember()));
 	connect(PrintPrivatePhoneButton,SIGNAL(clicked()),this,SLOT(printPrivate()));
@@ -20,7 +20,7 @@ PrototypeMainScreen::PrototypeMainScreen(bool isCoord){
 	connect(ViewMemberInfoButton,SIGNAL(clicked()),this,SLOT(viewMembers()));
 	connect(ExitButton,SIGNAL(clicked()),this,SLOT(close()));
 	
-	if(isCoord == false){
+	if(username != "coord"){
 		AddMemberButton->setEnabled(false);
 		PrintPrivatePhoneButton->setEnabled(false);
 		ViewCommitteesButton->setEnabled(false);
@@ -54,6 +54,6 @@ void PrototypeMainScreen::editCommit(){
 }
 
 void PrototypeMainScreen::viewMembers(){
-	EditUser *edUsr = new EditUser(this, coord);
+	EditUser *edUsr = new EditUser(this, user);
 	edUsr->show();
 }
