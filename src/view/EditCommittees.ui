@@ -8,78 +8,76 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>498</width>
-    <height>327</height>
+    <width>572</width>
+    <height>320</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Viewing committees</string>
   </property>
-  <widget class="QTableView" name="view" >
+  <widget class="QWidget" name="" >
    <property name="geometry" >
     <rect>
-     <x>11</x>
-     <y>11</y>
-     <width>471</width>
-     <height>242</height>
+     <x>10</x>
+     <y>10</y>
+     <width>551</width>
+     <height>301</height>
     </rect>
    </property>
-   <property name="verticalScrollBarPolicy" >
-    <enum>Qt::ScrollBarAlwaysOn</enum>
-   </property>
-   <property name="horizontalScrollBarPolicy" >
-    <enum>Qt::ScrollBarAlwaysOn</enum>
-   </property>
-   <property name="editTriggers" >
-    <set>QAbstractItemView::NoEditTriggers</set>
-   </property>
-   <property name="selectionMode" >
-    <enum>QAbstractItemView::SingleSelection</enum>
-   </property>
-   <property name="selectionBehavior" >
-    <enum>QAbstractItemView::SelectRows</enum>
-   </property>
-   <property name="sortingEnabled" >
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QWidget" name="layoutWidget" >
-   <property name="geometry" >
-    <rect>
-     <x>40</x>
-     <y>270</y>
-     <width>394</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="horizontalLayout" >
+   <layout class="QVBoxLayout" name="verticalLayout" >
     <item>
-     <widget class="QPushButton" name="addTask" >
-      <property name="text" >
-       <string>Add Task</string>
+     <widget class="QTableView" name="view" >
+      <property name="verticalScrollBarPolicy" >
+       <enum>Qt::ScrollBarAlwaysOn</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy" >
+       <enum>Qt::ScrollBarAlwaysOn</enum>
+      </property>
+      <property name="editTriggers" >
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="selectionMode" >
+       <enum>QAbstractItemView::SingleSelection</enum>
+      </property>
+      <property name="selectionBehavior" >
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <property name="sortingEnabled" >
+       <bool>true</bool>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="DeleteButton" >
-      <property name="text" >
-       <string>Delete selected</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="SaveButton" >
-      <property name="text" >
-       <string>Save Changes</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="CancelButton" >
-      <property name="text" >
-       <string>Cancel</string>
-      </property>
-     </widget>
+     <layout class="QHBoxLayout" name="horizontalLayout" >
+      <item>
+       <widget class="QPushButton" name="addTask" >
+        <property name="text" >
+         <string>Add Task</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="DeleteButton" >
+        <property name="text" >
+         <string>Delete selected</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="MoreButton" >
+        <property name="text" >
+         <string>Edit/More Information</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="CancelButton" >
+        <property name="text" >
+         <string>Cancel</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
