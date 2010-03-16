@@ -37,6 +37,11 @@ void AddNewCommittee::save() {
 	bool chairValid = false;
 	bool secretaryValid = false;
 
+	bool deleteChairIsChair = false;
+	bool deleteChairIsSecretary = false;
+	bool deleteSecretaryIsChair = false;
+	bool deleteSecretaryIsSecretary = false;
+
 	QString chairID = 0;
 	QString secretaryID = 0;
 
@@ -82,25 +87,38 @@ void AddNewCommittee::save() {
 			chairID = chairQuery.value(0).toString();
 			// if the selected person is chairing or secretary of a different committee, 
 			// ask for confirmation. then update the other committee to show the chair is vacant.
-			QString committeeQueryText = "SELECT name FROM committees WHERE chair_id ='" + chairID + "'";
-			QSqlQuery committeeQuery(committeeQueryText);
+			QString chairIsChairText = "SELECT id FROM committees WHERE chair_id ='" + chairID + "'";
+			QSqlQuery chairIsChairQuery(chairIsChairText);
 
-			if(committeeQuery.next()){
-				QMessageBox::question(0, qApp->tr("Confirm reassigning chair or secretary"),
-					qApp->tr("You are reassigning someone who is a already a committee chair or secretary to be this committee's chair.\n Are you sure you want to do this?"),
-					QMessageBox::Yes | QMessageBox::No);
+			QString chairIsSecretaryText = "SELECT id FROM committees WHERE secretary_id ='" + chairID + "'";
+			QSqlQuery chairIsSecretaryQuery(chairIsSecretaryText);
+
+			// selected person is chairing a committee
+			if(chairIsChairQuery.next()){
+				int ret = QMessageBox::question(0, qApp->tr("Confirm reassigning chair"),
+					qApp->tr("The person you selected to chair this new committee is already chairing a committee.\nContinue?"),
+					QMessageBox::Yes | QMessageBox::Cancel);
+
+				deleteChairIsChair = (ret == QMessageBox::Yes);
+				if(deleteChairIsChair)
+					chairValid = true;
+			} 
+			// selected person is secretary of a committee
+			else if(chairIsSecretaryQuery.next()){
+				int ret = QMessageBox::question(0, qApp->tr("Confirm reassigning secretary to chair"),
+					qApp->tr("The person you selected to chair this new committee is already the secretary of a committee.\nContinue?"),
+					QMessageBox::Yes | QMessageBox::Cancel);
+				deleteChairIsSecretary = (ret == QMessageBox::Yes);
+				if(deleteChairIsSecretary)
+					chairValid = true;
+			} else {
+				chairValid = true;
 			}
-
-			// get confirmation from box, delete chair from the other committee.
-
-			// set valid to true for insertion later
-			chairValid = true;
 
 		} else {
 			QMessageBox::warning(0, qApp->tr("Error"),
 				qApp->tr("Chair username does not match any resident.\n"),
 				QMessageBox::Ok);
-			//chairID = NULL;
 		}
 
 		if(DEBUG == 1){
@@ -119,10 +137,34 @@ void AddNewCommittee::save() {
 			secretaryID = secretaryQuery.value(0).toInt();
 			// if the selected person is chairing or secretary of a different committee, 
 			// ask for confirmation. then update the other committee to show the secretary is vacant.
+			QString secretaryIsChairText = "SELECT id FROM committees WHERE chair_id ='" + secretaryID + "'";
+			QSqlQuery secretaryIsChairQuery(secretaryIsChairText);
 
-			// not done yet....
-	
-			secretaryValid = true;
+			QString secretaryIsSecretaryText = "SELECT id FROM committees WHERE secretary_id ='" + secretaryID + "'";
+			QSqlQuery secretaryIsSecretaryQuery(secretaryIsSecretaryText);
+
+			// selected person is chairing a committee
+			if(secretaryIsChairQuery.next()){
+				int ret = QMessageBox::question(0, qApp->tr("Confirm reassigning chair to secretary"),
+					qApp->tr("The person you selected to be the secretary of this new committee is already chairing a committee.\nContinue?"),
+					QMessageBox::Yes | QMessageBox::Cancel);
+
+				deleteSecretaryIsChair = (ret == QMessageBox::Yes);
+				if(deleteSecretaryIsChair)
+					secretaryValid = true;
+			}
+			// selected person is secretary of a committee
+			else if(secretaryIsSecretaryQuery.next()){
+				int ret = QMessageBox::question(0, qApp->tr("Confirm reassigning secretary"),
+					qApp->tr("The person you selected to be the secretary of this new committee is already the secretary of a committee.\nContinue?"),
+					QMessageBox::Yes | QMessageBox::Cancel);
+				deleteSecretaryIsSecretary = (ret == QMessageBox::Yes);
+				if(deleteSecretaryIsSecretary)
+					secretaryValid = true;
+			} else {
+				secretaryValid = true;
+			}
+
 		} else {
 			QMessageBox::warning(0, qApp->tr("Error"),
 			qApp->tr("Secretary username does not match any resident.\n"),
@@ -136,6 +178,23 @@ void AddNewCommittee::save() {
 		// everything okay, create a new entry in the database
 		if(chairValid && secretaryValid){
 			
+			if(deleteChairIsChair){
+				QString deleteOldText = "UPDATE committees SET chair_ID = 'EMPTY' WHERE chair_ID = '" + chairID + "'";
+				QSqlQuery deleteOld(deleteOldText);
+			} else if(deleteChairIsSecretary){
+				QString deleteOldText = "UPDATE committees SET secretary_ID = 'EMPTY' WHERE secretary_ID = '" + chairID + "'";
+				QSqlQuery deleteOld(deleteOldText);
+			}
+			
+			if(deleteSecretaryIsChair){
+				QString deleteOldText = "UPDATE committees SET chair_ID = 'EMPTY' WHERE chair_ID = '" + secretaryID + "'";
+				QSqlQuery deleteOld(deleteOldText);
+			} else if(deleteSecretaryIsSecretary) {
+				QString deleteOldText = "UPDATE committees SET secretary_ID = 'EMPTY' WHERE secretary_ID = '" + secretaryID + "'";
+				QSqlQuery deleteOld(deleteOldText);
+			}
+
+			// insert the new values
 			QSqlQuery query;
 			qDebug() << query.prepare("INSERT INTO committees VALUES(NULL, :name, :chairID, :secretaryID)");
 			query.bindValue(":name", name);
