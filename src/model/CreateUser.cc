@@ -21,7 +21,7 @@ void CreateUser::getSave()
 	QString pass = password->text();
 	QString tele = telephone->text();
 	QString pastAdd = pastAddress->text();
-	QString unitx = unit->text();
+	QString unitx = unitNumberBox->currentText();
 	QDate movDate = moveInDate->date();
 	bool hidden = privateTele->isChecked();
 	bool ofAge = over21->isChecked();
