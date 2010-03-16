@@ -15,6 +15,7 @@ public:
 public slots:
 	void getSave();
 	static char isTrue(bool toTest);
+	static char isTrue2(bool toTest);
 };
 
 #endif

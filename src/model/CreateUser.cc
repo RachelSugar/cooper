@@ -11,6 +11,8 @@ CreateUser::CreateUser(QWidget *parent)
 	connect( saveCancel, SIGNAL( rejected() ), this, SLOT( close() ) );
 	connect( saveCancel, SIGNAL( accepted() ), this, SLOT( getSave() ) );
 
+	if(parent==0){} //fuck you warning
+
 	QString queer = "SELECT unit_number FROM units";
 	QSqlQuery query(queer);
 	while(query.next()){
@@ -29,12 +31,19 @@ void CreateUser::getSave()
 	QString pass = password->text();
 	QString tele = telephone->text();
 	QString pastAdd = pastAddress->text();
-	QString unitx = unitNumberBox->currentText();
+	QString unit = unitNumberBox->currentText();
 	QDate movDate = moveInDate->date();
 	bool hidden = privateTele->isChecked();
 	bool ofAge = over21->isChecked();
 	bool taken =false;
 	
+	QString findKey = "SELECT unit_id FROM units WHERE unit_number = '" + unit +"'";
+	QSqlQuery query3(findKey);
+	int unitID;
+	while(query3.next()){
+		unitID=query3.value(0).toInt();
+	}
+
 	QString checkID = "SELECT user_name FROM users WHERE user_name = '" + uName +"'";
 	
 	QSqlQuery query(checkID);
@@ -48,8 +57,7 @@ void CreateUser::getSave()
 	     || uName.length() == 0
 	     || pass.length() == 0
 	     || tele.length() < 10
-	     || pastAdd.length() == 0
-	     || unitx.length() == 0 ) {
+	     || pastAdd.length() == 0) {
 		QMessageBox::critical(0, qApp->tr("Error:"),
 			qApp->tr("Please fill in all fields.\n"),
 			QMessageBox::Cancel);
@@ -66,20 +74,15 @@ void CreateUser::getSave()
 	}
 	else{
 
-	char hiddenInt = isTrue(hidden);
+	char hiddenInt = isTrue2(hidden);
 	char ofAgeInt = isTrue(ofAge);
 	qDebug() << hiddenInt;
-	QSqlQuery query2; 
+	QSqlQuery query2;
 	QString test ="INSERT INTO users VALUES(NULL,0,'" + uName + "','" + pass + "','" + lName + 
-	"','" + fName + "','"+ hiddenInt +"',1,1, "+unitx+ ",'" + tele +"','" + ofAgeInt +"',0,'"+ pastAdd+ "','0')";
+	"','" + fName + "','"+ ofAgeInt +"0,1,'"+ unitID + "','" + tele +"','" + hiddenInt +"',0,'"+ pastAdd+ "','"+ movDate.toString() +"')";
 	//qDebug() << query2.exec(("INSERT INTO users VALUES(NULL,0,'"uName"','"pass"','"lName"','"fName"',20,1,1,43,'"tele"',0,0,'0')"));
-		qDebug()<< query2.exec((test));
+	qDebug()<< query2.exec((test));
 	this->close();
-    
-	
-	
-
-	
 	}	
 
 }
@@ -90,5 +93,14 @@ char CreateUser::isTrue(bool toTest)
 		return '1';
 	else
 		return '0';
+
+}
+
+char CreateUser::isTrue2(bool toTest)
+{
+	if(toTest == true)
+		return '0';
+	else
+		return '1';
 
 }

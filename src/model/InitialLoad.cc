@@ -27,6 +27,7 @@ void InitialLoad::checkPassword(){
 		if(bulkLoadFile()){
 		
 			QSqlQuery query;
+			query.exec("INSERT INTO committees VALUES(0, 'None', NULL,NULL)");
 			query.exec("INSERT INTO committees VALUES(NULL, 'Board', NULL,NULL)");
 			query.exec("INSERT INTO committees VALUES(NULL, 'Inspections',NULL,NULL)");
 			query.exec("INSERT INTO committees VALUES(NULL, 'Membership', NULL,NULL)");
@@ -34,7 +35,7 @@ void InitialLoad::checkPassword(){
 			query.exec("INSERT INTO committees VALUES(NULL, 'Member Relations', NULL,NULL)");
 		
 			QSqlQuery query2; 
-			QString text = "INSERT INTO users VALUES(NULL,1,'coord','" + password + "','NULL','NULL',20,1,1,43,'NULL',0,0,'0','NULL')";
+			QString text = "INSERT INTO users VALUES(NULL,1,'coord','" + password + "','NULL','NULL',20,1,1,43,'NULL',0,0,'old addy','some date')";
 			query2.exec((text));
 		
 			Login *login = new Login();
