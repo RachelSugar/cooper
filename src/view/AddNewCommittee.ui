@@ -36,9 +36,9 @@
   <widget class="QLineEdit" name="chairEdit" >
    <property name="geometry" >
     <rect>
-     <x>230</x>
+     <x>160</x>
      <y>80</y>
-     <width>121</width>
+     <width>191</width>
      <height>25</height>
     </rect>
    </property>
@@ -46,9 +46,9 @@
   <widget class="QLineEdit" name="secretaryEdit" >
    <property name="geometry" >
     <rect>
-     <x>230</x>
+     <x>160</x>
      <y>115</y>
-     <width>121</width>
+     <width>191</width>
      <height>25</height>
     </rect>
    </property>
@@ -98,15 +98,15 @@
     </rect>
    </property>
    <property name="text" >
-    <string>Chair's username (optional)</string>
+    <string>Chair's username</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="nameEdit" >
    <property name="geometry" >
     <rect>
-     <x>230</x>
+     <x>159</x>
      <y>45</y>
-     <width>160</width>
+     <width>231</width>
      <height>25</height>
     </rect>
    </property>
@@ -153,7 +153,7 @@
     </rect>
    </property>
    <property name="text" >
-    <string>Secretary's username (optional)</string>
+    <string>Secretary's username</string>
    </property>
   </widget>
   <widget class="QLabel" name="nameLabel" >
