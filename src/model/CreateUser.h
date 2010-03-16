@@ -10,9 +10,11 @@ class CreateUser : public QWidget, private Ui::CreateUser
 
 public:
 	CreateUser(QWidget *parent = 0);
+	
 
 public slots:
 	void getSave();
+	static char isTrue(bool toTest);
 };
 
 #endif
