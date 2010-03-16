@@ -14,8 +14,6 @@ public:
  
 public slots:
 	void save();
-	void selectChair();
-	void selectSecretary();
 };
  
  
