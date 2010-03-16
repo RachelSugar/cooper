@@ -9,11 +9,11 @@ class EditUser : public QWidget, private Ui::EditUser
 	Q_OBJECT
 
 public:
-	EditUser(QWidget *parent = 0, QString username = "");
+	EditUser(QWidget *parent = 0, QString usName = "");
 	void fillMemberInfo(QString username);
 
 public slots:
-	void getSave(QString username);
+	void getSave();
 	void deleteUse();
 	void getToEdit();
 	
