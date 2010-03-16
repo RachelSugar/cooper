@@ -8,8 +8,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>394</width>
-    <height>294</height>
+    <width>498</width>
+    <height>327</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -20,7 +20,7 @@
     <rect>
      <x>11</x>
      <y>11</y>
-     <width>369</width>
+     <width>471</width>
      <height>242</height>
     </rect>
    </property>
@@ -40,16 +40,23 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QWidget" name="" >
+  <widget class="QWidget" name="layoutWidget" >
    <property name="geometry" >
     <rect>
-     <x>30</x>
-     <y>260</y>
-     <width>309</width>
+     <x>40</x>
+     <y>270</y>
+     <width>392</width>
      <height>31</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout" >
+    <item>
+     <widget class="QPushButton" name="addTask" >
+      <property name="text" >
+       <string>Add Task</string>
+      </property>
+     </widget>
+    </item>
     <item>
      <widget class="QPushButton" name="DeleteButton" >
       <property name="text" >
