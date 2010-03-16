@@ -11,7 +11,10 @@ class AddTask : public QWidget, private Ui::AddTask
 public:
 	AddTask(QString toAddTo);
  
-//public slots:
+public slots:
+
+	void dateClicked();
+	void add();
 	
 };
  

@@ -75,6 +75,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QCheckBox" name="annualCheck" >
+          <property name="text" >
+           <string>Annual Task?</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <spacer name="horizontalSpacer_4" >
           <property name="orientation" >
            <enum>Qt::Horizontal</enum>
