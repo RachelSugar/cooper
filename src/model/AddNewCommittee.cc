@@ -180,18 +180,18 @@ void AddNewCommittee::save() {
 		if(chairValid && secretaryValid){
 			
 			if(deleteChairIsChair){
-				QString deleteOldText = "UPDATE committees SET chair_ID = 'EMPTY' WHERE chair_ID = '" + chairID + "'";
+				QString deleteOldText = "UPDATE committees SET chair_ID = NULL WHERE chair_ID = '" + chairID + "'";
 				QSqlQuery deleteOld(deleteOldText);
 			} else if(deleteChairIsSecretary){
-				QString deleteOldText = "UPDATE committees SET secretary_ID = 'EMPTY' WHERE secretary_ID = '" + chairID + "'";
+				QString deleteOldText = "UPDATE committees SET secretary_ID = NULL WHERE secretary_ID = '" + chairID + "'";
 				QSqlQuery deleteOld(deleteOldText);
 			}
 			
 			if(deleteSecretaryIsChair){
-				QString deleteOldText = "UPDATE committees SET chair_ID = 'EMPTY' WHERE chair_ID = '" + secretaryID + "'";
+				QString deleteOldText = "UPDATE committees SET chair_ID = NULL WHERE chair_ID = '" + secretaryID + "'";
 				QSqlQuery deleteOld(deleteOldText);
 			} else if(deleteSecretaryIsSecretary) {
-				QString deleteOldText = "UPDATE committees SET secretary_ID = 'EMPTY' WHERE secretary_ID = '" + secretaryID + "'";
+				QString deleteOldText = "UPDATE committees SET secretary_ID = NULL WHERE secretary_ID = '" + secretaryID + "'";
 				QSqlQuery deleteOld(deleteOldText);
 			}
 

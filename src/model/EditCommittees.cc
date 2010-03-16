@@ -10,7 +10,7 @@
 #include <QItemSelectionModel>
 #include <QModelIndex>
 
-QSqlRelationalTableModel *Cmodel;
+QSqlTableModel *Cmodel;
 
 EditCommittees::EditCommittees(QWidget *parent){
 	setupUi(this);
@@ -21,21 +21,18 @@ CREATE TABLE committees (id INTEGER PRIMARY KEY, name TEXT, chair_id INTEGER, se
 
 */
 
-	Cmodel = new QSqlRelationalTableModel(this);
+	Cmodel = new QSqlTableModel(this);
 	Cmodel->setTable("committees");
 	
-
-	//temporarily exclude until AddNewCommittee maps userid properly
-	//Cmodel->setRelation(2, QSqlRelation("users","id","user_name"));
-	//Cmodel->setRelation(3, QSqlRelation("users","id","user_name"));
-	
-	Cmodel->setHeaderData(2, Qt::Horizontal, tr("Chair username"));
-	Cmodel->setHeaderData(3, Qt::Horizontal, tr("Secretary username"));
-	
+	Cmodel->setHeaderData(1, Qt::Horizontal, tr("Committee name"));
 	Cmodel->select();
 	
 	view->setModel(Cmodel);
+	
+	// hide all columns except name
 	view->setColumnHidden(0, true);
+	view->setColumnHidden(2, true);
+	view->setColumnHidden(3, true);
 	
 	QHeaderView * header=view->horizontalHeader();
 	header->setStretchLastSection(true);

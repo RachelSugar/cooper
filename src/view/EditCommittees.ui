@@ -30,6 +30,9 @@
    <property name="horizontalScrollBarPolicy" >
     <enum>Qt::ScrollBarAlwaysOn</enum>
    </property>
+   <property name="editTriggers" >
+    <set>QAbstractItemView::NoEditTriggers</set>
+   </property>
    <property name="selectionMode" >
     <enum>QAbstractItemView::SingleSelection</enum>
    </property>
@@ -45,7 +48,7 @@
     <rect>
      <x>40</x>
      <y>270</y>
-     <width>392</width>
+     <width>394</width>
      <height>31</height>
     </rect>
    </property>
