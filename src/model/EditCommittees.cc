@@ -38,15 +38,14 @@ CREATE TABLE committees (id INTEGER PRIMARY KEY, name TEXT, chair_id INTEGER, se
 	header->setStretchLastSection(true);
 
 	connect(DeleteButton,SIGNAL(clicked()), this, SLOT(deleteCommittee()));
-	connect(SaveButton,SIGNAL(clicked()), this, SLOT(saveCommittee()));
+	connect(MoreButton,SIGNAL(clicked()), this, SLOT(moreInformation()));
 	connect(CancelButton,SIGNAL(clicked()), this, SLOT(close()));
 	connect(addTask,SIGNAL(clicked()),this,SLOT(addTaskToCommittee()));
 
 }
 
-void EditCommittees::saveCommittee(){
-	Cmodel->submitAll();
-	this->close();
+void EditCommittees::moreInformation(){
+	// open up a new window with more information and the ability to edit
 }
 
 void EditCommittees::deleteCommittee(){
