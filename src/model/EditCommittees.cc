@@ -86,6 +86,7 @@ void EditCommittees::addTaskToCommittee(){
 	QString name = record.value(1).toString();
 	
 	qDebug() << name << endl;
+	//call gui to add the new class
 	
 	
 
