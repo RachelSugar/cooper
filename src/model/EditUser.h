@@ -13,7 +13,7 @@ public:
 	void fillMemberInfo(QString username);
 
 public slots:
-	void getSave();
+	void getSave(QString username);
 	void deleteUse();
 	void getToEdit();
 	
