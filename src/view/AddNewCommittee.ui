@@ -33,141 +33,115 @@
   <property name="windowTitle" >
    <string>Adding New Committee</string>
   </property>
-  <widget class="QLineEdit" name="chairEdit" >
-   <property name="geometry" >
-    <rect>
-     <x>160</x>
-     <y>80</y>
-     <width>191</width>
-     <height>25</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="secretaryEdit" >
-   <property name="geometry" >
-    <rect>
-     <x>160</x>
-     <y>115</y>
-     <width>191</width>
-     <height>25</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QDialogButtonBox" name="acceptRejectButtons" >
-   <property name="geometry" >
-    <rect>
-     <x>220</x>
-     <y>160</y>
-     <width>160</width>
-     <height>29</height>
-    </rect>
-   </property>
-   <property name="layoutDirection" >
-    <enum>Qt::LeftToRight</enum>
-   </property>
-   <property name="orientation" >
-    <enum>Qt::Horizontal</enum>
-   </property>
-   <property name="standardButtons" >
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
-   </property>
-   <property name="centerButtons" >
-    <bool>false</bool>
-   </property>
-  </widget>
-  <widget class="QLabel" name="infoLabel" >
+  <widget class="QWidget" name="" >
    <property name="geometry" >
     <rect>
      <x>10</x>
-     <y>15</y>
-     <width>298</width>
-     <height>19</height>
+     <y>10</y>
+     <width>381</width>
+     <height>181</height>
     </rect>
    </property>
-   <property name="text" >
-    <string>Enter the information for the new committee:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="chairLabel" >
-   <property name="geometry" >
-    <rect>
-     <x>10</x>
-     <y>80</y>
-     <width>181</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text" >
-    <string>Chair's username</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="nameEdit" >
-   <property name="geometry" >
-    <rect>
-     <x>159</x>
-     <y>45</y>
-     <width>231</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text" >
-    <string/>
-   </property>
-   <property name="maxLength" >
-    <number>120</number>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="secretarySelectButton" >
-   <property name="geometry" >
-    <rect>
-     <x>360</x>
-     <y>115</y>
-     <width>25</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text" >
-    <string>...</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="chairSelectButton" >
-   <property name="geometry" >
-    <rect>
-     <x>360</x>
-     <y>80</y>
-     <width>25</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text" >
-    <string>...</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="secretaryLabel" >
-   <property name="geometry" >
-    <rect>
-     <x>10</x>
-     <y>115</y>
-     <width>211</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text" >
-    <string>Secretary's username</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="nameLabel" >
-   <property name="geometry" >
-    <rect>
-     <x>10</x>
-     <y>45</y>
-     <width>127</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text" >
-    <string>Committee name</string>
-   </property>
+   <layout class="QVBoxLayout" name="verticalLayout" >
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2" >
+      <item>
+       <widget class="QLabel" name="infoLabel" >
+        <property name="text" >
+         <string>Enter the information for the new committee:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2" >
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QGridLayout" name="gridLayout" >
+      <item row="0" column="0" >
+       <widget class="QLabel" name="nameLabel" >
+        <property name="text" >
+         <string>Committee name</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" colspan="2" >
+       <widget class="QLineEdit" name="nameEdit" >
+        <property name="text" >
+         <string/>
+        </property>
+        <property name="maxLength" >
+         <number>120</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2" >
+       <widget class="QLabel" name="chairLabel" >
+        <property name="text" >
+         <string>Chair's username</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2" >
+       <widget class="QLineEdit" name="chairEdit" />
+      </item>
+      <item row="2" column="0" colspan="2" >
+       <widget class="QLabel" name="secretaryLabel" >
+        <property name="text" >
+         <string>Secretary's username</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2" >
+       <widget class="QLineEdit" name="secretaryEdit" />
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout" >
+      <item>
+       <spacer name="horizontalSpacer" >
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0" >
+         <size>
+          <width>148</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QDialogButtonBox" name="acceptRejectButtons" >
+        <property name="layoutDirection" >
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="standardButtons" >
+         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
+        </property>
+        <property name="centerButtons" >
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>

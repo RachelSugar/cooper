@@ -13,6 +13,7 @@ const QString none = "";
 const int DEBUG = 1;
 
 AddNewCommittee::AddNewCommittee(QWidget *parent){
+
 	setupUi(this);
 
 	if(DEBUG == 1){
@@ -21,16 +22,6 @@ AddNewCommittee::AddNewCommittee(QWidget *parent){
 	
 	connect( acceptRejectButtons, SIGNAL( rejected()), this, SLOT ( close()));
 	connect( acceptRejectButtons, SIGNAL( accepted()), this, SLOT ( save()));
-	connect( chairSelectButton, SIGNAL(clicked()), this, SLOT (selectChair()));
-	connect( secretarySelectButton, SIGNAL(clicked()), this, SLOT (selectSecretary()));
-}
-
-void AddNewCommittee::selectChair(){
-	// display all the users, the user picks one. put into the chairEdit field
-}
-
-void AddNewCommittee::selectSecretary(){
-	// display all the users, the user picks one. put into the secretaryEdit field
 }
 
 void AddNewCommittee::save() {
