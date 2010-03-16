@@ -2,17 +2,18 @@
 #include "EditUser.h"
 #include <QSqlQuery>
 // including <QtGui> saves us to include every class user, <QString>, <QFileDialog>,...
-
-EditUser::EditUser(QWidget *parent,QString username)
+QString username;
+EditUser::EditUser(QWidget *parent,QString usName)
 {
 	setupUi(this); // this sets up GUI
 
 	// signals/slots mechanism in action
 	
 	connect( saveCancel, SIGNAL( rejected() ), this, SLOT( close() ));
-	connect( saveCancel, SIGNAL( accepted() ), this, SLOT( getSave(username) ) ); 
+	connect( saveCancel, SIGNAL( accepted() ), this, SLOT( getSave() ) ); 
 	connect( deleteUser, SIGNAL(clicked() ), this, SLOT( deleteUse() ) );
 	connect( getUser, SIGNAL(clicked() ), this, SLOT( getToEdit() ) ); 
+	username = usName;
 	
 	if(username != "coord"){
 		//saveCancel->setEnabled(false);
@@ -38,9 +39,10 @@ EditUser::EditUser(QWidget *parent,QString username)
 }
 
 
-void EditUser::getSave(QString username)
+void EditUser::getSave()
 {
 	//get values of fields in GUI
+	
 	QString uName;
 	if(username != "coord"){
 		uName = userEdit->text();
@@ -95,7 +97,7 @@ void EditUser::getSave(QString username)
 		live = '1';
 	QString text = "UPDATE users \
 	SET user_name = '" + uName +"', last_name = '" + lName + "', first_name = '" + fName + "', unit_id = '111', phone_number = '" + tele +"', phone_number_is_public = '" + phonePublic + "', is_21 = '" + age + "', is_resident = '" + live + "', \
-	 in_arrears = '" + owe + "', old_address = '" + pastAdd + "', password = '" + pass + "'  WHERE user_name = '" + uName +"';";
+	 in_arrears = '" + owe + "', old_address = '" + pastAdd + "', password = '" + pass + "'  WHERE user_name = '" + userEdit->text() +"';";
 	//test data
 	QSqlQuery query;
 	
@@ -142,9 +144,9 @@ void EditUser::getToEdit(){
 	fillMemberInfo(usrName);
 }
 
-void EditUser::fillMemberInfo(QString username) {
+void EditUser::fillMemberInfo(QString userName) {
 	QString answer[15];
-	QString text = "SELECT * FROM users WHERE user_name = '" + username + "'";
+	QString text = "SELECT * FROM users WHERE user_name = '" + userName + "'";
 	QSqlQuery query(text);
 	while(query.next()){
 	 	for(int x = 0; x < 15; x++){

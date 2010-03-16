@@ -57,12 +57,13 @@ void CreateUser::getSave()
 	
 	}
 	else{
-	//look here rachel
-	;
-	
+
+	char hiddenInt = isTrue(hidden);
+	char ofAgeInt = isTrue(ofAge);
+	qDebug() << hiddenInt;
 	QSqlQuery query2; 
 	QString test ="INSERT INTO users VALUES(NULL,0,'" + uName + "','" + pass + "','" + lName + 
-	"','" + fName + "',20,1,1, "+unitx+ ",'" + tele +"',0,0,'0')";
+	"','" + fName + "','"+ hiddenInt +"',1,1, "+unitx+ ",'" + tele +"','" + ofAgeInt +"',0,'"+ pastAdd+ "','0')";
 	//qDebug() << query2.exec(("INSERT INTO users VALUES(NULL,0,'"uName"','"pass"','"lName"','"fName"',20,1,1,43,'"tele"',0,0,'0')"));
 		qDebug()<< query2.exec((test));
 	this->close();
@@ -72,5 +73,14 @@ void CreateUser::getSave()
 
 	
 	}	
+
+}
+
+char CreateUser::isTrue(bool toTest)
+{
+	if(toTest == true)
+		return '1';
+	else
+		return '0';
 
 }
