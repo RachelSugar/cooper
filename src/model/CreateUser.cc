@@ -32,7 +32,7 @@ void CreateUser::getSave()
 	QString tele = telephone->text();
 	QString pastAdd = pastAddress->text();
 	QString unit = unitNumberBox->currentText();
-	QDate movDate = moveInDate->date();
+	QString movDate = moveInDate->date().toString();
 	bool hidden = privateTele->isChecked();
 	bool ofAge = over21->isChecked();
 	bool taken =false;
@@ -65,6 +65,7 @@ void CreateUser::getSave()
 			
 		
 	}
+
 	else if(taken == true){
 	QMessageBox::critical(0, qApp->tr("Error:"),
 			qApp->tr("Username taken!\n"),
@@ -79,11 +80,10 @@ void CreateUser::getSave()
 	qDebug() << hiddenInt;
 	QSqlQuery query2;
 	QString test ="INSERT INTO users VALUES(NULL,0,'" + uName + "','" + pass + "','" + lName + 
-	"','" + fName + "','"+ ofAgeInt +"0,1,'"+ unitID + "','" + tele +"','" + hiddenInt +"',0,'"+ pastAdd+ "','"+ movDate.toString() +"')";
-	//qDebug() << query2.exec(("INSERT INTO users VALUES(NULL,0,'"uName"','"pass"','"lName"','"fName"',20,1,1,43,'"tele"',0,0,'0')"));
-	qDebug()<< query2.exec((test));
+	"','" + fName + "','"+ ofAgeInt +"',0,1,'"+ unitID + "','" + tele +"','" + hiddenInt +"',0,'"+ pastAdd+ "','"+movDate+"')";
+	qDebug() << "Insert user success: " << query2.exec((test));
 	this->close();
-	}	
+	}
 
 }
 
