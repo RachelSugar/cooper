@@ -22,21 +22,24 @@ InitialLoad::InitialLoad(QWidget *parent) {
 void InitialLoad::checkPassword(){
 	QString password = coordPasswordBox->text();
 	if(password.length() > 0){
-		QSqlQuery query2; 
-		QString text = "INSERT INTO users VALUES(NULL,1,'coord','" + password + "','NULL','NULL',20,1,1,43,'NULL',0,0,'0','NULL')";
-		query2.exec((text));
-		
-		QSqlQuery query;
-		query.exec("INSERT INTO committees VALUES(NULL, 'Board', NULL,NULL)");
-		query.exec("INSERT INTO committees VALUES(NULL, 'Inspections',NULL,NULL)");
-		query.exec("INSERT INTO committees VALUES(NULL, 'Membership', NULL,NULL)");
-		query.exec("INSERT INTO committees VALUES(NULL, 'Education', NULL,NULL)");
-		query.exec("INSERT INTO committees VALUES(NULL, 'Member Relations', NULL,NULL)");
-		
+
 		this->close();
-		bulkLoadFile();
-		Login *login = new Login();
-		login->show();
+		if(bulkLoadFile()){
+		
+			QSqlQuery query;
+			query.exec("INSERT INTO committees VALUES(NULL, 'Board', NULL,NULL)");
+			query.exec("INSERT INTO committees VALUES(NULL, 'Inspections',NULL,NULL)");
+			query.exec("INSERT INTO committees VALUES(NULL, 'Membership', NULL,NULL)");
+			query.exec("INSERT INTO committees VALUES(NULL, 'Education', NULL,NULL)");
+			query.exec("INSERT INTO committees VALUES(NULL, 'Member Relations', NULL,NULL)");
+		
+			QSqlQuery query2; 
+			QString text = "INSERT INTO users VALUES(NULL,1,'coord','" + password + "','NULL','NULL',20,1,1,43,'NULL',0,0,'0','NULL')";
+			query2.exec((text));
+		
+			Login *login = new Login();
+			login->show();
+		}
 	}
 	else {
 		showError("Please enter a password. \n");
@@ -44,7 +47,7 @@ void InitialLoad::checkPassword(){
 }
 
 // gets the bulk load file name
-void InitialLoad::bulkLoadFile() {
+bool InitialLoad::bulkLoadFile() {
 	int loaded = FALSE;
 	while(loaded == FALSE){
 		QString fileLoc = QFileDialog::getOpenFileName(this, tr("Select Bulk Load File"), QDir::currentPath());
@@ -58,9 +61,11 @@ void InitialLoad::bulkLoadFile() {
 			}
 		}
 		else{
-			showError("You must select a bulk load file to load \n");
+			showError("You must select a bulk load file to load \n the coord password entered will not be saved.");
+			return false;
 		}
 	}
+	return true;
 }
 
 // loads the file data into the db

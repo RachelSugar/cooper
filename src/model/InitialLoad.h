@@ -11,7 +11,7 @@ class InitialLoad : public QWidget, private Ui::coordPasswordWidget
 
 public:
 	InitialLoad(QWidget *parent = 0);
-	void bulkLoadFile();
+	bool bulkLoadFile();
 	void loadInData(QString fileLoc);
 	void showError(char *message);
 
