@@ -4,6 +4,7 @@
 *	foreign keys("id", "user_name") are mapped and defined.
 */
 #include "EditCommittees.h"
+#include "AddTask.h"
 #include <QtGui>
 #include <QtSql>
 #include <QItemSelectionModel>
@@ -84,6 +85,8 @@ void EditCommittees::addTaskToCommittee(){
 	QModelIndex index = selected->currentIndex();	
 	QSqlRecord record = Cmodel->record(index.row());
 	QString name = record.value(1).toString();
+	AddTask *aTask = new AddTask(name);
+	aTask->show();
 	
 	qDebug() << name << endl;
 	//call gui to add the new class

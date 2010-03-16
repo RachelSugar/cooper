@@ -33,8 +33,11 @@ HEADERS += src/model/AddNewCommittee.h
 SOURCES += src/model/AddNewCommittee.cc
 HEADERS += src/model/EditCommittees.h
 SOURCES += src/model/EditCommittees.cc
+HEADERS += src/model/AddTask.h
+SOURCES += src/model/AddTask.cc
 
 # Views
+FORMS += src/view/AddTask.ui
 FORMS += src/view/PrototypeMainScreen.ui
 FORMS += src/view/EditUser.ui
 FORMS += src/view/CreateUser.ui
