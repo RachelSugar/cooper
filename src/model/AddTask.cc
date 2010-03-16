@@ -17,6 +17,7 @@ AddTask::AddTask(QString toAddTo){
 
 }
 
+//
 void AddTask::dateClicked(){
 	bool isCheck = dueDateCheck->isChecked();
 	
@@ -29,6 +30,27 @@ void AddTask::dateClicked(){
 }
 
 void AddTask::add(){
+
+	QString title = titleLine->text();
+	QTextDocument *descriptionDoc = description->document();
+	QString descStr = descriptionDoc->toPlainText();
+	qDebug() << descStr << endl;
+	if(dueDateCheck->isEnabled() == true){
+		//date = dateBox->date();
+	}
+	else{
+		
+	}
+
+
+}
+
+char AddTask::isTrue(bool toTest)
+{
+	if(toTest == true)
+		return '1';
+	else
+		return '0';
 
 }
 

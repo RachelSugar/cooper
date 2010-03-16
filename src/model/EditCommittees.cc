@@ -85,7 +85,7 @@ void EditCommittees::addTaskToCommittee(){
 	AddTask *aTask = new AddTask(name);
 	aTask->show();
 	
-	qDebug() << name << endl;
+	
 	//call gui to add the new class
 	
 	

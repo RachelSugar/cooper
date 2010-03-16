@@ -10,6 +10,14 @@ CreateUser::CreateUser(QWidget *parent)
 	// signals/slots mechanism in action
 	connect( saveCancel, SIGNAL( rejected() ), this, SLOT( close() ) );
 	connect( saveCancel, SIGNAL( accepted() ), this, SLOT( getSave() ) );
+
+	QString queer = "SELECT unit_number FROM units";
+	QSqlQuery query(queer);
+	while(query.next()){
+		 queer=query.value(0).toString();
+		 unitNumberBox->addItem(queer);
+	}
+
 }
 
 void CreateUser::getSave()
