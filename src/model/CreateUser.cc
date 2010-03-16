@@ -37,12 +37,13 @@ void CreateUser::getSave()
 	bool ofAge = over21->isChecked();
 	bool taken =false;
 	
-	QString findKey = "SELECT unit_id FROM units WHERE unit_number = '" + unit +"'";
+	QString findKey = "SELECT id FROM units WHERE unit_number = '" + unit +"'";
 	QSqlQuery query3(findKey);
 	int unitID;
 	while(query3.next()){
 		unitID=query3.value(0).toInt();
 	}
+	qDebug() << "this is unid id ? " << unitID;
 
 	QString checkID = "SELECT user_name FROM users WHERE user_name = '" + uName +"'";
 	
