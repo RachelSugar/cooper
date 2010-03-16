@@ -15,6 +15,7 @@ public slots:
 
 	void dateClicked();
 	void add();
+	static char isTrue(bool toTest);
 	
 };
  
