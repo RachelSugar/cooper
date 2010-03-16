@@ -10,6 +10,8 @@ Login::Login(QWidget *parent) {
 	// signals/slots mechanism in action
 	connect( loginButtons, SIGNAL( rejected() ), this, SLOT( close() ) );
 	connect( loginButtons, SIGNAL( accepted() ), this, SLOT( checkUserInfo() ) );
+	connect( passwordBox, SIGNAL( returnPressed() ), this, SLOT( checkUserInfo() ) );
+	connect( usernameBox, SIGNAL( returnPressed() ), this, SLOT( checkUserInfo() ) );
 	
 }
 
