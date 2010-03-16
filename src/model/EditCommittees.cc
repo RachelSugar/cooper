@@ -42,6 +42,7 @@ CREATE TABLE committees (id INTEGER PRIMARY KEY, name TEXT, chair_id INTEGER, se
 	connect(DeleteButton,SIGNAL(clicked()), this, SLOT(deleteCommittee()));
 	connect(SaveButton,SIGNAL(clicked()), this, SLOT(saveCommittee()));
 	connect(CancelButton,SIGNAL(clicked()), this, SLOT(close()));
+	connect(addTask,SIGNAL(clicked()),this,SLOT(addTaskToCommittee()));
 
 }
 
@@ -75,4 +76,17 @@ void EditCommittees::deleteCommittee(){
 		}
 	}
 	//this->close();
+}
+
+void EditCommittees::addTaskToCommittee(){
+
+	QItemSelectionModel *selected = view->selectionModel();
+	QModelIndex index = selected->currentIndex();	
+	QSqlRecord record = Cmodel->record(index.row());
+	QString name = record.value(1).toString();
+	
+	qDebug() << name << endl;
+	
+	
+
 }
