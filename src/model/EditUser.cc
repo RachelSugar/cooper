@@ -10,7 +10,7 @@ EditUser::EditUser(QWidget *parent,QString username)
 	// signals/slots mechanism in action
 	
 	connect( saveCancel, SIGNAL( rejected() ), this, SLOT( close() ));
-	connect( saveCancel, SIGNAL( accepted() ), this, SLOT( getSave() ) ); 
+	connect( saveCancel, SIGNAL( accepted() ), this, SLOT( getSave(username) ) ); 
 	connect( deleteUser, SIGNAL(clicked() ), this, SLOT( deleteUse() ) );
 	connect( getUser, SIGNAL(clicked() ), this, SLOT( getToEdit() ) ); 
 	
@@ -38,15 +38,27 @@ EditUser::EditUser(QWidget *parent,QString username)
 }
 
 
-void EditUser::getSave()
+void EditUser::getSave(QString username)
 {
 	//get values of fields in GUI
+	QString uName;
+	if(username != "coord"){
+		uName = userEdit->text();
+	}
+	else {
+		if(userName->text() != ""){
+			uName = userName->text();
+		}
+		else {
+			uName = userEdit->text();
+		}
+	}
 	QString fName = firstName->text();
 	QString lName = lastName->text();
-	QString uName = userName->text();
-	
 	QString tele = telephone->text();
 	QString pastAdd = pastAddress->text();
+	QString pass = password->text();
+	QString owe = owing->text();
 	//QString unitx = unit->text();
 	QDate movDate = moveInDate->date();
 	bool hidden = privateTele->isChecked();
@@ -81,10 +93,9 @@ void EditUser::getSave()
 		live = '0';
 	else
 		live = '1';
-		
 	QString text = "UPDATE users \
-	SET user_name = '" + uName +"', last_name = '" + lName + "', first_name = '" + fName + "', unit_id = '111', phone_number = '" + tele +"', phone_number_is_public = '" + phonePublic + "', under_twenty = '" + age + "', is_resident = '" + live + "' \
-	WHERE user_name = '" + uName +"';";
+	SET user_name = '" + uName +"', last_name = '" + lName + "', first_name = '" + fName + "', unit_id = '111', phone_number = '" + tele +"', phone_number_is_public = '" + phonePublic + "', is_21 = '" + age + "', is_resident = '" + live + "', \
+	 in_arrears = '" + owe + "', old_address = '" + pastAdd + "', password = '" + pass + "'  WHERE user_name = '" + uName +"';";
 	//test data
 	QSqlQuery query;
 	
