@@ -5,3 +5,4 @@ CREATE TABLE tasks (id INTEGER PRIMARY KEY, description TEXT, committee_id INTEG
 INSERT INTO users VALUES (NULL, 0, 'kpucker', 'xxx', 'Fielding', 'Kevin', 1, 2, 1, 223, '519-886-1111', 1, 0, 'old addy', 101207);
 INSERT INTO users VALUES (NULL, 0, 'ahardgay', 'xxx', 'Gray', 'Mick', 1, 2, 1, 223, '519-886-0000', 1, 0, 'old addy', 010509);
 INSERT INTO users VALUES (NULL, 0, 'shimaymay', 'xxx', 'Wray', 'Shick', 1, 2, 1, 1, '519-886-XXXX', 0, 0, 'really old addy', 111111);
+
