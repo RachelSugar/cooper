@@ -34,7 +34,6 @@ EditUser::EditUser(QWidget *parent,QString username)
 		moveInDate->setEnabled(false);
 		privateTele->setEnabled(false);
 		fillMemberInfo(username);
-		
 	}
 }
 

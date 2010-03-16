@@ -68,21 +68,21 @@ void InitialLoad::loadInData(QString fileLoc) {
 	QString line;
   	QFile bulkfile(fileLoc);
   	if (bulkfile.open( QIODevice::ReadOnly )) {
-	QTextStream ts( &bulkfile );
-    	while (! ts.atEnd() ) {
-			line = ts.readLine();
-      		qDebug() << line;
-			QStringList list = line.split(",");
-			for(int i = 0; i < list.length(); i++){
-				list[i] = list[i].trimmed();
-				qDebug() << list[i];
-			}
-			QSqlQuery q; 
-			QString text = "INSERT INTO units VALUES(NULL,'" + list[0] + "','" + list[1] + "','" + list[2] + "','" + list[3] + "')";
-			qDebug() << text;
-			q.exec((text));
+	// QTextStream ts( &bulkfile );
+	//     	while (! ts.atEnd() ) {
+	// 		line = ts.readLine();
+	//       		qDebug() << line;
+	// 		QStringList list = line.split(",");
+	// 		for(int i = 0; i < list.length(); i++){
+	// 			list[i] = list[i].trimmed();
+	// 			qDebug() << list[i];
+	// 		}
+	// 		QSqlQuery q; 
+	// 		QString text = "INSERT INTO units VALUES(NULL,'" + list[0] + "','" + list[1] + "','" + list[2] + "','" + list[3] + "')";
+	// 		qDebug() << text;
+	// 		q.exec((text));
 			
-    	}
+    //	}
     	bulkfile.close();
   	}
   	else {
