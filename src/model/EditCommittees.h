@@ -14,7 +14,6 @@ public:
 public slots:
 	void moreInformation();
 	void deleteCommittee();
-	void addTaskToCommittee();
 };
  
 #endif

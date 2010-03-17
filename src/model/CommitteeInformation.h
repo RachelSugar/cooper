@@ -7,14 +7,14 @@ class CommitteeInformation : public QWidget, private Ui::CommitteeInformationObj
 {
 	Q_OBJECT
 public:
-	CommitteeInformation(QWidget *parent = 0);
+	CommitteeInformation(QString committee);
 
 public slots:
 
 	void addTask();
 	void deleteTask();
 	void markTaskCompleted();
-	void printCommitee();
+	void printCommittee();
 	void printTask();
 	void promoteChair();
 	void promoteSecretary();

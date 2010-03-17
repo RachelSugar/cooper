@@ -15,7 +15,7 @@
   <property name="windowTitle" >
    <string>Viewing committees</string>
   </property>
-  <widget class="QWidget" name="" >
+  <widget class="QWidget" name="layoutWidget" >
    <property name="geometry" >
     <rect>
      <x>10</x>
@@ -49,13 +49,6 @@
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout" >
-      <item>
-       <widget class="QPushButton" name="addTask" >
-        <property name="text" >
-         <string>Add Task</string>
-        </property>
-       </widget>
-      </item>
       <item>
        <widget class="QPushButton" name="DeleteButton" >
         <property name="text" >
