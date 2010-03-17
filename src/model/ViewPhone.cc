@@ -7,7 +7,7 @@
 #include <QSqlQuery>
 #include <QTextDocument>
 
-QSqlRelationalTableModel* model;
+QSqlTableModel* model;
 
 ViewPhone::ViewPhone(QWidget *parent, bool conf){
 	setupUi(this);
@@ -16,30 +16,29 @@ ViewPhone::ViewPhone(QWidget *parent, bool conf){
 	connect( pbPrint, SIGNAL( clicked()), this, SLOT ( printList()));
 	connect( pbClose, SIGNAL( clicked()), this, SLOT ( close()));
 
-	if(parent==0){}
-
 /*
 CREATE TABLE users (
-
-0  id INTEGER PRIMARY KEY, 
-1  is_coordinator INTEGER, 
-2  user_name TEXT, 
-3  password TEXT, 
-4  last_name TEXT, 
-5  first_name TEXT, 
-6  age INTEGER, 
-7  committee_id INTEGER, 
-8  is_resident INTEGER, 
-9  unit_id INTEGER, 
-10 phone_number TEXT, 
-11 phone_number_is_public INTEGER, 
-12 in_arrears INTEGER, 
-13 under_twenty TEXT);
-
+0	id INTEGER PRIMARY KEY, 
+1	is_coordinator INTEGER, 
+2	user_name TEXT, 
+3	password TEXT, 
+4	last_name TEXT, 
+5	first_name TEXT, 
+6	is_21 INTEGER, 
+7	committee_id INTEGER, 
+8	is_resident INTEGER, 
+9	unit_id INTEGER, 
+0	phone_number TEXT, 
+1	phone_number_is_public INTEGER, 
+2	in_arrears INTEGER, 
+3	old_address TEXT, 
+4	move_in_date TEXT);
 */
-	
+
+	if(parent==0){}
+
 	//Setup my table model to interact with database table
-	model = new QSqlRelationalTableModel(this);
+	model = new QSqlTableModel(this);
 	model->setTable("users");
 
 	//Rename headers
@@ -52,6 +51,7 @@ CREATE TABLE users (
 	model->select();
 
 	//Are we printing a confidential list? If so remove confidential numbers
+/*
 	if(!conf){
 		label->setText("Public Member Phone List");
 		for(int i=0;i<model->rowCount();i++){
@@ -60,7 +60,8 @@ CREATE TABLE users (
 			}
 		}
 	}
-
+*/
+/*
 	//Loop through each user
 	for(int i=0;i<model->rowCount();i++){
 
@@ -95,9 +96,10 @@ CREATE TABLE users (
 	}
 
 	//Relate the foreign keys in the table to the units database table
-	model->setRelation(9, QSqlRelation("units", "id", "number"));
+	model->setRelation(9, QSqlRelation("units", "id", "unit_number"));
 	model->select();
 	model->submitAll();
+*/
 
 	//Format the tableview to look good.
 	view->setModel(model);
@@ -111,6 +113,8 @@ CREATE TABLE users (
 	view->setColumnHidden(8,true);
 	view->setColumnHidden(11,true);
 	view->setColumnHidden(12,true);
+	view->setColumnHidden(14,true);
+
 
 	QHeaderView *header = view->horizontalHeader();
 	header->setStretchLastSection(true);
@@ -120,7 +124,7 @@ CREATE TABLE users (
 //Print function, currently paints the viewport of the table....
 
 void ViewPhone::printList() {
-
+/*
 	//Setup my output string (later to be printed).
 
 	QString toPrint =label->text()+"\n-------------------------------------------------------------------------------------------------------------------------\n\n",unitSt="",t;
@@ -128,7 +132,6 @@ void ViewPhone::printList() {
 	//Fill the string with a list of phone numbers.
 	for(int i=0;i<model->rowCount();i++){
 
-		//Check if they are cohabitants with minors
 		int uid = model->data(model->index(i,9)).toInt();
 		QSqlQuery query;
 		query.prepare("SELECT number FROM units WHERE id = :uid");
@@ -159,4 +162,5 @@ void ViewPhone::printList() {
 		doc->print(&printer);
 	}
 	qDebug() << "Printed";
+*/
 }

@@ -67,10 +67,10 @@
       <item row="2" column="1" >
        <widget class="QLineEdit" name="telephone" >
         <property name="inputMask" >
-         <string>DDDDDDDDDD; </string>
+         <string>999-999-9999; </string>
         </property>
         <property name="maxLength" >
-         <number>10</number>
+         <number>12</number>
         </property>
        </widget>
       </item>

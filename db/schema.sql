@@ -4,7 +4,7 @@ CREATE TABLE committees (id INTEGER PRIMARY KEY, name TEXT, chair_id INTEGER, se
 CREATE TABLE tasks (id INTEGER PRIMARY KEY, description TEXT, committee_id INTEGER, is_complete INTEGER, due_date TEXT);
 INSERT INTO units VALUES (NULL, '250A', '123 Fake St.', '4', 'Gray');
 INSERT INTO units VALUES (NULL, '69C', '2 Derek Jeter Dr.', '6', 'Fielding');
-INSERT INTO users VALUES (NULL, 0, 'kpucker', 'xxx', 'Fielding', 'Kevin', 1, 2, 1, 1, '519-886-1111', 1, 0, 'old addy', 'some date');
-INSERT INTO users VALUES (NULL, 0, 'ahardgay', 'xxx', 'Gray', 'Mick', 1, 2, 1, 1, '519-886-0000', 1, 0, 'old addy', 'some date');
-INSERT INTO users VALUES (NULL, 0, 'shimaymay', 'xxx', 'Wray', 'Shick', 1, 2, 1, 1, '519-886-XXXX', 0, 0, 'really old addy', 'some date');
+INSERT INTO users VALUES (NULL, 0, 'kpucker', 'xxx', 'Fielding', 'Kevin', 1, 0, 1, 1, '519-886-1111', 1, 0, 'old addy', 'some date');
+INSERT INTO users VALUES (NULL, 0, 'ahardgay', 'xxx', 'Gray', 'Mickeeee', 0, 0, 1, 1, '519-886-0000', 1, 0, 'old addy', 'some date');
+INSERT INTO users VALUES (NULL, 0, 'shimaymay', 'xxx', 'Wray', 'Shickee', 1, 0, 1, 1, '519-886-8888', 0, 0, 'really old addy', 'some date');
 
