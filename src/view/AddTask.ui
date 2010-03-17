@@ -171,7 +171,7 @@
       <item>
        <widget class="QDialogButtonBox" name="cancelOk" >
         <property name="layoutDirection" >
-         <enum>Qt::RightToLeft</enum>
+         <enum>Qt::LeftToRight</enum>
         </property>
         <property name="standardButtons" >
          <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>

@@ -34,17 +34,37 @@ void AddTask::add(){
 	QString title = titleLine->text();
 	QTextDocument *descriptionDoc = description->document();
 	QString descStr = descriptionDoc->toPlainText();
-	qDebug() << descStr << endl;
-	if(dueDateCheck->isEnabled() == true){
-		//date = dateBox->date();
+	if(title.length() == 0 || descStr.length() == 0){
+	QMessageBox::critical(0, qApp->tr("Error:"),
+			qApp->tr("Please both fields.\n"),
+			QMessageBox::Cancel);
 	}
 	else{
-		
+		QString getCommitteeNum = "SELECT id FROM committees WHERE name = '" + committee +"'";
+		QString CommitteeNum;
+		QSqlQuery query(getCommitteeNum);
+	
+		while ( query.next() ) {
+			CommitteeNum = query.value(0).toString();
+		}
+	
+		QString date;
+		if(dueDateCheck->isEnabled() == true){
+			date = dateBox->date().toString();
+		}
+		else{
+			date = "no";
+		}
+
+	
+		char isAnnual = isTrue(annualCheck->isChecked());
+		QString addQuery = "INSERT INTO tasks VALUES(NULL,'"+ title +"','" + descStr + "','" + CommitteeNum + "',0,'"+date+"'," + isAnnual +")";
+		qDebug() << query.exec(addQuery) << endl;
+		this->close();
+	
+
 	}
-
-
 }
-
 char AddTask::isTrue(bool toTest)
 {
 	if(toTest == true)
@@ -53,4 +73,3 @@ char AddTask::isTrue(bool toTest)
 		return '0';
 
 }
-
