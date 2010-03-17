@@ -16,6 +16,16 @@ CommitteeInformation::CommitteeInformation(QString committee){
 
 	Tmodel = new QSqlTableModel(this);
 	Tmodel->setTable("tasks");
+
+	QString getCommitteeNum = "SELECT id FROM committees WHERE name = '" + committeeName +"'";
+	QString CommitteeNum;
+	QSqlQuery query(getCommitteeNum);
+	
+	while ( query.next() ) {
+		CommitteeNum = query.value(0).toString();
+	}
+
+	Tmodel->setFilter("committee_id = " + CommitteeNum);
 	
 	Tmodel->setHeaderData(1, Qt::Horizontal, tr("Name"));
 	Tmodel->setHeaderData(2, Qt::Horizontal, tr("Complete?"));
