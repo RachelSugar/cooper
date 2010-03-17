@@ -8,6 +8,7 @@
 const int DEBUG = 1;
 
 QSqlTableModel *Tmodel;
+QSqlTableModel *CLmodel;
 QString committeeName;
 
 CommitteeInformation::CommitteeInformation(QString committee){
@@ -28,8 +29,9 @@ CommitteeInformation::CommitteeInformation(QString committee){
 	Tmodel->setFilter("committee_id = " + CommitteeNum);
 	
 	Tmodel->setHeaderData(1, Qt::Horizontal, tr("Name"));
-	Tmodel->setHeaderData(2, Qt::Horizontal, tr("Complete?"));
-	Tmodel->setHeaderData(3, Qt::Horizontal, tr("Annual?"));
+	Tmodel->setHeaderData(4, Qt::Horizontal, tr("Complete?"));
+	Tmodel->setHeaderData(5, Qt::Horizontal, tr("Due date"));
+	Tmodel->setHeaderData(6, Qt::Horizontal, tr("Annual?"));
 	
 	Tmodel->select();
 	
@@ -40,8 +42,41 @@ CommitteeInformation::CommitteeInformation(QString committee){
 	taskView->setColumnHidden(2, true);
 	taskView->setColumnHidden(3, true);
 	
-	QHeaderView * header = taskView->horizontalHeader();
-	header->setStretchLastSection(true);
+	QHeaderView *taskHeader = taskView->horizontalHeader();
+	taskHeader->setStretchLastSection(true);
+
+	// set up committee member table
+
+	CLmodel = new QSqlTableModel(this);
+	CLmodel->setTable("users");
+
+	CLmodel->setFilter("committee_id = " + CommitteeNum);
+	//CLmodel->setFilter("is_resident = 1");
+	
+	CLmodel->setHeaderData(1, Qt::Horizontal, tr("User name"));
+	CLmodel->setHeaderData(4, Qt::Horizontal, tr("Last name"));
+	CLmodel->setHeaderData(5, Qt::Horizontal, tr("First name"));
+	
+	CLmodel->select();
+	
+	constituentView->setModel(CLmodel);
+	
+	// hide all columns except username, last name, first name
+	constituentView->setColumnHidden(0, true);
+	constituentView->setColumnHidden(1, true);
+	constituentView->setColumnHidden(3, true);
+	constituentView->setColumnHidden(6, true);
+	constituentView->setColumnHidden(7, true);
+	constituentView->setColumnHidden(8, true);
+	constituentView->setColumnHidden(9, true);
+	constituentView->setColumnHidden(10, true);
+	constituentView->setColumnHidden(11, true);
+	constituentView->setColumnHidden(12, true);
+	constituentView->setColumnHidden(13, true);
+	constituentView->setColumnHidden(14, true);
+	
+	QHeaderView *constituentHeader = constituentView->horizontalHeader();
+	constituentHeader->setStretchLastSection(true);
 
 	connect(addTaskButton, SIGNAL(clicked()), this, SLOT(addTask()));
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
@@ -62,8 +97,29 @@ void CommitteeInformation::refreshTask(){
 	Tmodel->select();
 }
 void CommitteeInformation::deleteTask(){
+
+	// ask for confirmation first
+	int ret = QMessageBox::question(this, qApp->tr("Confirm delete task"),
+			qApp->tr("Are you sure you want to delete this task?.\n"),
+			QMessageBox::Ok | QMessageBox::Cancel);
+	
+	if(ret == QMessageBox::Ok){
+		QItemSelectionModel *selected = taskView->selectionModel();
+		QModelIndex index = selected->currentIndex();
+
+		Tmodel->removeRows(index.row(), 1, QModelIndex());
+	}
 }
 void CommitteeInformation::markTaskCompleted(){
+	QItemSelectionModel *selected = taskView->selectionModel();
+	QModelIndex index = selected->currentIndex();
+
+	QSqlRecord record = Tmodel->record(index.row());
+	QString tID = record.value(0).toString();
+	QString toChange = "UPDATE tasks\nSET is_complete=1\nWHERE id = "+tID; 
+	QSqlQuery query;
+	query.exec(toChange);
+	Tmodel->select();
 }
 void CommitteeInformation::printCommittee(){
 }
