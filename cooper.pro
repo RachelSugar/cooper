@@ -35,6 +35,8 @@ HEADERS += src/model/EditCommittees.h
 SOURCES += src/model/EditCommittees.cc
 HEADERS += src/model/AddTask.h
 SOURCES += src/model/AddTask.cc
+HEADERS += src/model/CommitteeInformation.h
+SOURCES += src/model/CommitteeInformation.cc
 
 # Views
 FORMS += src/view/AddTask.ui
@@ -47,6 +49,7 @@ FORMS += src/view/AddNewCommittee.ui
 FORMS += src/view/MemberInformation.ui
 FORMS += src/view/ViewPhone.ui
 FORMS += src/view/EditCommittees.ui
+FORMS += src/view/CommitteeInformation.ui
 
 # Delegates
 

@@ -5,6 +5,7 @@
 */
 #include "EditCommittees.h"
 #include "AddTask.h"
+#include "CommitteeInformation.h"
 #include <QtGui>
 #include <QtSql>
 #include <QItemSelectionModel>
@@ -40,12 +41,17 @@ CREATE TABLE committees (id INTEGER PRIMARY KEY, name TEXT, chair_id INTEGER, se
 	connect(DeleteButton,SIGNAL(clicked()), this, SLOT(deleteCommittee()));
 	connect(MoreButton,SIGNAL(clicked()), this, SLOT(moreInformation()));
 	connect(CancelButton,SIGNAL(clicked()), this, SLOT(close()));
-	connect(addTask,SIGNAL(clicked()),this,SLOT(addTaskToCommittee()));
 
 }
 
 void EditCommittees::moreInformation(){
 	// open up a new window with more information and the ability to edit
+	QItemSelectionModel *selected = view->selectionModel();
+	QModelIndex index = selected->currentIndex();	
+	QSqlRecord record = Cmodel->record(index.row());
+	QString name = record.value(1).toString();
+	CommitteeInformation *c = new CommitteeInformation(name);
+	c->show();
 }
 
 void EditCommittees::deleteCommittee(){
@@ -75,18 +81,3 @@ void EditCommittees::deleteCommittee(){
 	//this->close();
 }
 
-void EditCommittees::addTaskToCommittee(){
-
-	QItemSelectionModel *selected = view->selectionModel();
-	QModelIndex index = selected->currentIndex();	
-	QSqlRecord record = Cmodel->record(index.row());
-	QString name = record.value(1).toString();
-	AddTask *aTask = new AddTask(name);
-	aTask->show();
-	
-	
-	//call gui to add the new class
-	
-	
-
-}
