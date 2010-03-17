@@ -16,10 +16,17 @@ EditUser::EditUser(QWidget *parent,QString usName)
 	username = usName;
 	
 	QString queer = "SELECT unit_number FROM units";
-	QSqlQuery query2(queer);
-	while(query2.next()){
-		 queer=query2.value(0).toString();
+	QSqlQuery query(queer);
+	while(query.next()){
+		 queer=query.value(0).toString();
 		 unitNum->addItem(queer);
+	}
+	
+	QString q = "SELECT name FROM committees";
+	QSqlQuery query2(q);
+	while(query2.next()){
+		 q=query2.value(0).toString();
+		 committee->addItem(q);
 	}
 	
 	if(username != "coord"){
@@ -36,7 +43,6 @@ EditUser::EditUser(QWidget *parent,QString usName)
 		pastAddress->setEnabled(false);
 		over21->setEnabled(false);
 		committee->setEnabled(false);
-		position->setEnabled(false);
 		unitNum->setEnabled(false);
 		moveInDate->setEnabled(false);
 		privateTele->setEnabled(false);
@@ -73,11 +79,19 @@ void EditUser::getSave()
 	bool mvOut = movedOut->isChecked(); 
 	
 	QString unitx = unitNum->currentText();
+	QString commit = committee->currentText();
+	
 	QString t = "SELECT id FROM units WHERE unit_number = '" + unitx + "'";
 	QSqlQuery q(t);
 	q.next();
 	QString unit = q.value(0).toString();
 	qDebug() << " unit = " << unit;
+	
+	QString s = "SELECT id FROM committees WHERE name = '" + commit + "'";
+	QSqlQuery que(s);
+	que.next();
+	commit = que.value(0).toString();
+	qDebug() << "commit = " << commit;
 	
 	//cheap error detection for time being
 	if(fName.length() == 0 || lName.length() == 0 || uName.length() == 0 \
@@ -109,10 +123,11 @@ void EditUser::getSave()
 		live = '1';
 	QString text = "UPDATE users \
 	SET user_name = '" + uName +"', last_name = '" + lName + "', first_name = '" + fName + "', unit_id = '" + unit + "', phone_number = '" + tele +"', phone_number_is_public = '" + phonePublic + "', is_21 = '" + age + "', is_resident = '" + live + "', \
-	 in_arrears = '" + owe + "', old_address = '" + pastAdd + "', password = '" + pass + "' WHERE user_name = '" + userEdit->text() + "';";
+	 in_arrears = '" + owe + "', committee_id = '" + commit + "', old_address = '" + pastAdd + "', move_in_date = '" + movDate + "', password = '" + pass + "' WHERE user_name = '" + userEdit->text() + "';";
 	//test data
 	QSqlQuery query;
 	qDebug() << "true?" << query.exec(text);
+	qDebug() << "committee = " << commit;
 	qDebug() << "first Name = " << fName;
 	qDebug() << "last Name = " << lName;
 	qDebug() << "username = " << uName;
@@ -163,14 +178,20 @@ void EditUser::fillMemberInfo(QString userName) {
          	answer[x] = query.value(x).toString();
         }
     }
-	qDebug() << " amswer[9] = " <<  answer[9];
+	
 	QString text2 = "SELECT unit_number FROM units WHERE id = '" + answer[9] + "'";
 	QSqlQuery q(text2);
 	q.next();
 	QString unitNumber = q.value(0).toString();
-	qDebug() << unitNumber;
 	int index = unitNum->findText(unitNumber);
-	qDebug() << index;
+	
+	QString text3 = "SELECT name FROM committees WHERE id = '" + answer[7] + "'";
+	QSqlQuery qu(text3);
+	qu.next();
+	QString comm = qu.value(0).toString();
+	int i = committee->findText(comm);
+	
+	committee->setCurrentIndex(i);
 	unitNum->setCurrentIndex(index);
 	firstName->setText(answer[5]);
  	lastName->setText(answer[4]);
@@ -179,6 +200,9 @@ void EditUser::fillMemberInfo(QString userName) {
 	password->setText(answer[3]);
 	owing->setText(answer[12]);
 	pastAddress->setText(answer[13]);
+	QDate date;
+	date = date.fromString(answer[14]);
+	moveInDate->setDate(date);
 	
 	if(answer[8] == "0") {
 		movedOut->setChecked(true);
