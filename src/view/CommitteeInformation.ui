@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>653</width>
-    <height>391</height>
+    <width>818</width>
+    <height>419</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -15,13 +15,13 @@
   <widget class="QWidget" name="" >
    <property name="geometry" >
     <rect>
-     <x>11</x>
-     <y>11</y>
-     <width>627</width>
-     <height>368</height>
+     <x>10</x>
+     <y>10</y>
+     <width>794</width>
+     <height>399</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_5" >
+   <layout class="QVBoxLayout" name="verticalLayout_7" >
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_7" >
       <item>
@@ -60,64 +60,107 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_6" >
+     <layout class="QHBoxLayout" name="horizontalLayout_11" >
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_3" >
+       <layout class="QVBoxLayout" name="verticalLayout_5" >
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout" >
+         <layout class="QHBoxLayout" name="horizontalLayout_6" >
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_3" >
+           <layout class="QHBoxLayout" name="horizontalLayout_8" >
             <item>
-             <widget class="QLabel" name="residentTableLabel" >
+             <widget class="QLabel" name="label" >
               <property name="text" >
-               <string>Residents on this committee:</string>
+               <string>Chair:</string>
               </property>
              </widget>
             </item>
             <item>
-             <spacer name="residentSpacer" >
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0" >
-               <size>
-                <width>118</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <widget class="QTableView" name="constituentView" />
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout" >
-            <item>
-             <widget class="QPushButton" name="promoteSecretaryButton" >
+             <widget class="QLabel" name="label_3" >
               <property name="text" >
-               <string>Promote to secretary</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="promoteChairButton" >
-              <property name="text" >
-               <string>Promote to chair</string>
+               <string>&lt;&lt;CHAIR NAME>></string>
               </property>
              </widget>
             </item>
            </layout>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_3" >
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0" >
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
           </item>
          </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="printCommitteeButton" >
-          <property name="text" >
-           <string>Print committee list</string>
-          </property>
-         </widget>
+         <layout class="QVBoxLayout" name="verticalLayout_3" >
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout" >
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_3" >
+              <item>
+               <widget class="QLabel" name="residentTableLabel" >
+                <property name="text" >
+                 <string>Residents on this committee:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="residentSpacer" >
+                <property name="orientation" >
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0" >
+                 <size>
+                  <width>118</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QTableView" name="constituentView" >
+              <property name="editTriggers" >
+               <set>QAbstractItemView::NoEditTriggers</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout" >
+              <item>
+               <widget class="QPushButton" name="promoteSecretaryButton" >
+                <property name="text" >
+                 <string>Promote to secretary</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="promoteChairButton" >
+                <property name="text" >
+                 <string>Promote to chair</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QPushButton" name="printCommitteeButton" >
+            <property name="text" >
+             <string>Print committee list</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>
@@ -129,69 +172,112 @@
        </widget>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_4" >
+       <layout class="QVBoxLayout" name="verticalLayout_6" >
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_2" >
+         <layout class="QHBoxLayout" name="horizontalLayout_10" >
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4" >
+           <layout class="QHBoxLayout" name="horizontalLayout_9" >
             <item>
-             <widget class="QLabel" name="taskTableLabel" >
+             <widget class="QLabel" name="label_2" >
               <property name="text" >
-               <string>Tasks:</string>
+               <string>Secretary:</string>
               </property>
              </widget>
             </item>
             <item>
-             <spacer name="taskSpacer" >
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
+             <widget class="QLabel" name="label_4" >
+              <property name="text" >
+               <string>&lt;&lt;SECRETARY NAME>></string>
               </property>
-              <property name="sizeHint" stdset="0" >
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
+             </widget>
             </item>
            </layout>
           </item>
           <item>
-           <widget class="QTableView" name="taskView" />
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_2" >
-            <item>
-             <widget class="QPushButton" name="markTaskCompletedButton" >
-              <property name="text" >
-               <string>Mark as completed</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="addTaskButton" >
-              <property name="text" >
-               <string>Add Task</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="deleteTaskButton" >
-              <property name="text" >
-               <string>Delete Task</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <spacer name="horizontalSpacer_4" >
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0" >
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
           </item>
          </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="printTaskButton" >
-          <property name="text" >
-           <string>Print task list</string>
-          </property>
-         </widget>
+         <layout class="QVBoxLayout" name="verticalLayout_4" >
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_2" >
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_4" >
+              <item>
+               <widget class="QLabel" name="taskTableLabel" >
+                <property name="text" >
+                 <string>Tasks:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="taskSpacer" >
+                <property name="orientation" >
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0" >
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QTableView" name="taskView" >
+              <property name="editTriggers" >
+               <set>QAbstractItemView::NoEditTriggers</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_2" >
+              <item>
+               <widget class="QPushButton" name="markTaskCompletedButton" >
+                <property name="text" >
+                 <string>Mark as completed</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="addTaskButton" >
+                <property name="text" >
+                 <string>Add Task</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="deleteTaskButton" >
+                <property name="text" >
+                 <string>Delete Task</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QPushButton" name="printTaskButton" >
+            <property name="text" >
+             <string>Print task list</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>
@@ -206,8 +292,8 @@
         </property>
         <property name="sizeHint" stdset="0" >
          <size>
-          <width>40</width>
-          <height>20</height>
+          <width>535</width>
+          <height>26</height>
          </size>
         </property>
        </spacer>
@@ -223,6 +309,14 @@
     </item>
    </layout>
   </widget>
+  <zorder>layoutWidget</zorder>
+  <zorder>label</zorder>
+  <zorder>label_2</zorder>
+  <zorder>label_3</zorder>
+  <zorder>label_4</zorder>
+  <zorder>horizontalSpacer_3</zorder>
+  <zorder>horizontalSpacer_4</zorder>
+  <zorder>closeButtonSpacer</zorder>
  </widget>
  <resources/>
  <connections/>
