@@ -9,7 +9,7 @@ class AddTask : public QWidget, private Ui::AddTask
 	Q_OBJECT
  
 public:
-	AddTask(QString toAddTo);
+	AddTask(QString toAddTo,QWidget *parent);
  
 public slots:
 
