@@ -10,9 +10,13 @@ const int DEBUG = 1;
 QSqlTableModel *Tmodel;
 QSqlTableModel *CLmodel;
 QString committeeName;
+QString userName;
 
-CommitteeInformation::CommitteeInformation(QString committee){
+CommitteeInformation::CommitteeInformation(QString committee, QString currentUser){
 	committeeName = committee;
+	userName = currentUser;
+
+	qDebug() << "Current user is :" << userName;
 	setupUi(this);
 
 	Tmodel = new QSqlTableModel(this);
@@ -126,6 +130,8 @@ void CommitteeInformation::printCommittee(){
 void CommitteeInformation::printTask(){
 }
 void CommitteeInformation::promoteChair(){
+	// check user is coord or chair of current committee
+	
 }
 void CommitteeInformation::promoteSecretary(){
 }

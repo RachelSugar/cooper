@@ -12,8 +12,10 @@
 #include <QModelIndex>
 
 QSqlTableModel *Cmodel;
+QString userCurrent;
 
-EditCommittees::EditCommittees(QWidget *parent){
+EditCommittees::EditCommittees(QWidget *parent, QString user){
+	userCurrent = user;
 	setupUi(this);
 
 /*
@@ -50,7 +52,7 @@ void EditCommittees::moreInformation(){
 	QModelIndex index = selected->currentIndex();	
 	QSqlRecord record = Cmodel->record(index.row());
 	QString name = record.value(1).toString();
-	CommitteeInformation *c = new CommitteeInformation(name);
+	CommitteeInformation *c = new CommitteeInformation(name, userCurrent);
 	c->show();
 }
 
