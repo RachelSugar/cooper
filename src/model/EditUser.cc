@@ -8,13 +8,13 @@ EditUser::EditUser(QWidget *parent,QString usName)
 	setupUi(this); // this sets up GUI
 
 	// signals/slots mechanism in action
-	
 	connect( saveCancel, SIGNAL( rejected() ), this, SLOT( close() ));
 	connect( saveCancel, SIGNAL( accepted() ), this, SLOT( getSave() ) ); 
 	connect( deleteUser, SIGNAL(clicked() ), this, SLOT( deleteUse() ) );
 	connect( getUser, SIGNAL(clicked() ), this, SLOT( getToEdit() ) ); 
 	username = usName;
 	
+	// load the unit numbers into the combo box
 	QString queer = "SELECT unit_number FROM units";
 	QSqlQuery query(queer);
 	while(query.next()){
@@ -22,6 +22,7 @@ EditUser::EditUser(QWidget *parent,QString usName)
 		 unitNum->addItem(queer);
 	}
 	
+	// load the committee names into the combo box
 	QString q = "SELECT name FROM committees";
 	QSqlQuery query2(q);
 	while(query2.next()){
@@ -29,8 +30,8 @@ EditUser::EditUser(QWidget *parent,QString usName)
 		 committee->addItem(q);
 	}
 	
+	// disable features for non-admin users
 	if(username != "coord"){
-		//saveCancel->setEnabled(false);
 		getUser->setEnabled(false);
 		deleteUser->setEnabled(false);
 		movedOut->setEnabled(false);
@@ -50,11 +51,10 @@ EditUser::EditUser(QWidget *parent,QString usName)
 	}
 }
 
-
+// save the info from the form into the users db
 void EditUser::getSave()
 {
 	//get values of fields in GUI
-	
 	QString uName;
 	if(username != "coord"){
 		uName = userEdit->text();
@@ -85,66 +85,65 @@ void EditUser::getSave()
 	QSqlQuery q(t);
 	q.next();
 	QString unit = q.value(0).toString();
-	qDebug() << " unit = " << unit;
 	
 	QString s = "SELECT id FROM committees WHERE name = '" + commit + "'";
 	QSqlQuery que(s);
 	que.next();
 	commit = que.value(0).toString();
-	qDebug() << "commit = " << commit;
 	
 	//cheap error detection for time being
-	if(fName.length() == 0 || lName.length() == 0 || uName.length() == 0 \
-		|| tele.length() < 10 || pastAdd.length() == 0){
-	QMessageBox::critical(0, qApp->tr("Error:"),
+	if((fName.length() == 0 || lName.length() == 0 || uName.length() == 0 \
+			|| tele.length() < 10 || pastAdd.length() == 0) && uName != "coord"){
+			QMessageBox::critical(0, qApp->tr("Error:"),	
 			qApp->tr("Please fill in all feilds.\n"),
 			QMessageBox::Cancel);
 	}
 	else{
-	
-	char phonePublic;
-	
-	if(hidden == true)
-		phonePublic = '0';
-	else
-		phonePublic = '1';
-	
-	char age;
+		char phonePublic;
+		if(hidden == true) {
+			phonePublic = '0';
+		}
+		else {
+			phonePublic = '1';
+		}
+		char age;
 		
-		if(ofAge == true)
-		age = '0';
-	else
-		age = '1';
-	
-	char live;	
-		if(mvOut == true)
-		live = '0';
-	else
-		live = '1';
-	QString text = "UPDATE users \
-	SET user_name = '" + uName +"', last_name = '" + lName + "', first_name = '" + fName + "', unit_id = '" + unit + "', phone_number = '" + tele +"', phone_number_is_public = '" + phonePublic + "', is_21 = '" + age + "', is_resident = '" + live + "', \
-	 in_arrears = '" + owe + "', committee_id = '" + commit + "', old_address = '" + pastAdd + "', move_in_date = '" + movDate + "', password = '" + pass + "' WHERE user_name = '" + userEdit->text() + "';";
-	//test data
-	QSqlQuery query;
-	qDebug() << "true?" << query.exec(text);
-	qDebug() << "committee = " << commit;
-	qDebug() << "first Name = " << fName;
-	qDebug() << "last Name = " << lName;
-	qDebug() << "username = " << uName;
-	qDebug() << "unit = " << unit; 
-	
-	qDebug() << "tele# = " << tele;
-	qDebug() << "pastAddress = " << pastAdd;
-	qDebug() << "date = " << movDate;	
-	qDebug() << "private? = " << hidden;
-	qDebug() << "ofAge? = " << ofAge;
-	qDebug() << "mvout? = " << mvOut;
-	this->close();
+		if(ofAge == true) {
+			age = '0';
+		}
+		else {
+			age = '1';
+		}
+		char live;	
+		if(mvOut == true) {
+			live = '0';
+		}
+		else {
+			live = '1';
+		}
+		if(uName != "coord") {
+			// put the info into the users db
+			QString text = "UPDATE users \
+				SET user_name = '" + uName +"', last_name = '" + lName + "', first_name = '" + fName + "', unit_id = '" + unit + "', phone_number = '" + tele +"', phone_number_is_public = '" + phonePublic + "', is_21 = '" + age + "', is_resident = '" + live + "', \
+	 			in_arrears = '" + owe + "', committee_id = '" + commit + "', old_address = '" + pastAdd + "', move_in_date = '" + movDate + "', password = '" + pass + "' WHERE user_name = '" + userEdit->text() + "';";
+
+			QSqlQuery query;
+			query.exec(text);
+		}
+		else {
+			// only change the password
+			QString s = "UPDATE users SET password = '" + pass + "' WHERE user_name = 'coord';";
+			qDebug() << s;
+			QSqlQuery sql;
+			sql.exec(s);
+		}
+
 	}
+	this->close();
 }
 
+// remove a member who is no longer living in the coop from the db
 void EditUser::deleteUse(){
-
 	if(movedOut->isChecked() == true){
 		QString temp = "DELETE \
 		FROM users \
@@ -157,18 +156,44 @@ void EditUser::deleteUse(){
 		QMessageBox::critical(0, qApp->tr("Error:"),
 			qApp->tr("Cannot delete user that\nis not moved out.\n"),
 			QMessageBox::Cancel);
+	}
+}
+
+// pass the user name in the edit slot to fill in the info
+// used by admin only
+void EditUser::getToEdit(){
+	QString usrName = userEdit->text();
 	
+	// only allowed to edit the password for coord
+	if(usrName == "coord") {
+		QString text = "SELECT password FROM users WHERE user_name = '" + usrName + "'";
+		QSqlQuery query(text);
+		query.next();
+		QString pass = query.value(0).toString();
+		password->setText(pass);
+		
+		deleteUser->setEnabled(false);
+		movedOut->setEnabled(false);
+		firstName->setEnabled(false);
+	 	lastName->setEnabled(false);
+	 	userName->setEnabled(false);
+	 	telephone->setEnabled(false);
+		owing->setEnabled(false);
+		pastAddress->setEnabled(false);
+		over21->setEnabled(false);
+		committee->setEnabled(false);
+		unitNum->setEnabled(false);
+		moveInDate->setEnabled(false);
+		privateTele->setEnabled(false);
 	}
 	
-	
-
+	// can see everything else for everyone else
+	else {
+		fillMemberInfo(usrName);
+	}
 }
 
-void EditUser::getToEdit(){
-	QString usrName= userEdit->text();
-	fillMemberInfo(usrName);
-}
-
+// fill the information in the form from the users db
 void EditUser::fillMemberInfo(QString userName) {
 	QString answer[15];
 	QString text = "SELECT * FROM users WHERE user_name = '" + userName + "'";
@@ -216,7 +241,7 @@ void EditUser::fillMemberInfo(QString userName) {
 	else { 
 		privateTele->setChecked(false);
 	}	
-	if(answer[13] == "0") {
+	if(answer[6] == "0") {
 		over21->setChecked(true);
 	}
 	else {
