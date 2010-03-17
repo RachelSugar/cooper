@@ -49,7 +49,7 @@ void PrototypeMainScreen::printPublic(){
 }
 
 void PrototypeMainScreen::editCommit(){
-	EditCommittees *eCommit = new EditCommittees(this);
+	EditCommittees *eCommit = new EditCommittees(this, user);
 	eCommit->show();
 }
 

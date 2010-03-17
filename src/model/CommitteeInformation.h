@@ -7,7 +7,7 @@ class CommitteeInformation : public QWidget, private Ui::CommitteeInformationObj
 {
 	Q_OBJECT
 public:
-	CommitteeInformation(QString committee);
+	CommitteeInformation(QString committee, QString user);
 
 public slots:
 

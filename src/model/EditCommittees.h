@@ -9,7 +9,7 @@ class EditCommittees : public QWidget, private Ui::EditCommittees
 	Q_OBJECT
  
 public:
-	EditCommittees(QWidget *parent);
+	EditCommittees(QWidget *parent, QString username);
  
 public slots:
 	void moreInformation();

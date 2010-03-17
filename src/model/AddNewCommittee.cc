@@ -195,13 +195,39 @@ void AddNewCommittee::save() {
 				QSqlQuery deleteOld(deleteOldText);
 			}
 
-			// insert the new values
+			// insert the new values into committees table
 			QSqlQuery query;
 			qDebug() << query.prepare("INSERT INTO committees VALUES(NULL, :name, :chairID, :secretaryID)");
 			query.bindValue(":name", name);
 			query.bindValue(":chairID", chairID);
 			query.bindValue(":secretaryID", secretaryID);
 			qDebug() << query.exec();
+
+			
+			// update the users table
+			QString getCommitteeID = "SELECT id FROM committees WHERE name = '" + name +"'";
+			QSqlQuery getIDquery(getCommitteeID);
+
+			QString committeeID;
+			if(getIDquery.next()){
+				committeeID = getIDquery.value(0).toString();
+			}
+
+			qDebug() << "new committee's ID is" << committeeID;
+	
+			// update chair's committee
+			QSqlQuery q1;
+			q1.prepare("UPDATE users SET committee_id = :committeeID WHERE user_name = :chair");
+			q1.bindValue(":committeeID", committeeID);
+			q1.bindValue(":chair", chair);
+			qDebug() << q1.exec();
+
+			// update secretary's committee
+			QSqlQuery q2;
+			q2.prepare("UPDATE users SET committee_id = :committeeID WHERE user_name = :secretary");
+			q2.bindValue(":committeeID", committeeID);
+			q2.bindValue(":secretary", secretary);
+			qDebug() << q2.exec();
 
 			// close the widget
 			this->close();
