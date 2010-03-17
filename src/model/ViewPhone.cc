@@ -40,6 +40,8 @@ CREATE TABLE users (
 	//Setup my table model to interact with database table
 	model = new QSqlTableModel(this);
 	model->setTable("users");
+	model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+	model->select();
 
 	//Rename headers
 	model->setHeaderData(4,Qt::Horizontal,tr("Surname"));
@@ -47,11 +49,8 @@ CREATE TABLE users (
 	model->setHeaderData(9,Qt::Horizontal,tr("Unit"));
 	model->setHeaderData(10,Qt::Horizontal,tr("Phone Number"));
 	model->setHeaderData(13,Qt::Horizontal,tr("Cohabitants Under 21"));
-	model->setSort(4, Qt::AscendingOrder);
-	model->select();
-
+	
 	//Are we printing a confidential list? If so remove confidential numbers
-/*
 	if(!conf){
 		label->setText("Public Member Phone List");
 		for(int i=0;i<model->rowCount();i++){
@@ -60,8 +59,7 @@ CREATE TABLE users (
 			}
 		}
 	}
-*/
-/*
+
 	//Loop through each user
 	for(int i=0;i<model->rowCount();i++){
 
@@ -71,36 +69,30 @@ CREATE TABLE users (
 		QString names="";
 
 		QSqlQuery query;
-		query.prepare("SELECT age,last_name,first_name,user_name FROM users WHERE unit_id = :uid");
+		query.prepare("SELECT is_21,last_name,first_name,user_name FROM users WHERE unit_id = :uid");
 		query.bindValue(":uid",uid);
 		query.exec();
 		
 		while(query.next()){
 			//If they are living with minors, make a list of all of them.
-			if(query.value(0).toInt()<21 && query.value(3).toString()!=model->data(model->index(i,2)).toString() ){
+			if(query.value(0).toInt()==0 && query.value(3).toString()!=model->data(model->index(i,2)).toString() ){
 				names=names+query.value(2).toString()+" "+query.value(1).toString()+"; ";
 			}
 		}
 		model->setData(model->index(i,13), names);
 
-		//Remove the user if they arent living in the coop
+		//Remove the user if they arent living in the coop, this takes care of coord
 		if(model->data(model->index(i,8)).toInt() == 0){
 			model->removeRows(i,1);
 		}
 
-		//Remove the coord cause they arent living there
-		if(model->data(model->index(i,2)).toString() == "coord"){
-			model->removeRows(i,1);
-		}
-
 	}
-
+/*
 	//Relate the foreign keys in the table to the units database table
 	model->setRelation(9, QSqlRelation("units", "id", "unit_number"));
 	model->select();
 	model->submitAll();
 */
-
 	//Format the tableview to look good.
 	view->setModel(model);
 	view->resizeColumnsToContents();
@@ -115,9 +107,11 @@ CREATE TABLE users (
 	view->setColumnHidden(12,true);
 	view->setColumnHidden(14,true);
 
-
 	QHeaderView *header = view->horizontalHeader();
 	header->setStretchLastSection(true);
+
+	model->setSort(4, Qt::AscendingOrder);
+	model->select();
 
 }
 

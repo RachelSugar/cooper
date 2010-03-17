@@ -39,9 +39,9 @@ void CreateUser::getSave()
 	
 	QString findKey = "SELECT id FROM units WHERE unit_number = '" + unit +"'";
 	QSqlQuery query3(findKey);
-	int unitID;
+	QString unitID;
 	while(query3.next()){
-		unitID=query3.value(0).toInt();
+		unitID=query3.value(0).toString();
 	}
 	qDebug() << "this is unid id ? " << unitID;
 
@@ -75,6 +75,20 @@ void CreateUser::getSave()
 	
 	}
 	else{
+
+	//Make names proper. Capitalize yo mama
+
+	QString f;
+
+	f=lName;
+	f.truncate(1);
+	lName.remove(0,1);
+	lName = f.toUpper() + lName;
+
+	f=fName;
+	f.truncate(1);
+	fName.remove(0,1);
+	fName = f.toUpper() + fName;
 
 	char hiddenInt = isTrue2(hidden);
 	char ofAgeInt = isTrue(ofAge);
