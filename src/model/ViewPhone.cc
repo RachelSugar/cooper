@@ -39,17 +39,19 @@ CREATE TABLE users (
 
 	//Setup my table model to interact with database table
 	model = new QSqlTableModel(this);
+
 	model->setTable("users");
 	model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-	model->select();
 
 	//Rename headers
 	model->setHeaderData(4,Qt::Horizontal,tr("Surname"));
 	model->setHeaderData(5,Qt::Horizontal,tr("First Name"));
 	model->setHeaderData(9,Qt::Horizontal,tr("Unit"));
 	model->setHeaderData(10,Qt::Horizontal,tr("Phone Number"));
-	model->setHeaderData(13,Qt::Horizontal,tr("Cohabitants Under 21"));
-	
+	model->setHeaderData(13,Qt::Horizontal,tr("Cohabitants Under 21"));	
+
+	model->select();
+
 	//Are we printing a confidential list? If so remove confidential numbers
 	if(!conf){
 		label->setText("Public Member Phone List");
@@ -63,6 +65,11 @@ CREATE TABLE users (
 	//Loop through each user
 	for(int i=0;i<model->rowCount();i++){
 
+		//Remove the user if they arent living in the coop, this takes care of coord
+		if(model->data(model->index(i,8)).toInt() == 0){
+			model->removeRows(i,1);
+		}
+
 		//Check if they are cohabitants with minors
 		int uid = model->data(model->index(i,9)).toInt();
 
@@ -71,7 +78,7 @@ CREATE TABLE users (
 		QSqlQuery query;
 		query.prepare("SELECT is_21,last_name,first_name,user_name FROM users WHERE unit_id = :uid");
 		query.bindValue(":uid",uid);
-		query.exec();
+		qDebug() << "Good phone search queer ? " << query.exec();
 		
 		while(query.next()){
 			//If they are living with minors, make a list of all of them.
@@ -79,14 +86,11 @@ CREATE TABLE users (
 				names=names+query.value(2).toString()+" "+query.value(1).toString()+"; ";
 			}
 		}
+		qDebug() << names;
 		model->setData(model->index(i,13), names);
 
-		//Remove the user if they arent living in the coop, this takes care of coord
-		if(model->data(model->index(i,8)).toInt() == 0){
-			model->removeRows(i,1);
-		}
-
 	}
+	model->select();
 /*
 	//Relate the foreign keys in the table to the units database table
 	model->setRelation(9, QSqlRelation("units", "id", "unit_number"));
@@ -111,7 +115,6 @@ CREATE TABLE users (
 	header->setStretchLastSection(true);
 
 	model->setSort(4, Qt::AscendingOrder);
-	model->select();
 
 }
 
