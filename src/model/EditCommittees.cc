@@ -72,12 +72,28 @@ void EditCommittees::deleteCommittee(){
 		QString name = record.value(1).toString();
 
 		if(name == "Board" || name == "Inspections" || name == "Membership"
-			|| name == "Education" || name == "Member Relations"){
+			|| name == "Education" || name == "Member Relations" || name == "None"){
 			QMessageBox::critical(this, qApp->tr("Invalid delete"),
 			qApp->tr("You cannot delete this committee.\n"),
 			QMessageBox::Ok);
 		} else {
 		Cmodel->removeRows(index.row(), 1, QModelIndex());
+
+		// update all users
+		QString noneQueryText = "SELECT id FROM committees WHERE name = 'None' COLLATE NOCASE";
+		QSqlQuery noneQuery(noneQueryText);
+		QString noneID = 0;
+		if(noneQuery.next()){
+			qDebug() << (noneID = noneQuery.value(0).toString());
+		}
+
+		QString thisID = record.value(0).toString();
+
+		QSqlQuery userQuery;
+		userQuery.prepare("UPDATE users SET committee_id = :noneID WHERE committee_id = :thisID");
+		userQuery.bindValue(":noneID", noneID);
+		userQuery.bindValue(":thisID", thisID);
+		qDebug() << userQuery.exec();
 		}
 	}
 	//this->close();
