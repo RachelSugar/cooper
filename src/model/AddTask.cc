@@ -3,16 +3,19 @@
 #include <QtSql>
 #include <QItemSelectionModel>
 #include <QModelIndex>
+#include "CommitteeInformation.h"
 
 QString committee;
 
-AddTask::AddTask(QString toAddTo){
+AddTask::AddTask(QString toAddTo,QWidget *parent){
 	setupUi(this);
 	
 	committee = toAddTo;
 	connect(cancelOk,SIGNAL(rejected()), this, SLOT(close()));
 	connect(cancelOk,SIGNAL(accepted()), this, SLOT(add()));
+	connect(cancelOk,SIGNAL(accepted()), parent, SLOT(refreshTask()));
 	connect(dueDateCheck,SIGNAL(clicked()), this, SLOT(dateClicked()));
+	
 	
 
 }
