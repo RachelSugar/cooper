@@ -7,10 +7,9 @@ The members of a housing co-op are organized into various committees. Each commi
 
 A housing co-op typically has a co-ordinator. This is a paid, contract employee acting as an administrative assistant to the co-op (for instance, taking rent cheques to the bank every month and interacting with repair contractors). The co-ordinator also has tasks that a computer-based management system would help with.
 
-The software application to be developed in this project is a housing co-operative management system called Cooper (short for “co-op member”). Using Cooper, co-op members, committee chairs, and the co-ordinator will be able to keep track of the information and tasks that their com- mittee needs to perform, which tasks have been done and which tasks are still pending.
+The software application to be developed in this project is a housing co-operative management system called Cooper (short for “co-op member”). Using Cooper, co-op members, committee chairs, and the co-ordinator will be able to keep track of the information and tasks that their committee needs to perform, which tasks have been done and which tasks are still pending.
 
 Building
 --------
 
-    $ qmake cooper.pro
-    $ make
+Must have db folder in main for compilation
