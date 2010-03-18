@@ -10,6 +10,7 @@ const int DEBUG = 1;
 QSqlTableModel *Tmodel;
 QSqlTableModel *CLmodel;
 QString committeeName;
+QString CommitteeNum;
 QString userName;
 QString userID;
 
@@ -24,7 +25,6 @@ CommitteeInformation::CommitteeInformation(QString committee, QString currentUse
 	Tmodel->setTable("tasks");
 
 	QString getCommitteeNum = "SELECT id FROM committees WHERE name = '" + committeeName +"'";
-	QString CommitteeNum;
 	QSqlQuery query(getCommitteeNum);
 	
 	while ( query.next() ) {
@@ -223,10 +223,7 @@ void CommitteeInformation::markTaskCompleted(){
 			QMessageBox::Ok);
 	}
 }
-void CommitteeInformation::printCommittee(){
-}
-void CommitteeInformation::printTask(){
-}
+
 void CommitteeInformation::promoteChair(){
 	QString text = "SELECT chair_id FROM committees WHERE name = '" + committeeName + "'";
 	QSqlQuery query(text);
@@ -325,4 +322,133 @@ void CommitteeInformation::displayDescription(){
 QMessageBox::information(this, qApp->tr("Description"),
 			qApp->tr(tID.toStdString().c_str()),
 			QMessageBox::Ok);
+}
+
+void CommitteeInformation::printCommittee(){
+
+/*
+CREATE TABLE committees (
+
+0	id INTEGER PRIMARY KEY, 
+1	name TEXT, 
+2	chair_id INTEGER, 
+3	secretary_id INTEGER);
+*/
+
+	//Setup my table model to interact with database table
+	QSqlTableModel* model = new QSqlTableModel(this);
+	model->setTable("committees");
+	model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+	model->select();
+
+	//Setup my output string (later to be printed).
+
+	QString toPrint ="Committee Information\n-------------------------------------------------------------------------------------------------------------------------\n\n",unitSt="",t;
+
+	//Fill the string with a list of Committees.
+	for(int i=0;i<model->rowCount();i++){
+
+		qDebug() << "Committee Name: " << model->data(model->index(i,1)).toString();
+		toPrint=toPrint+"+  "+model->data(model->index(i,1)).toString()+":\n";
+		
+		QString getMembers = "SELECT last_name,first_name,id FROM users WHERE committee_id = '" + model->data(model->index(i,0)).toString() +"' AND is_resident = 1";
+	
+		QSqlQuery query(getMembers);
+		while(query.next()){
+
+			toPrint=toPrint+"\n\t"+query.value(0).toString()+", "+query.value(1).toString();
+
+			//Is member a chair?
+			if(model->data(model->index(i,2)).toInt()==query.value(2).toInt()){
+				toPrint=toPrint+" :: Committee Chair";
+			//Is they a secretary?
+			}else if(model->data(model->index(i,3)).toInt()==query.value(2).toInt()){
+				toPrint=toPrint+" :: Committee Secretary";
+			}
+
+		}
+
+		toPrint=toPrint+"\n\n\n";
+
+	}
+	
+	//Convert to a document and print.
+	QTextDocument *doc = new QTextDocument();
+	doc->setPlainText(toPrint);
+
+	QPrinter printer(QPrinter::ScreenResolution);
+	printer.setPaperSize(QPrinter::Letter);
+	printer.setDocName("cooper/printCommittees.pdf");
+	printer.setColorMode(QPrinter::GrayScale);
+	printer.setOutputFormat(QPrinter::PdfFormat);
+
+	QPrintDialog dlg(&printer, this);
+
+	if (dlg.exec() == QDialog::Accepted){
+		doc->print(&printer);
+	}
+	qDebug() << "Printed";
+
+}
+void CommitteeInformation::printTask(){
+
+/*
+CREATE TABLE tasks (
+
+0	id INTEGER PRIMARY KEY,
+1	title TEXT, 
+2	description TEXT, 
+3	committee_id INTEGER, 
+4	is_complete INTEGER, 
+5	due_date TEXT, 
+6	is_annual INTEGER);
+
+*/
+
+	//Setup my table model to interact with database table
+	QSqlTableModel* model = new QSqlTableModel(this);
+	model->setTable("tasks");
+	model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+	model->setFilter("committee_id = '" + CommitteeNum + "'");
+	model->select();
+
+	//Setup my output string (later to be printed).
+
+	QString toPrint =committeeName+" Committee Task List\n-------------------------------------------------------------------------------------------------------------------------\n\n",unitSt="",t;
+
+	QDate date;
+	QString cTask;
+
+	//Fill the string with a list of tasks.
+	for(int i=0;i<model->rowCount();i++){
+
+		toPrint=toPrint+"[  ] ";
+		cTask=model->data(model->index(i,1)).toString();
+		//Past due?
+		if(QDate::currentDate() > date.fromString(model->data(model->index(i,5)).toString())){
+			cTask.toUpper();
+			cTask=cTask+" - OVERDUE ";
+		}
+
+		toPrint=toPrint+cTask+":\n\n\t"+model->data(model->index(i,2)).toString()+"\n\n";
+
+	}
+	
+	//Convert to a document and print.
+	QTextDocument *doc = new QTextDocument();
+	doc->setPlainText(toPrint);
+
+	QPrinter printer(QPrinter::ScreenResolution);
+	printer.setPaperSize(QPrinter::Letter);
+	printer.setDocName("cooper/print"+committeeName+"CommitteeTasks.pdf");
+	printer.setColorMode(QPrinter::GrayScale);
+	printer.setOutputFormat(QPrinter::PdfFormat);
+
+	QPrintDialog dlg(&printer, this);
+
+	if (dlg.exec() == QDialog::Accepted){
+		doc->print(&printer);
+	}
+	qDebug() << "Printed";
+
 }
