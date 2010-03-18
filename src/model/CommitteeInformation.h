@@ -19,6 +19,7 @@ public slots:
 	void promoteChair();
 	void promoteSecretary();
 	void refreshTask();
+	void displayDescription();
 };
 
 #endif

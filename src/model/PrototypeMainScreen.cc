@@ -23,7 +23,7 @@ PrototypeMainScreen::PrototypeMainScreen(QString username){
 	if(username != "coord"){
 		AddMemberButton->setEnabled(false);
 		PrintPrivatePhoneButton->setEnabled(false);
-		ViewCommitteesButton->setEnabled(false);
+		
 		AddCommitteeButton->setEnabled(false);
 	}
 }

@@ -7,7 +7,6 @@
 #include <QTextStream>
 #include <QFile>
 #include <iostream>
-//#include <qapplication>
 
 // Sets up the GUI
 InitialLoad::InitialLoad(QWidget *parent) {
@@ -77,17 +76,13 @@ void InitialLoad::loadInData(QString fileLoc) {
 	QTextStream ts( &bulkfile );
 	    	while (! ts.atEnd() ) {
 			line = ts.readLine();
-	      		qDebug() << line;
 			QStringList list = line.split(",");
 			for(int i = 0; i < list.length(); i++){
 				list[i] = list[i].trimmed();
-				qDebug() << list[i];
 			}
 			QSqlQuery q; 
 			QString text = "INSERT INTO units VALUES(NULL,'" + list[0] + "','" + list[1] + "','" + list[2] + "','" + list[3] + "')";
-			qDebug() << text;
-			q.exec((text));
-			
+			q.exec((text));		
     	}
     	bulkfile.close();
   	}
@@ -96,9 +91,9 @@ void InitialLoad::loadInData(QString fileLoc) {
   	}
 }
 
+// display error message
 void InitialLoad::showError(char *message){
 	QMessageBox::warning(0, qApp->tr("Error"),
 		qApp->tr(message),
 		QMessageBox::Ok);
 }
-

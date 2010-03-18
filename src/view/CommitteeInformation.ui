@@ -12,7 +12,7 @@
   <property name="windowTitle" >
    <string>Committee Information</string>
   </property>
-  <widget class="QWidget" name="" >
+  <widget class="QWidget" name="layoutWidget" >
    <property name="geometry" >
     <rect>
      <x>10</x>
@@ -75,7 +75,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_3" >
+             <widget class="QLabel" name="cNameLabel" >
               <property name="text" >
                <string>&lt;&lt;CHAIR NAME>></string>
               </property>
@@ -131,6 +131,9 @@
               <property name="editTriggers" >
                <set>QAbstractItemView::NoEditTriggers</set>
               </property>
+              <property name="selectionBehavior" >
+               <enum>QAbstractItemView::SelectRows</enum>
+              </property>
              </widget>
             </item>
             <item>
@@ -185,7 +188,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_4" >
+             <widget class="QLabel" name="sNameLabel" >
               <property name="text" >
                <string>&lt;&lt;SECRETARY NAME>></string>
               </property>
@@ -241,6 +244,12 @@
               <property name="editTriggers" >
                <set>QAbstractItemView::NoEditTriggers</set>
               </property>
+              <property name="selectionBehavior" >
+               <enum>QAbstractItemView::SelectRows</enum>
+              </property>
+              <property name="sortingEnabled" >
+               <bool>false</bool>
+              </property>
              </widget>
             </item>
             <item>
@@ -249,6 +258,13 @@
                <widget class="QPushButton" name="markTaskCompletedButton" >
                 <property name="text" >
                  <string>Mark as completed</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="moreButton" >
+                <property name="text" >
+                 <string>More...</string>
                 </property>
                </widget>
               </item>
@@ -309,14 +325,6 @@
     </item>
    </layout>
   </widget>
-  <zorder>layoutWidget</zorder>
-  <zorder>label</zorder>
-  <zorder>label_2</zorder>
-  <zorder>label_3</zorder>
-  <zorder>label_4</zorder>
-  <zorder>horizontalSpacer_3</zorder>
-  <zorder>horizontalSpacer_4</zorder>
-  <zorder>closeButtonSpacer</zorder>
  </widget>
  <resources/>
  <connections/>

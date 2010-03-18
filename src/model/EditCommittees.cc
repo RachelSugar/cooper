@@ -43,6 +43,9 @@ CREATE TABLE committees (id INTEGER PRIMARY KEY, name TEXT, chair_id INTEGER, se
 	connect(DeleteButton,SIGNAL(clicked()), this, SLOT(deleteCommittee()));
 	connect(MoreButton,SIGNAL(clicked()), this, SLOT(moreInformation()));
 	connect(CancelButton,SIGNAL(clicked()), this, SLOT(close()));
+	if(userCurrent != "coord"){
+		DeleteButton->setEnabled(false);
+	}
 
 }
 

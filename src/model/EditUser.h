@@ -11,6 +11,10 @@ class EditUser : public QWidget, private Ui::EditUser
 public:
 	EditUser(QWidget *parent = 0, QString usName = "");
 	void fillMemberInfo(QString username);
+	void fillForEduChair(QString userName);
+	void checkIfEducationChair();
+	bool checkIfUserExists(QString userName);
+	
 
 public slots:
 	void getSave();
