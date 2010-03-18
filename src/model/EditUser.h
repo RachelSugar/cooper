@@ -13,6 +13,7 @@ public:
 	void fillMemberInfo(QString username);
 	void fillForEduChair(QString userName);
 	void checkIfEducationChair();
+	bool checkIfUserExists(QString userName);
 	
 
 public slots:

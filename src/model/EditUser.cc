@@ -30,6 +30,8 @@ EditUser::EditUser(QWidget *parent,QString usName)
 		 q=query2.value(0).toString();
 		 committee->addItem(q);
 	}
+	committee->setCurrentIndex(-1);
+	
 	
 	checkIfEducationChair();
 	
@@ -40,7 +42,6 @@ EditUser::EditUser(QWidget *parent,QString usName)
 		firstName->setEnabled(false);
 	 	lastName->setEnabled(false);
 	 	userName->setEnabled(false);
-		userEdit->setEnabled(false);
 	 	telephone->setEnabled(false);
 		owing->setEnabled(false);
 		pastAddress->setEnabled(false);
@@ -92,22 +93,36 @@ void EditUser::checkIfEducationChair() {
 	}
 }
 
-
+// fills the form with info that the chair of education should see
 void EditUser::fillForEduChair(QString userName){
-	QString commitId;
-	QString text = "SELECT committee_id FROM users WHERE user_name = '" + userName + "'";
-	QSqlQuery query(text);
-	while(query.next()){
-         	commitId = query.value(0).toString();
-    }
-
-	QString text3 = "SELECT name FROM committees WHERE id = '" + commitId + "'";
-	QSqlQuery qu(text3);
-	qu.next();
-	QString comm = qu.value(0).toString();
-	int i = committee->findText(comm);
+	if(checkIfUserExists(userName)) {
 	
-	committee->setCurrentIndex(i);
+		QString commitId;
+		QString text = "SELECT committee_id FROM users WHERE user_name = '" + userName + "'";
+		QSqlQuery query(text);
+		while(query.next()){
+         		commitId = query.value(0).toString();
+    		}
+
+			QString text3 = "SELECT name FROM committees WHERE id = '" + commitId + "'";
+			QSqlQuery qu(text3);
+			qu.next();
+			QString comm = qu.value(0).toString();
+			if(comm == "None") {
+				int i = committee->findText(comm);
+				committee->setCurrentIndex(i);
+			}
+			else {
+				QMessageBox::critical(0, qApp->tr("Error:"),
+					qApp->tr("This member is already assigned a committee\n"),
+					QMessageBox::Cancel);
+			}
+	}
+	else {
+		QMessageBox::critical(0, qApp->tr("Error:"),
+			qApp->tr("Username does not exist\n"),
+			QMessageBox::Cancel);
+	}
 }
 
 // save the info from the form into the users db
@@ -270,13 +285,17 @@ void EditUser::getToEdit(){
 				qApp->tr("Cannot edit the committee of the coord\n"),
 				QMessageBox::Cancel);
 		}
+		else if (usrName == username) {
+			committee->setEnabled(false);
+			fillMemberInfo(usrName);
+		}
 		else {
 			fillForEduChair(usrName);
 		}
 	}
 	
 	// only allowed to edit the password for coord
-	if(usrName == "coord") {
+	else if(usrName == "coord") {
 		QString text = "SELECT password FROM users WHERE user_name = '" + usrName + "'";
 		QSqlQuery query(text);
 		query.next();
@@ -327,59 +346,78 @@ void EditUser::getToEdit(){
 	}
 }
 
-// fill the information in the form from the users db
-void EditUser::fillMemberInfo(QString userName) {
-	QString answer[15];
+// check if the user being searched for exists
+bool EditUser::checkIfUserExists(QString userName){
 	QString text = "SELECT * FROM users WHERE user_name = '" + userName + "'";
 	QSqlQuery query(text);
-	while(query.next()){
-	 	for(int x = 0; x < 15; x++){
-         	answer[x] = query.value(x).toString();
-        }
-    }
-	
-	QString text2 = "SELECT unit_number FROM units WHERE id = '" + answer[9] + "'";
-	QSqlQuery q(text2);
-	q.next();
-	QString unitNumber = q.value(0).toString();
-	int index = unitNum->findText(unitNumber);
-	
-	QString text3 = "SELECT name FROM committees WHERE id = '" + answer[7] + "'";
-	QSqlQuery qu(text3);
-	qu.next();
-	QString comm = qu.value(0).toString();
-	int i = committee->findText(comm);
-	
-	committee->setCurrentIndex(i);
-	unitNum->setCurrentIndex(index);
-	firstName->setText(answer[5]);
- 	lastName->setText(answer[4]);
- 	userEdit->setText(answer[2]);
- 	telephone->setText(answer[10]);
-	password->setText(answer[3]);
-	owing->setText(answer[12]);
-	pastAddress->setText(answer[13]);
-	QDate date;
-	date = date.fromString(answer[14]);
-	moveInDate->setDate(date);
-	
-	if(answer[8] == "0") {
-		movedOut->setChecked(true);
+	if(query.next()){
+		return true;
 	}
 	else {
-		movedOut->setChecked(false);
-	}	
-	if(answer[11] == "0") {
-		privateTele->setChecked(true);
+		return false;
 	}
-	else { 
-		privateTele->setChecked(false);
-	}	
-	if(answer[6] == "1") {
-		over21->setChecked(true);
+}
+
+// fill the information in the form from the users db
+void EditUser::fillMemberInfo(QString userName) {
+	if(checkIfUserExists(userName)) {
+		QString answer[15];
+		QString text = "SELECT * FROM users WHERE user_name = '" + userName + "'";
+		QSqlQuery query(text);
+		while(query.next()){
+	 		for(int x = 0; x < 15; x++){
+         		answer[x] = query.value(x).toString();
+        	}
+    	}
+	
+		QString text2 = "SELECT unit_number FROM units WHERE id = '" + answer[9] + "'";
+		QSqlQuery q(text2);
+		q.next();
+		QString unitNumber = q.value(0).toString();
+		int index = unitNum->findText(unitNumber);
+	
+		QString text3 = "SELECT name FROM committees WHERE id = '" + answer[7] + "'";
+		QSqlQuery qu(text3);
+		qu.next();
+		QString comm = qu.value(0).toString();
+		int i = committee->findText(comm);
+	
+		committee->setCurrentIndex(i);
+		unitNum->setCurrentIndex(index);
+		firstName->setText(answer[5]);
+ 		lastName->setText(answer[4]);
+ 		userEdit->setText(answer[2]);
+ 		telephone->setText(answer[10]);
+		password->setText(answer[3]);
+		owing->setText(answer[12]);
+		pastAddress->setText(answer[13]);
+		QDate date;
+		date = date.fromString(answer[14]);
+		moveInDate->setDate(date);
+	
+		if(answer[8] == "0") {
+			movedOut->setChecked(true);
+		}
+		else {
+			movedOut->setChecked(false);
+		}	
+		if(answer[11] == "0") {
+			privateTele->setChecked(true);
+		}
+		else { 
+			privateTele->setChecked(false);
+		}	
+		if(answer[6] == "1") {
+			over21->setChecked(true);
+		}
+		else {
+			over21->setChecked(false);
+		}
 	}
 	else {
-		over21->setChecked(false);
+		QMessageBox::critical(0, qApp->tr("Error:"),
+			qApp->tr("Username does not exist\n"),
+			QMessageBox::Cancel);
 	}
 	
 }
