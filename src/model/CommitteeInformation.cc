@@ -144,6 +144,7 @@ CommitteeInformation::CommitteeInformation(QString committee, QString currentUse
 	connect(printTaskButton, SIGNAL(clicked()), this, SLOT(printTask()));
 	connect(promoteChairButton, SIGNAL(clicked()), this, SLOT(promoteChair()));
 	connect(promoteSecretaryButton, SIGNAL(clicked()), this, SLOT(promoteSecretary()));
+	connect(moreButton, SIGNAL(clicked()), this, SLOT(displayDescription()));
 	
 	committeeNameLabel->setText(committeeName);
 }
@@ -246,7 +247,7 @@ void CommitteeInformation::promoteChair(){
 			QMessageBox::Ok | QMessageBox::Cancel);
 	
 		if(ret == QMessageBox::Ok){
-			QString texty = "UPDATE committees SET chair_id = " + newChairID +" WHERE name = " + committeeName;
+			QString texty = "UPDATE committees SET chair_id = " + newChairID +" WHERE name = '" + committeeName+"'";
 			QSqlQuery query1;
 			query1.exec(texty);
 			QString getChairName = "SELECT first_name, last_name FROM users WHERE id = " + newChairID;
@@ -257,7 +258,9 @@ void CommitteeInformation::promoteChair(){
 			getChairName = query2.value(0).toString();
 			getChairName += " " + query2.value(1).toString();
 		}
+			if(getChairName != "SELECT first_name, last_name FROM users WHERE id = " + newChairID){
 		cNameLabel->setText(getChairName);
+		}
 		}
 		
 	} else {
@@ -279,16 +282,18 @@ void CommitteeInformation::promoteSecretary(){
 		QModelIndex index = selected->currentIndex();
 
 		QSqlRecord record = CLmodel->record(index.row());
+		
 		QString newSecretaryID = record.value(0).toString();
+		qDebug() << newSecretaryID << endl;
 		
 		int ret = QMessageBox::question(this, qApp->tr("Confirm promoting to secretary"),
 			qApp->tr("Are you sure you want to make this person a secretary?.\n"),
 			QMessageBox::Ok | QMessageBox::Cancel);
 	
 		if(ret == QMessageBox::Ok){
-			QString texty = "UPDATE committees SET secretary_id = " + newSecretaryID +" WHERE name = " + committeeName;
+			QString texty = "UPDATE committees SET secretary_id = '" + newSecretaryID +"' WHERE name = '" + committeeName+"'";
 			QSqlQuery query1;
-			query1.exec(texty);
+			qDebug() << query1.exec(texty) << endl;
 			QString getSecretaryName = "SELECT first_name, last_name FROM users WHERE id = " + newSecretaryID;
 	
 		QSqlQuery query2(getSecretaryName);
@@ -297,7 +302,9 @@ void CommitteeInformation::promoteSecretary(){
 			getSecretaryName = query2.value(0).toString();
 			getSecretaryName += " " + query2.value(1).toString();
 		}
+		if(getSecretaryName != "SELECT first_name, last_name FROM users WHERE id = " + newSecretaryID){
 		sNameLabel->setText(getSecretaryName);
+			}
 		}
 		
 	} else {
@@ -306,4 +313,10 @@ void CommitteeInformation::promoteSecretary(){
 			QMessageBox::Ok);
 	}
 	
+}
+
+void CommitteeInformation::displayDescription(){
+QMessageBox::information(this, qApp->tr("AAAAAAAAAAAA!"),
+			qApp->tr("YOU CAN'T DO THAT!!!!.\n"),
+			QMessageBox::Ok);
 }

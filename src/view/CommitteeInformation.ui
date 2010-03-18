@@ -262,6 +262,13 @@
                </widget>
               </item>
               <item>
+               <widget class="QPushButton" name="moreButton" >
+                <property name="text" >
+                 <string>More...</string>
+                </property>
+               </widget>
+              </item>
+              <item>
                <widget class="QPushButton" name="addTaskButton" >
                 <property name="text" >
                  <string>Add Task</string>
