@@ -109,10 +109,10 @@ void EditUser::getSave()
 		char age;
 		
 		if(ofAge == true) {
-			age = '0';
+			age = '1';
 		}
 		else {
-			age = '1';
+			age = '0';
 		}
 		char live;	
 		if(mvOut == true) {
@@ -197,6 +197,21 @@ void EditUser::getToEdit(){
 	
 	// can see everything else for everyone else
 	else {
+		if(username == "coord"){
+			deleteUser->setEnabled(true);
+			movedOut->setEnabled(true);
+			firstName->setEnabled(true);
+		 	lastName->setEnabled(true);
+		 	userName->setEnabled(true);
+		 	telephone->setEnabled(true);
+			owing->setEnabled(true);
+			pastAddress->setEnabled(true);
+			over21->setEnabled(true);
+			committee->setEnabled(true);
+			unitNum->setEnabled(true);
+			moveInDate->setEnabled(true);
+			privateTele->setEnabled(true);
+		}
 		fillMemberInfo(usrName);
 	}
 }
@@ -249,7 +264,7 @@ void EditUser::fillMemberInfo(QString userName) {
 	else { 
 		privateTele->setChecked(false);
 	}	
-	if(answer[6] == "0") {
+	if(answer[6] == "1") {
 		over21->setChecked(true);
 	}
 	else {

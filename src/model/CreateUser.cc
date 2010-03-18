@@ -92,6 +92,7 @@ void CreateUser::getSave()
 
 	char hiddenInt = isTrue2(hidden);
 	char ofAgeInt = isTrue(ofAge);
+	qDebug() << "ofAgeInt" << ofAgeInt;
 	qDebug() << hiddenInt;
 	QSqlQuery query2;
 	QString test ="INSERT INTO users VALUES(NULL,0,'" + uName + "','" + pass + "','" + lName + 
