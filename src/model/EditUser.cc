@@ -185,6 +185,14 @@ void EditUser::getToEdit(){
 		unitNum->setEnabled(false);
 		moveInDate->setEnabled(false);
 		privateTele->setEnabled(false);
+		
+		committee->setCurrentIndex(0);
+		unitNum->setCurrentIndex(-1);
+		firstName->setText("");
+	 	lastName->setText("");
+	 	telephone->setText("");
+		owing->setText("");
+		pastAddress->setText("");
 	}
 	
 	// can see everything else for everyone else
