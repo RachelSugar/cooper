@@ -109,7 +109,6 @@ char CreateUser::isTrue(bool toTest)
 		return '1';
 	else
 		return '0';
-
 }
 
 char CreateUser::isTrue2(bool toTest)
@@ -118,5 +117,4 @@ char CreateUser::isTrue2(bool toTest)
 		return '0';
 	else
 		return '1';
-
 }

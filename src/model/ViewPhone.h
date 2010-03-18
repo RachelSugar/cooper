@@ -12,7 +12,13 @@ public:
     ViewPhone(QWidget *parent = 0,bool conf=false);
  
 public slots:
-    void printList();
+	void printList();
+	void sortSurname();
+	void sortUnit();
+	void removeNonResidents();
+	void confidentialNumbers();
+	void findCohabitants();
+	void changeUnits();
 };
  
  
