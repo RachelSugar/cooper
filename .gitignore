@@ -7,3 +7,5 @@ cooper
 *~
 ui_*
 .nfs*
+cooper.app
+cooper.app/*
