@@ -1,0 +1,1 @@
+-Wall QT+=sql CONFIG+=qt CONFIG+=debug QMAKE_CLEAN+=db/cooperDB.sqlite3 OBJECTS_DIR=build/obj DEST_DIR=build MOC_DIR=build/moc
