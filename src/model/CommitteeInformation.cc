@@ -316,7 +316,13 @@ void CommitteeInformation::promoteSecretary(){
 }
 
 void CommitteeInformation::displayDescription(){
-QMessageBox::information(this, qApp->tr("AAAAAAAAAAAA!"),
-			qApp->tr("YOU CAN'T DO THAT!!!!.\n"),
+		QItemSelectionModel *selected = taskView->selectionModel();
+		QModelIndex index = selected->currentIndex();
+		QSqlRecord record = Tmodel->record(index.row());
+		QString tID = record.value(2).toString();
+
+		
+QMessageBox::information(this, qApp->tr("Description"),
+			qApp->tr(tID.toStdString().c_str()),
 			QMessageBox::Ok);
 }
