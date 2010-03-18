@@ -3,6 +3,7 @@
 #include <QSqlQuery>
 // including <QtGui> saves us to include every class user, <QString>, <QFileDialog>,...
 QString username;
+bool isEduChair;
 EditUser::EditUser(QWidget *parent,QString usName)
 {
 	setupUi(this); // this sets up GUI
@@ -30,8 +31,25 @@ EditUser::EditUser(QWidget *parent,QString usName)
 		 committee->addItem(q);
 	}
 	
+	checkIfEducationChair();
+	
 	// disable features for non-admin users
-	if(username != "coord"){
+	if(isEduChair){
+		deleteUser->setEnabled(false);
+		movedOut->setEnabled(false);
+		firstName->setEnabled(false);
+	 	lastName->setEnabled(false);
+	 	userName->setEnabled(false);
+		userEdit->setEnabled(false);
+	 	telephone->setEnabled(false);
+		owing->setEnabled(false);
+		pastAddress->setEnabled(false);
+		over21->setEnabled(false);
+		unitNum->setEnabled(false);
+		moveInDate->setEnabled(false);
+		privateTele->setEnabled(false);
+	}
+	else if(username != "coord"){
 		getUser->setEnabled(false);
 		deleteUser->setEnabled(false);
 		movedOut->setEnabled(false);
@@ -51,11 +69,68 @@ EditUser::EditUser(QWidget *parent,QString usName)
 	}
 }
 
+// check to see if the current user is the education chair
+void EditUser::checkIfEducationChair() {
+	QString chairID;
+	QString text = "SELECT id FROM users WHERE user_name = '" + username + "'";
+	QSqlQuery query(text);
+	while(query.next()){
+		 chairID=query.value(0).toString();
+	}
+	QString userID;
+	QString text2 = "SELECT chair_id FROM committees WHERE name = 'Education'";
+	QSqlQuery query2(text2);
+	while(query2.next()){
+		 userID=query2.value(0).toString();
+	}
+	
+	if(userID == chairID){
+		isEduChair = true;
+	}
+	else {
+		isEduChair = false;
+	}
+}
+
+
+void EditUser::fillForEduChair(QString userName){
+	QString commitId;
+	QString text = "SELECT committee_id FROM users WHERE user_name = '" + userName + "'";
+	QSqlQuery query(text);
+	while(query.next()){
+         	commitId = query.value(0).toString();
+    }
+
+	QString text3 = "SELECT name FROM committees WHERE id = '" + commitId + "'";
+	QSqlQuery qu(text3);
+	qu.next();
+	QString comm = qu.value(0).toString();
+	int i = committee->findText(comm);
+	
+	committee->setCurrentIndex(i);
+}
+
 // save the info from the form into the users db
 void EditUser::getSave()
 {
-	//get values of fields in GUI
 	QString uName;
+	if(isEduChair){
+		uName = userEdit->text();
+		QString comm = committee->currentText();
+		
+		QString s = "SELECT id FROM committees WHERE name = '" + comm + "'";
+		QSqlQuery que(s);
+		que.next();
+		comm = que.value(0).toString();
+		
+		QString set = "UPDATE users SET committee_id = '" + comm + "' WHERE user_name = '" + uName + "';";
+		QSqlQuery squery;
+		squery.exec(set);
+		
+	}
+	else {
+	//get values of fields in GUI
+
 	if(username != "coord"){
 		uName = userEdit->text();
 	}
@@ -139,6 +214,7 @@ void EditUser::getSave()
 		}
 
 	}
+  }
 	this->close();
 }
 
@@ -163,6 +239,17 @@ void EditUser::deleteUse(){
 // used by admin only
 void EditUser::getToEdit(){
 	QString usrName = userEdit->text();
+	
+	if(isEduChair){
+		if(usrName == "coord") {
+			QMessageBox::critical(0, qApp->tr("Error:"),
+				qApp->tr("Cannot edit the committee of the coord\n"),
+				QMessageBox::Cancel);
+		}
+		else {
+			fillForEduChair(usrName);
+		}
+	}
 	
 	// only allowed to edit the password for coord
 	if(usrName == "coord") {
