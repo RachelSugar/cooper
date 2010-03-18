@@ -160,7 +160,31 @@ void EditUser::getSave()
 	QSqlQuery q(t);
 	q.next();
 	QString unit = q.value(0).toString();
-	
+
+        // If the user is the chair or secretary of a committe already, erase
+        // entry in commmittees table
+        t = "SELECT id, committee_id FROM users WHERE user_name= '" + uName + "'";
+        q.clear();
+        q.exec(t);
+        q.next();
+        QString uID = q.value(0).toString();
+        QString uCommittee = q.value(1).toString();
+        t = "SELECT chair_id, secretary_id FROM committees WHERE id= " + uCommittee;
+        q.clear();
+        q.exec(t);
+        q.next();
+        QString chair = q.value(0).toString();
+        QString secretary = q.value(1).toString();
+        if ( uID == chair ) {
+                t = "UPDATE committees SET chair_id=NULL WHERE id= " + uCommittee;
+                q.clear();
+                q.exec(t);
+        } else if ( uID == secretary ){
+                t = "UPDATE committees SET secretary_id=NULL WHERE id=" + uCommittee;
+                q.clear();
+                q.exec(t);
+        }
+
 	QString s = "SELECT id FROM committees WHERE name = '" + commit + "'";
 	QSqlQuery que(s);
 	que.next();
@@ -170,7 +194,7 @@ void EditUser::getSave()
 	if((fName.length() == 0 || lName.length() == 0 || uName.length() == 0 \
 			|| tele.length() < 10 || pastAdd.length() == 0) && uName != "coord"){
 			QMessageBox::critical(0, qApp->tr("Error:"),	
-			qApp->tr("Please fill in all feilds.\n"),
+			qApp->tr("Please fill in all fields.\n"),
 			QMessageBox::Cancel);
 	}
 	else{
