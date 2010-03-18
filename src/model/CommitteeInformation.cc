@@ -113,7 +113,7 @@ CommitteeInformation::CommitteeInformation(QString committee, QString currentUse
 	}
 
 	// store user's id
-	QString text = "SELECT id FROM users WHERE user_name = " + userName;
+	QString text = "SELECT id FROM users WHERE user_name = '" + userName +"'";
 	QSqlQuery query5(text);
 	while(query5.next()){
 		userID = query5.value(0).toString();
@@ -150,7 +150,7 @@ CommitteeInformation::CommitteeInformation(QString committee, QString currentUse
 }
 void CommitteeInformation::addTask(){
 	
-	QString text = "SELECT chair_id FROM committees WHERE name = " + committeeName;
+	QString text = "SELECT chair_id FROM committees WHERE name = '" + committeeName + "'";
 	QSqlQuery query(text);
 	QString chairID;
 	while(query.next()){
@@ -171,7 +171,7 @@ void CommitteeInformation::refreshTask(){
 	Tmodel->select();
 }
 void CommitteeInformation::deleteTask(){
-	QString text = "SELECT chair_id FROM committees WHERE name = " + committeeName;
+	QString text = "SELECT chair_id FROM committees WHERE name = '" + committeeName+"'";
 	QSqlQuery query(text);
 	QString chairID;
 	while(query.next()){
@@ -199,7 +199,7 @@ void CommitteeInformation::deleteTask(){
 
 }
 void CommitteeInformation::markTaskCompleted(){
-	QString text = "SELECT chair_id FROM committees WHERE name = " + committeeName;
+	QString text = "SELECT chair_id FROM committees WHERE name = '" + committeeName+"'";
 	QSqlQuery query(text);
 	QString chairID;
 	while(query.next()){
@@ -228,7 +228,7 @@ void CommitteeInformation::printCommittee(){
 void CommitteeInformation::printTask(){
 }
 void CommitteeInformation::promoteChair(){
-	QString text = "SELECT chair_id FROM committees WHERE name = " + committeeName;
+	QString text = "SELECT chair_id FROM committees WHERE name = '" + committeeName + "'";
 	QSqlQuery query(text);
 	QString chairID;
 	while(query.next()){
@@ -270,7 +270,7 @@ void CommitteeInformation::promoteChair(){
 	}
 }
 void CommitteeInformation::promoteSecretary(){
-	QString text = "SELECT chair_id FROM committees WHERE name = " + committeeName;
+	QString text = "SELECT chair_id FROM committees WHERE name = '" + committeeName +"'";
 	QSqlQuery query(text);
 	QString chairID;
 	while(query.next()){
