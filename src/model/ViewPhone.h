@@ -1,7 +1,7 @@
 #ifndef VIEWPHONE_H
 #define VIEWPHONE_H
  
-#include "src/view/headers/ui_ViewPhone.h"
+#include "../view/headers/ui_ViewPhone.h"
  
  
 class ViewPhone : public QWidget, private Ui::ViewPhoneWidget

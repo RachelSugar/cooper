@@ -1,7 +1,7 @@
 #ifndef COMMITTEEINFORMATION_H
 #define COMMITTEEINFORMATION_H
 
-#include "src/view/headers/ui_CommitteeInformation.h"
+#include "../view/headers/ui_CommitteeInformation.h"
 
 class CommitteeInformation : public QWidget, private Ui::CommitteeInformationObject
 {

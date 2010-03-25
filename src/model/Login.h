@@ -1,7 +1,7 @@
 #ifndef LOGIN_H
 #define LOGIN_H
 
-#include "../../ui_Login.h"
+#include "../view/headers/ui_Login.h"
 #include <QString>
 
 class Login : public QWidget, private Ui::loginWidget

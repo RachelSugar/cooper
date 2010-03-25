@@ -1,7 +1,7 @@
 #ifndef EDITCOMMITTEES_H
 #define EDITCOMMITTEES_H
  
-#include "src/view/headers/ui_EditCommittees.h"
+#include "../view/headers/ui_EditCommittees.h"
  
  
 class EditCommittees : public QWidget, private Ui::EditCommittees
