@@ -1,7 +1,7 @@
 #ifndef INITIALLOAD_H
 #define INITIALLOAD_H
 
-#include "../view/headers/ui_CoordPassword.h"
+#include "../views/headers/ui_CoordPassword.h"
 #include <QString>
 
 

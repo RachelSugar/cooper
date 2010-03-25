@@ -1,7 +1,7 @@
 #ifndef ADDTASK_H
 #define ADDTASK_H
  
-#include "../view/headers/ui_AddTask.h"
+#include "../views/headers/ui_AddTask.h"
  
  
 class AddTask : public QWidget, private Ui::AddTask

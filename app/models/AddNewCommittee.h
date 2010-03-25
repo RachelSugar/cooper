@@ -1,7 +1,7 @@
 #ifndef ADDNEWCOMMITTEE_H
 #define ADDNEWCOMMITTEE_H
  
-#include "../view/headers/ui_AddNewCommittee.h"
+#include "../views/headers/ui_AddNewCommittee.h"
  
  
 class AddNewCommittee : public QWidget, private Ui::AddCommitteeDialog

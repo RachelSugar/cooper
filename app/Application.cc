@@ -1,6 +1,6 @@
 #include "lib/Database.h"
-#include "model/Login.h"
-#include "model/InitialLoad.h"
+#include "models/Login.h"
+#include "models/InitialLoad.h"
 
 #include <QApplication>
 #include <iostream>

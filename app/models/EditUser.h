@@ -1,7 +1,7 @@
 #ifndef EDITUSER_H
 #define EDITUSER_H
 
-#include "../view/headers/ui_EditUser.h"
+#include "../views/headers/ui_EditUser.h"
 
 
 class EditUser : public QWidget, private Ui::EditUser

@@ -1,7 +1,7 @@
 #ifndef CREATEUSER_H
 #define CREATEUSER_H
 
-#include "../view/headers/ui_CreateUser.h"
+#include "../views/headers/ui_CreateUser.h"
 
 
 class CreateUser : public QWidget, private Ui::CreateUser
