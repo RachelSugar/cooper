@@ -1,7 +1,7 @@
 #ifndef PROTOTYPEMAINSCREEN_H
 #define PROTOTYPEMAINSCREEN_H
 
-#include "ui_PrototypeMainScreen.h"
+#include "src/view/headers/ui_PrototypeMainScreen.h"
 
 
 class PrototypeMainScreen : public QWidget, private Ui::PrototypeMainScreen
