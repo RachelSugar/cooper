@@ -3,7 +3,6 @@
 #include "models/InitialLoad.h"
 
 #include <QApplication>
-#include <iostream>
 
 #ifndef DB_PATH
 #define DB_PATH "db/cooperDB.sqlite3"
